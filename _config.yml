@@ -1,86 +1,22 @@
+# Setup
+title:               Lanyon
+tagline:             'A Jekyll theme'
+description:         'A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
+url:                 http://lanyon.getpoole.com
+baseurl:             ''
+paginate:            5
+permalink:           pretty
 
-# Site settings
-title: Inês Leite
-name: Inês Leite
-subtitle: Learnings, Ramblings and Rants
-email: inesmarreirosleite@gmail.com
-description: >
-  A personal website about technical projects that I did.
-baseurl: ""
-github_username:  inesleite
-disqus_baseurl: "https://inesleite.github.io//"
-permalink: :title
-cover: "/assets/header_image.jpg"
-logo: "/assets/nr-logo.jpg"
-avatar: "/assets/headshot.jpg"
-ga_tracking_id: "UA-82647777-1"
+# About/contact
+author:
+  name:              Mark Otto
+  url:               https://twitter.com/mdo
+  email:             markdotto@gmail.com
 
-# Build settings
-markdown: kramdown
-paginate: 5
-paginate_path: "/page:num/"
-inter_post_navigation: true
-
-defaults:
-  -
-    scope:
-      path: ""
-    values:
-      author: "Inês Leite"
-
-
-# External gems
-gems:
-  - jekyll-sitemap
+# Gems
+plugins:
   - jekyll-paginate
-  - jemoji
-  - jekyll-seo-tag
 
-exclude:
-  - "/vendor/"
-
-#
-# Social settings are used in two places:
-# * In the footer, as links to your personal profiles
-# * After each blog post for sharing widgets
-#
-# Example:
-#
-# social:
-#   - name: Twitter                         # Name of the service
-#     icon: twitter                         # Font Awesome icon to use (minus fa- prefix)
-#     username: "@TheBenCentra"             # (User) Name to display in the footer link
-#     url: https://twitter.com/TheBenCentra # URL of your profile (leave blank to not display in footer)
-#     desc: Follow me on Twitter            # Description to display as link title, etc
-#     share: true                           # Include in the "Share" section of posts
-
-social:
-
-  - name: GitHub
-    icon: github
-    username: inesleite
-    url: https://github.com/inesleite
-    desc: Fork me on GitHub
-    share: false
-
-  - name: LinkedIn
-    icon: linkedin
-    username: Inês Leite
-    url: https://www.linkedin.com/in/ileite/
-    desc: Connect with me on LinkedIn
-    share: true
-
-# Social sharing protocols
-# These are for automatically generating sharing metadata for FB and Twitter
-# OS Protocol is for sharing the source of your site, if you're interested. For more, see osprotocol.com
-protocols:
-    fb_image: "/assets/nr-logo.jpg"
-    fb_image_width: 612
-    fb_image_height: 605
-    fb_image_type: "image/jpg"
-
-    twitter_image: "/assets/nr-logo.jpg"
-
-    os_repo: "https://github.com/inesleite/inesleite.github.io"
-    os_rcs_type: "git"
-    os_src: "git@github.com:inesleite/inesleite.github.io.git"
+# Custom vars
+version:             1.1.0
+google_analytics_id: #UA-XXXX-Y
