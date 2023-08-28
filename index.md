@@ -2,10 +2,10 @@
 
 ---
 
-[Customer lifetime value](projects/ltv/ltv.md)
+[Customer Lifetime Value](projects/ltv/ltv.md)
 
 
-Predicts the customer lifetime value (aka **LTV**) of a customer for the next 12 months. This metric is the sum of the monthly commission we collect from a customer during the first 12 months since they join us, plus the one time commission from additional products they might purchase (cross sell). The customers can cancel their subscription at any time.
+Predicts the Customer Lifetime Value (aka **LTV**) of a customer for the next 12 months. This metric is the sum of the monthly commission we collect from a customer during the first 12 months since they join us, plus the one time commission from additional products they might purchase (cross sell). The customers can cancel their subscription at any time.
 
 
 ---
@@ -19,7 +19,7 @@ Price elasticity of demand (**PED**) is a measure representing the quantity dema
 
 ---
 
-[Credit Decision Model](projects/credit-model/credit-model.md)
+[Credit Decision Model](projects/credit_model/credit_model.md)
 
 Build a credit model to predict future unpayments.
 
