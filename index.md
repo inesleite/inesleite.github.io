@@ -8,9 +8,10 @@
 
 [Price Elasticity of Demand](https://github.com/inesleite/price-elasticity)
 
-Price elasticity of demand (PED) is a measure representing the quantity demanded to the change in the price of a product or service.
+<img src="images/elasticity_formula.png?raw=true"/>
 
-<img src="images/elasticity_formula.jpg?raw=true"/>
+
+**Price elasticity of demand (PED)** is a measure representing the quantity demanded to the change in the price of a product or service.
 
 
 ---
