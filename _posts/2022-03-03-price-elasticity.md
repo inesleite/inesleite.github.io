@@ -2019,7 +2019,9 @@ im2 = divergent_plot(result, result.columns[1], 'Category', 'Cross-Price Elastic
 
 
     
-![png](output_39_0.png)
+&nbsp;
+<img src="{{ site.baseurl }}/assets/price-elasticity-2.png">
+&nbsp;
     
 
 
