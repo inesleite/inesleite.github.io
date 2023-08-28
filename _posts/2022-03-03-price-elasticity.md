@@ -3,7 +3,7 @@
 Price elasticity of demand (**PED**) is a measure representing the quantity demanded to the change in the price of a product or service. To simplify, it is the ratio of percentage change in quantity demanded of a product in response to the percent change in its price.
 
 <div>
-<img src="./img/elasticity_formula.png" width="500"/>
+<img src="{{ site.baseurl }}/assets/elasticity_formula.png" width="500"/>
 </div>
 
 
@@ -1404,7 +1404,9 @@ pe_plot = divergent_plot(df_elasticity, 'price_elasticity', 'Category', 'Price E
 
 
     
-![png](output_24_0.png)
+&nbsp;
+<img src="{{ site.baseurl }}/assets/price-elasticity-1.png">
+&nbsp;
     
 
 
@@ -1523,7 +1525,7 @@ However, as the product moves towards maturity, the elasticity will increase. Th
 Cross-price elasticity help the marketer to know the naturality of main competitors related to price, which it help to analyze the sensitivity of one price against other competitors prices. As for instance, does our product impression demand increase, if our direct competitor Y increases their prices on the same or similar electronic products within a certain timeframe?
 
 <div>
-<img src="./img/cross_price.jpg" width="500"/>
+<img src="{{ site.baseurl }}/assets/cross_price.jpg" width="500"/>
 </div>
 
 ### 2.1 Cross - Price Elasticity Matrix Function (Multi Linear Regression)
