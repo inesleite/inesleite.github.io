@@ -63,7 +63,7 @@ df.head()
 
 
 <div class="p-Widget jp-RenderedHTMLCommon jp-RenderedHTML jp-mod-trusted jp-OutputArea-output" data-mime-type="text/html">
-<style scoped>
+<style scoped="">
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -76,7 +76,7 @@ df.head()
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table class="dataframe" border="1">
   <thead>
     <tr style="text-align: right;">
       <th></th>
