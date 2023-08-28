@@ -62,23 +62,9 @@ df.head()
 
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+<table>
   <thead>
-    <tr class="header">
+    <tr>
       <th></th>
       <th>item_key</th>
       <th>date</th>
@@ -103,119 +89,117 @@ df.head()
   </thead>
   <tbody>
     <tr>
-      <td markdown="span">0</th>
-      <td markdown="span">160069753483773</td>
-      <td markdown="span">2017-11-17</td>
-      <td markdown="span">4</td>
-      <td markdown="span">1</td>
-      <td markdown="span">370.993</td>
-      <td markdown="span">370.993</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">im7</td>
-      <td markdown="span">sc33</td>
-      <td markdown="span">b24</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">46</td>
-      <td markdown="span">11</td>
-      <td markdown="span">2017</td>
-      <td markdown="span">4</td>
-      <td markdown="span">0</td>
-      <td markdown="span">0.0</td>
-      <td markdown="span">No discount</td>
-      <td markdown="span">2017_46</td>
+      <th>0</th>
+      <td>160069753483773</td>
+      <td>2017-11-17</td>
+      <td>4</td>
+      <td>1</td>
+      <td>370.993</td>
+      <td>370.993</td>
+      <td>NaN</td>
+      <td>im7</td>
+      <td>sc33</td>
+      <td>b24</td>
+      <td>NaN</td>
+      <td>46</td>
+      <td>11</td>
+      <td>2017</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>No discount</td>
+      <td>2017_46</td>
     </tr>
     <tr>
       <th>1</th>
-      <td markdown="span">160069753483773</td>
-      <td markdown="span">2017-11-21</td>
-      <td markdown="span">4</td>
-      <td markdown="span">1</td>
-      <td markdown="span">370.993</td>
-      <td markdown="span">370.993</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">im7</td>
-      <td markdown="span">sc33</td>
-      <td markdown="span">b24</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">47</td>
-      <td markdown="span">11</td>
-      <td markdown="span">2017</td>
-      <td markdown="span">1</td>
-      <td markdown="span">0</td>
-      <td markdown="span">0.0</td>
-      <td markdown="span">No discount</td>
-      <td markdown="span">2017_47</td>
+      <td>160069753483773</td>
+      <td>2017-11-21</td>
+      <td>4</td>
+      <td>1</td>
+      <td>370.993</td>
+      <td>370.993</td>
+      <td>NaN</td>
+      <td>im7</td>
+      <td>sc33</td>
+      <td>b24</td>
+      <td>NaN</td>
+      <td>47</td>
+      <td>11</td>
+      <td>2017</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>No discount</td>
+      <td>2017_47</td>
     </tr>
     <tr>
       <th>2</th>
-      <td markdown="span">160069753483773</td>
-      <td markdown="span">2017-12-31</td>
-      <td markdown="span">4</td>
-      <td markdown="span">1</td>
-      <td markdown="span">370.993</td>
-      <td markdown="span">370.993</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">im7</td>
-      <td markdown="span">sc33</td>
-      <td markdown="span">b24</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">52</td>
-      <td markdown="span">12</td>
-      <td markdown="span">2017</td>
-      <td markdown="span">6</td>
-      <td markdown="span">0</td>
-      <td markdown="span">0.0</td>
-      <td markdown="span">No discount</td>
-      <td markdown="span">2017_52</td>
+      <td>160069753483773</td>
+      <td>2017-12-31</td>
+      <td>4</td>
+      <td>1</td>
+      <td>370.993</td>
+      <td>370.993</td>
+      <td>NaN</td>
+      <td>im7</td>
+      <td>sc33</td>
+      <td>b24</td>
+      <td>NaN</td>
+      <td>52</td>
+      <td>12</td>
+      <td>2017</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>No discount</td>
+      <td>2017_52</td>
     </tr>
     <tr>
       <th>3</th>
-      <td markdown="span">160069753483773</td>
-      <td markdown="span">2018-04-19</td>
-      <td markdown="span">1</td>
-      <td markdown="span">1</td>
-      <td markdown="span">349.993</td>
-      <td markdown="span">349.993</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">im7</td>
-      <td markdown="span">sc33</td>
-      <td markdown="span">b24</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">16</td>
-      <td markdown="span">4</td>
-      <td markdown="span">2018</td>
-      <td markdown="span">3</td>
-      <td markdown="span">0</td>
-      <td markdown="span">0.0</td>
-      <td markdown="span">No discount</td>
-      <td markdown="span">2018_16</td>
+      <td>160069753483773</td>
+      <td>2018-04-19</td>
+      <td>1</td>
+      <td>1</td>
+      <td>349.993</td>
+      <td>349.993</td>
+      <td>NaN</td>
+      <td>im7</td>
+      <td>sc33</td>
+      <td>b24</td>
+      <td>NaN</td>
+      <td>16</td>
+      <td>4</td>
+      <td>2018</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>No discount</td>
+      <td>2018_16</td>
     </tr>
     <tr>
       <th>4</th>
-      <td markdown="span">160069753483773</td>
-      <td markdown="span">2018-04-22</td>
-      <td markdown="span">1</td>
-      <td markdown="span">1</td>
-      <td markdown="span">349.993</td>
-      <td markdown="span">349.993</td>
-      <td markdown="span">NaN</td>
-      <td markdown="span">im7</td>
-      <td markdown="span">sc33</td>
-      <td markdown="span">b24</td>
-      <td markdown="span">43.0</td>
-      <td markdown="span">16</td>
-      <td markdown="span">4</td>
-      <td markdown="span">2018</td>
-      <td markdown="span">6</td>
-      <td markdown="span">0</td>
-      <td markdown="span">0.0</td>
-      <td markdown="span">No discount</td>
-      <td markdown="span">2018_16</td>
+      <td>160069753483773</td>
+      <td>2018-04-22</td>
+      <td>1</td>
+      <td>1</td>
+      <td>349.993</td>
+      <td>349.993</td>
+      <td>NaN</td>
+      <td>im7</td>
+      <td>sc33</td>
+      <td>b24</td>
+      <td>43.0</td>
+      <td>16</td>
+      <td>4</td>
+      <td>2018</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>No discount</td>
+      <td>2018_16</td>
     </tr>
   </tbody>
 </table>
-</div>
-
 
 
 
