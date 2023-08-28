@@ -1,47 +1,10 @@
-# Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:          pretty
-#relative_permalinks: true
-
-# Setup
-title:               Louis
-tagline:             'Better than before'
-description:         'A personal website about me. Also, sharing general computer science, and user-friendly software engineering I found useful, reading and travels </a>.'
-url:                 "https://Louis.github.io" # the base hostname & protocol for your site
-#url:               "http://localhost:4000" # use this url when you develope
-baseurl:            "/Louis.github.io"
-paginate:            5
-
-
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:     Asia/Taipei
-permalink:    /:year-:month-:day/:title/
-
-# About/contact
-author:
-  name:              Louis
-  url:               https://www.instagram.com/liulouis0419/
-  email:             qazqazqaz850@gmail.com
-  gravatar_md5: 220d6ef27327059400e760067eca1c7b
-
-# Google Analytics
-google_analytics: UA-125815034-1
-
-# fix permalink issue
-plugins: [jekyll-paginate]
-permalink: pretty
-
-# Custom vars
-version:             1.0.0
-
-#theme: jekyll-theme-minimal
-
-# Enable the Jekyll SEO tag
+title: Inês Leite 
+description: > 
+  4+ years of Data Science experience. Master's Degree in Computer Science
+  <br><br>
+  <a href="https://www.linkedin.com/in/ileite/">View My LinkedIn Profile</a> 
+  
+remote_theme: pages-themes/minimal@v0.2.0
 plugins:
-  - jekyll-seo-tag
-  - jemoji
-  - jekyll-feed
-
-skip_render:
-  - "javascript/**"
+- jekyll-remote-theme
+google_analytics: UA-000000-0 # your Google Analytics tracking ID here
