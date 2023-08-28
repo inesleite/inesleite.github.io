@@ -1,29 +1,24 @@
 ---
 layout: page
-title: About
+title: About Me
 ---
 
-<p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
-</p>
+<!-- Quote  -->
+<p class="message" style="font-family:cursive"><q>
+"No amount of genius can overcome a preoccupation with detail" - Marion Levy Jr.</q></p>
 
-In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+<!-- Introduction  -->
+Hello and wellcome to the internet home of Louis blog. (That's me!) 
 
-There are currently two themes built on Poole:
+I'm Shi-Rong Liu and occasionally write on my <a href="{{ site.baseurl }}/">website</a>. In my spare time, I dabble in GitHub page, open-source, software development, Linux, and travels.
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+It would be appreciated to leave a comment down below or <a href="mailto:qazqazqaz850@gmail.com">email</a> to me if you’ve any pieces of advice or points. : )
 
-Learn more and contribute on [GitHub](https://github.com/poole).
+<!-- Icon Link -->
+<div style="text-align: center;">
+<a style="margin-right: 20px;" href="mailto:qazqazqaz850@gmail.com" target="_blank" title="Email Page" class="x1"><i class="far fa-envelope fa-2x" style="cursor: pointer"></i></a>
+<a style="margin-right: 20px;" href="https://github.com/s311354" target="_blank" title="Github Page" class="x1"><i class="fab fa-github fa-2x" style="cursor: pointer"></i></a>
+<a style="margin-right: 20px;" href="https://www.instagram.com/louisliu0419/" target="_blank" title="Instagram Page" class="x1"><i class="fab fa-instagram fa-2x" style="cursor: pointer"></i></a>
+<a style="margin-right: 20px;" href="https://www.linkedin.com/in/shirongliu/" target="_blank" title="Linkedin Page" class="x1"><i class="fab fa-linkedin fa-2x" style="cursor: pointer"></i></a>
+</div>
 
-## Setup
-
-Some fun facts about the setup of this project include:
-
-* Built for [Jekyll](https://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Atom](https://atom.io)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
-
-Thanks for reading!

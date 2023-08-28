@@ -1,0 +1,95 @@
+I"<h2 id="purpose">Purpose</h2>
+
+<p>For software development, Eclipse is one of the most common integrated development environments (IDE) that provides comprehensive facilities to computer programmers. IDEs contain the necessary compiler, interpreter, or both.</p>
+
+<p>Besides, the GNU Debugger (GDB) is a debugger that works for many programming languages, including C, C++, and Objective-C and partially others. The GDB allows software developers to see what is going on inside another program while it executes and helps to catch bugs in the act.</p>
+
+<h2 id="install-eclipse">Install Eclipse</h2>
+
+<p>The convenient and safe way to install Eclips is by downloading the installer file on the <a href="https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-mac64.dmg">Eclipse Foundation website</a>.</p>
+
+<h2 id="setup-gdb">Setup GDB</h2>
+
+<h3 id="using-brew-to-install-gdb">Using brew to install gdb</h3>
+<p>The easiest way to install gdb is by using brew cmd to install. Please run this command:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ brew install gdb </span></code></pre></div>
+
+<p>After running the command, you can find out your gdb version:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ gdb --version </span></code></pre></div>
+
+<h3 id="generate-a-certificate-by-keychain-access">Generate a certificate by Keychain Access</h3>
+
+<p>If you try using GDB to debug a file, the console would show error since the Darwin kernel doesn’t allow gdb to control another process without having special rights. Thus, you must generate a certificate by Keychain Access to give gdb those permissions.</p>
+
+<ol>
+  <li> Open and Launch Keychain Access application: Applications &gt; Utilities &gt; Keychain Access.. </li>
+  <li> Right-click on the System item and select Unlock Keychain “System”. </li>
+  <li> Select Keychain Access &gt; Certificate Assistant &gt; Create a Certificate.</li>
+  <li> Choose a name (e.g. gdb-cert). </li>
+  <li> Set Identity Type to Self Signed Root. </li>
+  <li> Set Certificate Type to Code Signing. </li>
+  </ol>
+
+<p>Finally, lock Keychain “System” and reboot your system.</p>
+
+<h3 id="sign-the-certificate-for-gdb-and-create-a-gdb-command-file">Sign the certificate for GDB and Create a GDB command file</h3>
+
+<p>Open your Terminal prompt and run:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ codesign -s gdb-cert &lt; gdbPat &gt; </span></code></pre></div>
+
+<p>,where gdb-cert is the name of your certificate and &lt;gdbPath&gt; is the full path to your gdb binary file.</p>
+
+<p>Then, from the Terminal, you can do that by running this:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ echo "set startup-with-shell off" &gt;&gt; ~/.gdbinit </span></code></pre></div>
+
+<h2 id="setep-eclipse-for-using-gdb">Setep Eclipse for using GDB</h2>
+
+<p>There are two methods of configuring GDB. The first method is that configuring GDB <em>for a specific project</em>:</p>
+
+<ol>
+  <li> Go to Run &gt; Debug Configurations… </li>
+  <li> Select a launch configuration (e.g. C/C++ Application) </li>
+  <li> Open the Debugger tab from the menu </li>
+  <li> Set GDB debugger to the full path of your gdb binary file (e.g. /usr/local/bin/gdb) </li>
+  <li> Set GDB command file to the full path of your .gdbinit file: ~/.gdbinit </li>
+  <li> Click on the Apply button </li>
+  </ol>
+
+<p>The second method is that defining a default configuration for GDB to be used <em>in any Eclipse project</em>:</p>
+
+<ol>
+  <li> Go to Eclipse &gt; Preferences </li>
+  <li> Select C/C++ &gt; Debug &gt; GDB </li>
+  <li> Set GDB debugger to the full path of your gdb binary file (e.g. /usr/local/bin/gdb) </li>
+  <li> Set GDB command file to the full path of your .gdbinit file: ~/.gdbinit  </li>
+  <li> Click on the Apply button </li>
+  </ol>
+
+<p>NOTE: If you run debugger then it gets stuck on 100% process.. and also shows,</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ Launching : Configuring GDB Aborting configuring GDB </span></code></pre></div>
+
+<p>you can refer to [3] and find the solution by running as root:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ sudo /Applications/Eclipse.app/Contents/MacOS/eclipse </span></code></pre></div>
+
+<p>Now, you can debug files from inside Eclipse using gdb. :)</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] <a href="https://www.thomasvitale.com/how-to-setup-gdb-and-eclipse-to-debug-c-files-on-macos-sierra/">How to setup gdb and Eclipse to debug C++ files on macOS Sierra</a></p>
+
+<p>[2] <a href="https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2019-03/R/eclipse-inst-mac64.dmg">Eclipse 2019-03</a></p>
+
+<p>[3] <a href="https://stackoverflow.com/questions/5425396/eclipse-cdt-cant-use-debugger-always-stuck-on-89-process">Launching gdb aborting configuring gdb issue</a></p>
+
+<h2 id="note">Note</h2>
+<p>If you have any constructive criticism or advises, leave the comments below or feel free to email me @qazqazqaz850@gmail.com.
+Hope this post will help! :)
+</p>
+
+:ET

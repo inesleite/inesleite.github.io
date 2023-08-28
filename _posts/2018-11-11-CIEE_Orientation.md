@@ -1,0 +1,64 @@
+---
+layout: post
+title: The Handbook of CIEE Orientation
+---
+
+## Purpose 
+
+Before departing for the U.S, CIEE requires trainees to complete [CIEE's online orientation](http://onlineorientation.ciee.org). The account is your DS-2019 number and the password is your last name.  
+
+## CIEE Orientation
+
+<h4><a name="TableContent"></a> Table of Contents</h4>
+<h5><ol>
+    <li><a href="#Arriving">Arriving and Living in the U.S</a></li>
+    <li><a href="#Culture">Understnding U.S. Culture</a></li>
+</ol></h5>
+
+<h3><a name="Arriving"></a> Arriving and Living in the U.S. </h3>
+
+#### SEVIS and Social Secuity
+
+Once arriving in U.S., please complying with SEVIS regulations by registering the home address with CIEE within 20 days of your DS-2019 Start Date. (call 1-888-268-6245 to speak with any one of our Customer Service representatives.) Also, must applying for a Social Security Number, unless you already have one. To avoid processing delays, you must wait at least 2 business days after registering for SEVIS. (bring *DS-2019*, *explained letter*, *J1 Visa* and *I-94 card*, and then visit [local Social Security office](https://socialsecurityofficenear.me))
+
+Once you have applied, the SSN card should arrive by mail within a few weeks. Then, you can use the SSN number to create a my Social Security account. The merit of [my Social Security account](https://www.ssa.gov/myaccount/) is that you will receive an email reminder instead of paper Social Security Statement.
+
+#### Insurance
+
+The program includes insurance, provided by CIEE. The complete information the insurance coverage refers to [CIEE Insurance website](https://www.ciee.org/in-the-usa/insurance). All insurance companies provide an Insurance ID card. You should use this if you get sick or injured and need to visit a doctor. Most importantly, you likely have a co-pay, requiring to pay for part of the fees associated with a doctor's office visit. Typically, a *co-pay* can range from *$10 to $100 dollars*.   
+
+#### Banking
+
+Recommending opening a *checking account* that allows you to make payments for items such as rent and utilities. 
+
+#### U.S. Laws
+
+Some important U.S. laws to note are:
+
+<ul style="list-style-type:disc">
+  <li> Driving while under the influence of alcohol is strictly against the law.</li>
+  <li> The United States has an open container law, which means that you are not allowed to drink alcohol in public spaces, such as on the street or in a park.</li>
+  <li> You are not allowed to camp or sleep in public areas.</li>
+  <li> Hitchhiking is not allowed or advised.</li>
+</ul>
+
+<h3><a name="Culture"></a> Understnding U.S. Culture </h3>
+
+#### Understanding U.S. Culture
+
+Cultural exchange is one of the primary goals of the U.S. Department of State supported Exchange Vistor Program. Each month CIEE will send Culture Guide USA via email with ideas and inspiration to really get to know the U.S. and its cultural varity.
+
+You will be meeting many new people and experiencing new things. With this can come great joys as well as challenges. Tring to develope relationships in your host community helps with the process of getting used to a new culture. In addition to the internet and local newspaper, your supervisor and colleagues can serve as great resources for finding activities that may be of interest to you. 
+
+In the workspace, U.S. business is *results-oriented* and formalities. Many companines try to limit corporate hierarchy and you may often find yourself in direct contact with senior managers in your organization. Also, calling a boss by a first name is common in the U.S. and is generally not a sign of disrespect. *Compliments* are exchanged frequently among colleagues and acquaintances. But, not asking colleagues about their personal relationships. 
+
+## Reference
+
+[1] [CIEE Orientation](http://onlineorientation.ciee.org) 
+
+## Note
+<p>If you have any constructive criticism or advises, leave the comments below or feel free to email me @qazqazqaz850@gmail.com.
+Hope this post will help! :)
+</p>
+
+

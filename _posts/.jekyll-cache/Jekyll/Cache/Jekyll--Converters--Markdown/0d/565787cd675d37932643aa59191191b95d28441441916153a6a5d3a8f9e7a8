@@ -1,0 +1,137 @@
+I"5<h2 id="abstract">Abstract</h2>
+
+<p><a href="http://jekyllrb.com">Jekyll</a> is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes. From <a href="https://github.com/mojombo/jekyll/blob/master/README.markdown">the project’s readme</a>:</p>
+
+<blockquote>
+  <p>Jekyll is a simple, blog aware, static site generator. It takes a template directory […] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.</p>
+</blockquote>
+
+<p>Find out more by <a href="https://github.com/mojombo/jekyll">visiting the project on GitHub</a>.</p>
+
+<p>It’s an immensely useful tool and one we encourage you to use here with <a href="http://lanyon.getpoole.com">Lanyon</a> theme, unassuming and minimalist theme. I recommend to adopt this theme since it focuses more on content with complete software architecture.</p>
+
+<p>The most fantastic part is that it’s free and you can fork <a href="https://github.com/poole/lanyon">Lanyon repo</a>, get it running in no time, and make the changes to include your details.</p>
+
+<p>Here’s a short tutorial on how I made this blog. Read to start? Let’t go!</p>
+
+<h4 id="note-if-you-want-to-save-time-or-are-not-interested-to-set-up-by-yourself-simply-fork-my-repo-adjust-the-style-and-make-changes-to-fit-your-requirements"><strong>NOTE: If you want to save time or are not interested to set up by yourself, simply fork <a href="https://github.com/s311354/Louis.github.io">my repo</a>, adjust the style and make changes to fit your requirements.</strong></h4>
+
+<h2 id="instructions">Instructions</h2>
+
+<h3 id="1-installing-rudy-and-jekyll">1. Installing Rudy and Jekyll</h3>
+
+<p>Go ahead and type below command line in your termainal to install rudy:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ brew install ruby
+</span></code></pre></div>
+
+<p>Here, we type this on the MAC OS X and will use ruby v2.5.1p57 version.</p>
+
+<p>Then, you’ll also need Rudygems which is a package management framework for Rudy. Refer to <a href="https://rubygems.org/pages/download/">RubyGems instructions</a>.</p>
+
+<p>Finally, we can install jekyll!!</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ gem install jekyll
+</span></code></pre></div>
+
+<h4 id="remark-if-you-use-ubuntu-or-linux-operating-systems-you-should-type-apt-get-instead-of-brew-when-you-install-rudy"><strong>REMARK: If you use ubuntu or linux operating systems, you should type apt-get instead of brew when you install rudy.</strong></h4>
+
+<h3 id="2-clone-lanyon">2. Clone Lanyon</h3>
+
+<p>First of all, we will need to create an account of Github and a repository having the name <strong>username.github.io</strong>. For instance, my repo name is <em>Louis.github.io</em>. After you do this, clone this repository onto your local computer.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ git clone https://github.com/username/username.github.io.git
+</span></code></pre></div>
+
+<p>Next, download the Lanyon zip folder from <a href="https://github.com/poole/lanyon/archive/master.zip">here</a> and extract those into your <em>username.github.io</em> directory. Now, you already prepare a prerequisite for build your local environment.</p>
+
+<p>Let’s move into <em>username.github.io</em> directory and run the default page on local server.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ cd username.github.io
+$ jekyll build
+$ jekyll serve
+</span></code></pre></div>
+
+<p>Unfortunately, since Lanyon is built on Poole and Poole does not support Jekyll 3 yet, you would get error message, <a href="https://github.com/poole/lanyon/issues/124">permalink issue</a>. For fixing this issue, you’ll need to comment out <em>relative permalinks: true</em> and add <em>jekyll-paginate setting</em>, as shown below</p>
+
+<figure>
+<a><img src="/picture/permalinks_issue.png" width="120%" /></a>
+</figure>
+
+<figure>
+<a><img src="/picture/paginate.png" width="40%" /></a>
+</figure>
+
+<h4 id="remark-replace-username-with-your-specific-username"><strong>REMARK: Replace username with your <em>specific username</em>.</strong></h4>
+
+<h3 id="3-configuring-baseurl">3. Configuring baseurl</h3>
+
+<p>In order to match the production URL without the host, you’ll need to set <em>baseurl</em> in your <em>_config.yml</em>. From <a href="https://byparker.com/blog/2014/clearing-up-confusion-around-baseurl/#fn:1">Parker’s blog</a>,</p>
+
+<blockquote>
+  <p>The <em>baseurl</em> was originally added back in 2010 to allow “the user to test websit with the internal webserver under the same base url it will be deployed to on a production server”.</p>
+</blockquote>
+
+<p>So, let’s configure the subpath of your site based on your repository username.</p>
+
+<figure>
+<a><img src="/picture/baseurl_setting.png" width="150%" /></a>
+</figure>
+
+<p>After that, you should execute <em>jekyll serve -w</em>, and must make sure everything works on local. Feeling free to prepend your urls with <em>site.baseurl</em> to indicate specific URL. Then, pushing to your host and also checking that everything works, too!</p>
+
+<h3 id="4-exploring-the-directory-structure">4. Exploring the directory structure</h3>
+
+<p>Before we go ahead and make customization, let’s take a look at the overview of architecture in your directory. Once understanding the structure, we can confidently adjust the format and add several customized designs.</p>
+
+<figure>
+<a><img src="/picture/structure.png" /></a>
+</figure>
+
+<p>The overview of structure:</p>
+
+<ul>
+  <li>
+    <p>_config.yml:</p>
+
+    <p>The configuration file, which placed in your site’s root directory, gives you a lot of flexibility to customize how it builds your site. <a href="https://jekyllrb.com/docs/configuration/">options</a></p>
+  </li>
+  <li>
+    <p>index.html:</p>
+
+    <p>This configures your front page.</p>
+  </li>
+  <li>
+    <p>about.md and archive.md:</p>
+
+    <p>This is the Makedown files and will be transformed by Jekyll to a static page. You can add other static page by creating Makedown files with a <a href="https://jekyllrb.com/docs/front-matter/">front matter</a> section.</p>
+  </li>
+  <li>
+    <p>_includes and _layouts:</p>
+
+    <p>These directories contain the HTML boilerplate required to build your site.</p>
+  </li>
+  <li>
+    <p>_posts:</p>
+
+    <p>This directory includes the posts that you will be posting. They are Markdown files.</p>
+  </li>
+</ul>
+
+<p>For more details, please refer to this <a href="https://jekyllrb.com/docs/structure/">page</a>.</p>
+
+<p>=========== To be continued…. ==========</p>
+
+<h2 id="reference">Reference</h2>
+<p>[1] <a href="https://nikhita.github.io//build-blog-using-github-jekyll#using-lanyon">How to build a blog using Github, Jekyll and Lanyon</a>, by Nikhita Raghunath</p>
+
+<p>[2] <a href="https://pages.github.com">GitHub Pages</a></p>
+
+<p>[3] <a href="https://github.com/poole/lanyon">Lanyon Repo</a></p>
+
+<h2 id="note">Note</h2>
+<p>If you have any constructive criticism or advises, leave the comments below or feel free to email me @qazqazqaz850@gmail.com.
+
+Hope this post will help! :)
+</p>
+:ET

@@ -1,0 +1,110 @@
+I"�<h2 id="purpose">Purpose</h2>
+
+<p>During the period from graduating to being an Engineer, Linux/Unix commands becomes part of my working daily routine. Here, recording several useful and powerful commands to keep in mind.</p>
+
+<h2 id="linuxunix-command">Linux/Unix command</h2>
+
+<h4><a name="TableContent"></a> Table of Contents </h4>
+<h5><ol>
+    <li><a href="#SED">SED command</a></li>
+    <li><a href="#WC">WC command</a></li>
+    <li><a href="#LN">LN command</a></li>
+</ol></h5>
+
+<h3><a name="SED"></a> SED command </h3>
+
+<p>"sed" is used for finding, parsing, text substitution, replacement and text manipulations such as insertion, deletion search etc. And, we also can use sed with regular expression.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby">
+<span class="nb">$ Usage: sed [OPTION]... {script-only-if-no-other-script} [input-file]... 
+$
+$  -i[SUFFIX], --in-place[=SUFFIX]
+$                 edit files in place (makes backup if extension supplied).
+$                 The default operation mode is to break symbolic and hard links.
+$                 This can be changed with --follow-symlinks and --copy.
+$
+$  -e script, --expression=script
+$                 add the script to the commands to be executed
+$
+$  ...
+</span>
+</code></pre></div>
+
+<p>Example:</p>
+<ol>
+<li> Parsing the strings</li>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ sed -e 's/^..............\(..\)/\1/' nput-file]
+</span></code></pre></div>
+
+This command is used for parsing the last two strings, line by line. 
+
+<li> Replacement</li>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ sed -i 's/abc/123/' [input-file]
+</span></code></pre></div>
+This command is used for replacing "abc" with "123".
+
+<li> Add a line in a specific position</li>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ sed '3iline 3' [input-file]
+</span></code></pre></div>
+This command is used for inserting the "line 3" text at line 3 in input-file file.
+</ol>
+
+<h3><a name="WC"></a> WC command </h3>
+
+<p>"wc" is used for print newline, word, and byte counts for each file.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ Usage: wc [OPTION]... [FILE]...
+$
+$   -l, --lines            print the newline counts
+$   -w, --words            print the word counts
+$  ...
+</span></code></pre></div>
+
+<p>Example:</p>
+<ol>
+<li> Present the number of lines</li>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ wc -le  [FILE]
+</span></code></pre></div>
+This command supports  more than one files.
+</ol>
+
+<h3><a name="LN"></a> LN command </h3>
+
+<p>"ln" is an utility for creating links between files. By default, the ln command creates hard links. To create a symbolic links use the -s (–symbolic) option.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ Usage: ln [OPTION]... [-T] TARGET LINK_NAME   (1st form)
+$  or:  ln [OPTION]... TARGET                  (2nd form)
+$  or:  ln [OPTION]... TARGET... DIRECTORY     (3rd form)
+$  or:  ln [OPTION]... -t DIRECTORY TARGET...  (4th form)
+  
+$  ...
+$  -s, --symbolic              make symbolic links instead of hard links
+$  -S, --suffix=SUFFIX         override the usual backup suffix
+$  -t, --target-directory=DIRECTORY  specify the DIRECTORY in which to create
+                                the links
+$  ...
+</span></code></pre></div>
+
+<p>Example:</p>
+<ol>
+<li> Creating Symlinks</li>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">$ ln -s source_file symbolic_link
+</span></code></pre></div>
+This command creates symbolic link in Linux, replascing source_file with the name of the existing file for which you want to create the symbolic link and symbolic_link with the name of the symbolic link.
+</ol>
+
+<p>=========== To be continued…. ==========</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] <a href="https://www.geeksforgeeks.org/sed-command-linux-set-2/">SED command in Linux</a></p>
+
+<p>[2] <a href="http://www.gnu.org/gethelp/">General help using GNU software</a></p>
+
+<p>[3] <a href="https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/#creating-symlinks-to-files">How to Create Symbolic Links in Linux Using the ln Command</a></p>
+
+<h2 id="note">Note</h2>
+<p>If you have any constructive criticism or advises, leave the comments below or feel free to email me @qazqazqaz850@gmail.com.
+Hope this post will help! :)
+</p>
+:ET

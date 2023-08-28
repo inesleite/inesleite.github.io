@@ -1,0 +1,116 @@
+I"�/<p>“In The Clean Coder: A Code of Conduct for Professional Programmers, legendary software expert Robert C. Martin introduces the disciplines, techniques, tools, and practices of true software craftsmanship. This book is packed with practical advice–about everything from estimating and coding to refactoring and testing. It covers much more than technique: It is about attitude. Martin shows how to approach software development with honor, self-respect, and pride; work well and work clean; communicate and estimate faithfully; face difficult decisions with clarity and honesty; and understand that deep knowledge comes with a responsibility to act.”</p>
+
+<h2 id="紀錄與心得">紀錄與心得</h2>
+
+<p>最近工作之餘，閱讀一本關於程式工程師的相關書籍，此書在Amazon 4.5 顆星: <a href="https://www.amazon.com/Clean-Coder-Conduct-Professional-Programmers-ebook/dp/B0050JLC9Y">Clean Coder, The: A Code of Conduct for Professional Programmers (Robert C. Martin Series)</a>，一直上個月看完這本書前半部分，以下就稍微留個記錄和心得。</p>
+
+<h2 id="章節概要">章節概要</h2>
+
+<p>以下就大略紀錄共鳴的章節內容吧！</p>
+
+<h3 id="專業主義">專業主義</h3>
+
+<p>身為專業開發人員對自己的程式碼和測試碼極有把握，他們會極其瘋狂任意地做各種修改。如果通讀程式碼發現一個冗長的方法，肯定要將它拆分，重新組織。例如：將switch 語句改為多型結構，或者將繼承層次重構成一條命令鏈（chain-of-command）。</p>
+
+<p>所有軟體專案的根本指導原則是，軟體要易於修改且不破壞結構。如果違背這條原則則而搭建僵化的結構，就破壞了構築整個行業的經濟模型。要如何證明軟體易於修改，唯一的辦法就是做些實際的修改。然而如果你有一套覆蓋了所有程式碼的快速執行自動化測試，那麼你根本不會害怕修改程式碼。</p>
+
+<p>所謂術業有專攻，那是需要投入時間去追求的。員工必須付出時間和精力，應該計畫每週工作60 小時。前40 小時應該用來解決雇主的問題（8:30 ~ 18:30 / DAY）；
+後20小時應該是用來做其他提升職業能力的事或是做能夠激發、強化你熱情的事，例如：看書、看相關文章、關注部落格、參加技術大會、多參與讀書會與學習小組等（ 19:30 ~ 11:30 / DAY）。</p>
+
+<p>瞭解你的領域：（不能銘記過去的人，註定重蹈先人的覆轍）
+專業軟體發展人員至少必須精通的事項</p>
+<ul>
+  <li>設計模式（Design Pattern）</li>
+  <li>設計原則（Design principles）- 必須瞭解SOLID原則，而且要深刻理解元件設計原則</li>
+  <li>方法（methods）</li>
+  <li>學科（Disciplines）- 必須練習測試驅動開發TDD、物件導向設計OOD、結構化程式設計、持續整合（continuous integration, CI）和結對程式設計（pair programming）</li>
+  <li>工具（Artifacts）- 必須了解如何使用UML圖、DFD圖、çµ構圖、狀態遷移圖表、流程圖和決策圖 (doxgen)</li>
+</ul>
+
+<p>Note: Pair programming is an agile software development technique in which two programmers work together at one workstation. One, the driver, writes code while the other, the observer or navigator, reviews each line of code as it is typed in. The two programmers switch roles frequently.</p>
+
+<p>真正的專業人士往往勤學苦幹，以求得自身技能的純熟精煉。在日常工作之餘專門練習技能，以期許自我提身。重複做一些簡單的練習，例如做 Kata challenges ，培養某種專門的技能，訓練手指習慣快捷鍵或習慣使用某些重構技法等。</p>
+
+<p>專業軟體開發人員往往會更努力嘗試與他人一起寫程式，一起練習，一起設計，一起計畫，這樣他們可以重彼此身上學到很多東西，而且能在更短的時間內，更不犯錯地完成更多的工作。</p>
+
+<p>另外，與專案負責人多交流，能更迅速牢固地掌握某些事情和觀念。另外，專業軟體開發人員都有義務瞭解自己開發項目的業務領域，應當閱讀一兩本有關該領域的書籍，要以該領域的基礎架構與基本知識進行客戶和使用者的訪談，還應當花時間和業內專家進行交流，瞭解他們的原則與價值觀，進而能辨別、質疑規格說明書中的錯誤。最不專業的做法是，只簡單地按照規格說明來撰寫程式碼，但卻對於那些業務為何需要做那樣的規定不求甚解勝解。每次開發系統或項目，都應站在雇主的角度思考，雇主的問題就是你的問題，必須弄明白這些問題，並尋求最佳的解決方案，確保開發功能真正可以滿足雇主的需要。</p>
+
+<h3 id="說不">說“不“</h3>
+
+<p>奴隸沒有權利說“不“，勞工或許也對說“不”有所顧慮。但是專業人士應該懂得說“不”，才能真正做成一些事情。每位經理都承擔著工作職責，絕大部分的經理也知道該如何盡忠職守。其中一部分的工作職責，便是要竭盡所能，追求和捍衛他們設定的目標。同樣，專業程式設計師也會竭盡所能去追求和捍衛自身的目標。至於專業程式設計師如何與經理共同追求目標的關鍵，往往有賴於協商，並且協商過程有時候可以相當愉快的。舉例：若經理要求你在明天之前完成登入頁面，這屆是他在追求和捍衛的一個目標，那是他的工作職責。如果你明知第二天之前不可能完成登入頁面，唯一的盡職方式便是說”不，這不可能“</p>
+
+<p>專業程式設計師面對施壓時，最糟糕的回應是”好的 我們會試試看“。引述Yoda 大師的的話，沒有試試看這回事，而是要承諾確保成功，並且壓力要由自己扛。</p>
+
+<p>做出承諾包含：</p>
+<ul>
+  <li>口頭上說</li>
+  <li>心裡認真</li>
+  <li>付諸行動</li>
+</ul>
+
+<h3 id="說是">說”是“</h3>
+
+<p>言必信，行必果 - 真正承諾要訣在於，將自己將會做某件事做了清晰的事情陳述，而且還明確說明了完成期限。程式設計師肯定需要面對諸如”預估“、“確定最後期限”以及“面對面交流”等溝通活動，已解決在溝通中可能發生的不少問題。身為一名嚴謹負責且具有價值的開發人員，需要一直信守承諾。不過不需要對所有的請求都回答”是“，應該努力尋找創新的方法，盡可能做到有求必應。</p>
+
+<p>
+堅守原則的案例：
+經理 Marge: “Peter，週五前你能完成對於Ratting Engine的修改嗎？”
+工程師 Peter: “可能可以，但也可能得到下週一才行”  （顯然沒有對此明確做出承諾）
+經理 Marge: ”Peter，到底是能還是不能，我需要個明確的答案。週五前你能完成對Ratting Engine的修改嗎？”
+工程師 Peter: “這樣的話，Marge，我只能說不能了。關於完成修改，有十足把握的時間點，我估計最快得到下週二。” （措辭更為誠實，清楚地向經理 Marge表達了自己的不確定感）
+經理 Marge: “你確定週二必定能完成嗎？” （經理 Marge或許能夠應付得了這種不確定，但也可能無法接受）
+工程師 Peter: “是的，我保證，週二肯定一切就緒。”
+經理 Marge: “Peter，下週二對我來說真的有問題。我們的技術文件工程師Ｗill下週一可以投入專案。他需要五天時間完成使用者手冊，如果週一早上拿不å°Ratting Engine的文件，那他也就沒辦法照預定時間完成手冊了。你先把文件寫好嗎？”
+工程師 Peter: “不行，必須先修改好程式碼才行，因為文件是從測試結果產生的。”
+經理 Marge: “好吧，那你就沒有別的辦法可以在下週一早上前完成修改和文件了嗎？”
+工程師 Peter: “Marge，是這樣的，如果我週六再加幾小時的班，還是很有可能可以在下週一早上前完成全部工作的。”
+經理 Marge: “那我能指望下週一早上就拿到想要的結果嗎？”（對經理 Marge來說，這樣的回答可能還是不夠理想）
+工程師 Peter: “可能可以，但我也沒法打包票。”
+經理 Marge: “是這樣的，Peter，我的確需要的到一個明確的時間點。不管用什麼方式，你能確保下週一早上之前搞定一切嗎？”
+工程師 Peter:  “不，Marge，我沒辦法確保能在週二之前的某天就完成全部的工作。如果這樣把你的進度表弄亂了，我也只能說抱歉，我們面對的實際情況就是這樣。”
+經理 Marge: “真糟糕。我原本指望這個任務能更快完成的，你確定就是這樣嗎？“
+工程師 Peter: ”是的，我確認，可能要一直到下週二才能完成。“
+經理 Marge: “好吧，我想我該去和Willy談談，看看他是否能重新安排日程。”
+經理 Marge: “Peter，聽我說，我知道這挺強人所難的，但我真的需要你想辦法在下週一早上之前能完成這些任務。這真的至關重要。你能再想想其他什麼辦法嗎？”
+工程師 Peter: ”好的，Marge，這樣吧。我會打個電話回家，跟家人說一下我要加班。如果他們沒意見，我能保證在週一早上之前完成任務。甚至下週一早上我還會過來公司看看，確保Willy這邊一切順利。不過之後我就會回家休息，直到週三才會回來上班。你看這樣行嗎。“
+
+</p>
+
+<p>Note: 身為專業開發人員，有責任根據紀律以及標準來規範自èº«的工作，例如：測試，重構，執行整套回歸測試。</p>
+
+<h3 id="寫程式">寫程式</h3>
+
+<p>要精熟掌握每項技藝，應該需要具備信心和出錯感知（error-sense），說明已經能夠非常迅速地獲得回饋並且從錯誤中學習，並且“遵循紀律原則”，而非成為“長時間工作的工作狂”，以確保將睡眠、健康和生活方式調整到最佳狀況。</p>
+
+<p>寫程式碼的準備項目：</p>
+<ul>
+  <li>必須理解當前要解決的是什麼問題以及該如何解決，並且忠實地遵循解決方案</li>
+  <li>必須管理好解決方案的每一處細節，並且使用語言、平台、現有架構以及當前系統的所有問題能夠和平共識</li>
+  <li>必須解決客戶提出的問題</li>
+  <li>必須要能和現有系統結合得天衣無縫</li>
+  <li>必須讓其他程式設計師讀懂你的程式碼，並且能夠表達你的程式設計意圖</li>
+</ul>
+
+<p>結對程式設計（pair programming）的優點：</p>
+<ul>
+  <li>要求激烈持續地進行溝通，避免進入一種隔絕溝通的流態區（Flow zone）狀態</li>
+  <li>與結對搭檔一起工作時，能夠很快幫助恢復被打斷前的思緒，是用以應付中斷的一種好方法</li>
+  <li>幫助重啟思維，免於陷入阻塞狀態</li>
+</ul>
+
+<p>除錯所花的時間對於公司而言，和寫程式所花的時間是一樣昂貴的，因此，身為專業的程式設計師需要將除錯時間儘量降到最低。另外，專業的程式設計師也需要妥善管理延遲，根據目標定期衡量進度。</p>
+
+<p>互相幫助是每位程式設計師的職責，作為專業程式設計師，更要以隨時幫助別人為榮，因為可以帶來新的視角，對於解決問題起了顯著的催化作用。另外，花時間親自輔導手底下的年輕程式設計師，是資深程式設計師的“專業職責所在”，而向資深導師尋求輔導，也是年輕設計師的專業職責。</p>
+
+<h2 id="總結">總結</h2>
+<p>個人認為這本書闡述實際開發軟件中獲得的生存之道，並且也舉出不少案例。這些許多實用的建議和知識，都是值得學習以及內化吸收。</p>
+
+<p>=========== To be continued…. ==========</p>
+
+<h2 id="reference">Reference</h2>
+
+<ol>
+  <li><a href="https://www.amazon.com/Clean-Coder-Conduct-Professional-Programmers-ebook/dp/B0050JLC9Y">Clean Coder, The: A Code of Conduct for Professional Programmers</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Pair_programming">Pair programming</a></li>
+</ol>
+:ET

@@ -1,0 +1,101 @@
+I"�<p>The C++ language provides a “<a href="https://en.cppreference.com/w/cpp/language/language_linkage" title="https://en.cppreference.com/w/cpp/language/language_linkage">Language linkage</a>” mechanisms for mixing code that is compiled by compatible C and C++ in the same program. Every function type, every function name with external linkage, and every variable name with external linkage, has a property called language linkage. The mechanism might be helpful to solve common problems that arise when you mix C and C++ code and run into portability issues. In this blog post, I will take notes of how to mix C and C++ in the same program.</p>
+
+<p align="center"><iframe src="https://giphy.com/embed/PiWfijeEeJEI0uB7j6" width="480" height="319" frameborder="0" class="giphy-embed" allowfullscreen=""></iframe></p>
+
+<h2 id="compatibility-of-c-and-c">Compatibility of C and C++</h2>
+
+<p>In the strict mathematical sense, C isn’t a subset of C++. There are programs that are valid C but not valid C++ and even a few ways of writing code that has a different meaning in C and C++. However, C++ supports every programming technique supported by C95 and earlier. Every such C program can be written in essentially the same way in C++ with the same run-time and space efficiency. It is common to be able to convert tens of thousands of line of ANSI C to C-style C++ in few hours.</p>
+
+<p>Note that there are some very subtle differences between C and C++, like sizeof(‘x’) is equal to sizeof(char) in C++ but is equal to sizeof(int) in ANSI C. Also, C++ puts structure “tags” in the same namespace as other names, whereas C requires an explicit struct (e.g., the typedef struct Linkedlist Linkedlist; techniques still works, but is redundant in C++).</p>
+
+<h2 id="c-and-c-linkage">C and C++ Linkage</h2>
+
+<p>Here are some high points while mixing C and C++ in the same program.</p>
+
+<h3 id="how-to-call-a-c-function-and-own-c-header-from-c-code">How to call a C function and own C header from C++ code</h3>
+<p>Just declare the C function extern “C” in C++ code and call it from C++ code. In addition, since a C compiler won’t understand the extern “C” construct, you must wrap it in an #ifdef so they won’t be seen by normal C compilers.</p>
+
+<pre>Example of C header:<code class="hljs"><span id="snippet_spn" class="snippet-span">// example.h
+#ifdef __cplusplus
+extern "C" {
+#endif
+...
+void f(int, char c, float x);
+int g(double);
+...
+#ifdef __cplusplus
+}
+#endif</span></code><div class="flex-end"></div></pre>
+
+<pre>Example of C code:<code class="hljs"><span id="snippet_spn" class="snippet-span">// example.c code
+void f(int i char c, float x) {
+    /* ... */
+}
+
+int g(double d) {
+    /* ... */
+}</span></code><div class="flex-end"></div></pre>
+
+<pre>Example of C++ code:<code class="hljs"><span id="snippet_spn" class="snippet-span">// c++ code
+#include "example.h"
+
+void main() {
+    f(7, 'string', 3.14);
+    int count = g(123);
+}
+</span></code><div class="flex-end"></div></pre>
+
+<h3 id="how-to-call-a-c-function-and-pass-an-object-of-c-class-from-c">How to call a C++ function and pass an object of C++ class from C</h3>
+<p>Just do the similar way as above in C++ code and it.</p>
+
+<pre>Example of C++ header:<code class="hljs"><span id="snippet_spn" class="snippet-span">// example.h code
+extern "C" {
+    void f(int);
+    // Call overloaded functions from C
+    void f_i(int i) { f(i); }
+    double call_CA_g(CA* p, int i) { return p-&gt;g(i); }
+};</span></code><div class="flex-end"></div></pre>
+
+<pre>Example of C++ code:<code class="hljs"><span id="snippet_spn" class="snippet-span">// example.cpp code
+// non-member function
+void f(int i) {
+    /* ... */
+}
+
+// member function
+class CA {
+    virtual double g(int);
+}</span></code><div class="flex-end"></div></pre>
+
+<pre>Example of C code:<code class="hljs"><span id="snippet_spn" class="snippet-span">// c code
+void f(int);
+void f_i(int);
+double call_CA_g(struct* p, int i);
+
+void call_g(struct CA* p, int i) {
+    f(i);
+    f_i(i);
+    double d = call_CA_g(p, i);
+}</span></code><div class="flex-end"></div></pre>
+
+<p>Note that these techniques can be used to call a C++ library from C code even if you cannot (or do not want to) modify the C++ headers.</p>
+
+<h3 id="explanation-of-language-linkage">Explanation of language linkage</h3>
+
+<p>Language linkage encapsulates the set of requirements necessary to link with a module written in another programming language.</p>
+
+<p>For more details, you could refer to the <a href="https://en.cppreference.com/w/cpp/language/language_linkage" title="https://en.cppreference.com/w/cpp/language/language_linkage">Language linkage</a>  page.</p>
+
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://en.cppreference.com/w/cpp/language/language_linkage">Language linkage</a></p>
+
+<p><a href="https://isocpp.org/wiki/faq/mixing-c-and-cpp">ISO C++: How to mix C and C++</a></p>
+
+<p><a href="https://www.oracle.com/technical-resources/articles/it-infrastructure/mixing-c-and-cplusplus.html">Mixing C and C++ Code in the Same Program</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Compatibility_of_C_and_C%2B%2B">Wiki: Compatibility of C and C++</a></p>
+
+<p><a href="https://isocpp.org/wiki/faq/big-picture#back-compat-with-c">ISO C++: Is C++ backward compatible with ANSI/ISO C?</a></p>
+
+:ET

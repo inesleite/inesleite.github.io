@@ -1,0 +1,109 @@
+I"�<h2 id="purpose">Purpose</h2>
+<p>In order to analyze the code size when implementing C program, we need to understand the meaning of memory section calculated by IDE tool. The memory size can be roughly classified into five sections.</p>
+
+<p>In this post, I made a copy about the memory section size from xtensa C application programmer’s help and recorded the relevant information to quickly look up.</p>
+
+<h2 id="memory-section-size">Memory Section Size</h2>
+
+<h5><ol>
+    <li>The .text section contains instruction code.</li>  
+    <li>The .data section contains initialized global variables.</li>
+    <li>The .bss section contains un-initialized global variables.</li>
+    <li>The .rodata section contains read-only global variables, constants, jump tables, etc.</li>
+    <li>The .literal section contains literals (32-bit contstants) used in the code. (These sections are specific to the Xtensa architecture)</li>
+</ol></h5>
+
+<p>Additionally, the <strong>.text</strong> section is assigned to IRAM, while <strong>.data</strong> section is assigned to DRAM. For the memory map, indicating how memory is laid out, code (.text) is in local instruction memory, while data (.data, .bss) is in system memory.</p>
+
+<p>Example:</p>
+<figure>
+<a><img src="/picture/memory_section.PNG" /></a>
+</figure>
+
+<h4 id="jump-tables">Jump tables</h4>
+<p>The jump tables are an efficient way of handing similar events in C/C++ program because they offer a unique blend of compactness and execution speed, particularly on microprocessors that support indexed addressing. We can look at the use of arrays of function pointers as jump tables.</p>
+
+<p>Example 1. Simple pseudo code:</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">void test(uint8_t const idx) {
+  static void (*pf[])(void) = {func_a, func_b, func_c, ..., func_z};
+  if (idx &lt; sizeof(pf) / sizeof(*pf)) {
+      /* Call the function specified by idx */
+      pf[idx]();
+  }
+}</span></code></pre></div>
+
+<p>In this example, by declaring the static array within the function, no one else can access the jump table.</p>
+
+<p>Example 2. Pseudo code for timed task:</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">#define INTERVAL_16_MSEC 16
+#define INTERVAL_50_MSEC 50
+
+void fnA();
+void fnB();
+
+typedef struct {
+   char interval;          /* How often to call the task */
+   void (*proc)(void);     /* pointer to function returning void */
+} TIMED_TASK;
+
+static const TIMED_TASK timed_task[] = {
+  { INTERVAL_16_MSEC,  fnA},
+  { INTERVAL_50_MSEC,  fnB},
+  { 0, NULL }
+};
+
+int main(void) {
+  const TIMED_TASK *ptr;
+
+  for (ptr = timed_task; ptr-&gt;interval != 0; ptr++)
+  {
+      /* Time to call the function */
+      (ptr-&gt;proc)();
+  }
+  return 0;
+}
+
+void fnA(){}
+void fnB(){}</span></code></pre></div>
+
+<h2 id="memory-map">Memory map</h2>
+<p>A memory map is a sequence of memory description and optional parameter assignments.</p>
+
+<p>Each memory description has the following format:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">BEGIN &lt; name &gt;
+&lt; addr &gt; [,&lt; paddr &gt;] : &lt; mem-type &gt; : &lt; mem-name &gt; : &lt; size &gt; [,&lt; psize &gt;]: [writable] [,executable] [,device] ;
+&lt; segment &gt;*
+END &lt; name &gt;</span></code></pre></div>
+
+<p>Example:</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">BEGIN iram0
+0x40000000: instRam : iram0 : 0x20000 : executable, writable ;
+ iram0_0 : C : 0x40000000 - 0x4000000f : .DebugExceptionVector.literal;
+ iram0_1 : F : 0x40000010 - 0x4000001b : .DebugExceptionVector.text;
+ iram0_2 : C : 0x4000001c - 0x4000001f : .NMIExceptionVector.literal;
+ iram0_3 : F : 0x40000020 - 0x4000002b : .NMIExceptionVector.text;
+ iram0_4 : C : 0x4000002c - 0x4000002f : .KernelExceptionVector.literal;
+ iram0_5 : F : 0x40000030 - 0x4000004b : .KernelExceptionVector.text;
+ iram0_6 : C : 0x4000004c - 0x4000004f : .UserExceptionVector.literal;
+ iram0_7 : F : 0x40000050 - 0x4000006b : .UserExceptionVector.text;
+ iram0_8 : C : 0x4000006c - 0x4000006f : .DoubleExceptionVector.literal;
+ iram0_9 : F : 0x40000070 - 0x4000007f : .DoubleExceptionVector.text;
+ iram0_10 : C : 0x40000080 - 0x4001ffff : .iram0.literal .iram0.text;
+END iram0</span></code></pre></div>
+
+<p>=========== To be continued…. ==========</p>
+
+<h2 id="reference">Reference</h2>
+<p>[1] Xtensa C Application Programmer’s Help</p>
+
+<p>[2] <a href="https://barrgroup.com/Embedded-Systems/How-To/C-Function-Pointers">How to Create Jump Tables via Function Pointer Arrays in C and C++</a></p>
+
+<p>[3] <a href="https://en.wikipedia.org/wiki/Memory_map">Memory map</a></p>
+
+<h2 id="note">Note</h2>
+<p>If you have any constructive criticism or advises, leave the comments below or feel free to email me qazqazqaz850@gmail.com.
+
+Hope this post will help! :)
+</p>
+:ET

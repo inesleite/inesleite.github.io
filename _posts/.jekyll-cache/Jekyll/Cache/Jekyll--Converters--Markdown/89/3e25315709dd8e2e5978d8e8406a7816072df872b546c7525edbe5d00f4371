@@ -1,0 +1,114 @@
+I"<p>If you got in touch with free software before, you might hear Richard Stallman, who is the founder of the GNU Project and original author of the GNU Compiler Collection (GCC). He founded the GNU project in 1984 to start Unix-like operation system project.</p>
+
+<p>The original GNU Compiler Collection (GCC) has grown over times to support many languages, inculdes frond ends for C, C++, Objective-C. In addition, it is a key component of so-called “GNU Toolchian”, for developing applications and writing operation systems. The GNU Toolchain includes GNU Compiler Collection, GNU Make, GNU Binutils, GNU Debugger(GDB), GNU Autotools and GNU Bison.</p>
+
+<p>Here, I took notes of the concepts and some basic topics in this post. Hope it would be helpful to understand and recap the knowledge. :)</p>
+
+<p align="center"><iframe src="https://giphy.com/embed/SXxI9NlwvYiY3bRsck" width="480" height="319" frameborder="0" class="giphy-embed" allowfullscreen=""></iframe></p>
+<h2 id="gnu-c-compiler-gcc">GNU C Compiler (GCC)</h2>
+
+<p>GCC has been ported to a wide variety of platforms and instruction set architecture and is wide deployed as a tool in the development of both free and properiety software. GCC is also available for many embedded systems, including ARM-based and Power ISA-based chips.</p>
+
+<p>For my MacOS, the GCC version is shown below. You could see that it is using GCC to compil 64-bit code and bringing code to 64-bit target architecture.</p>
+
+<pre class="highlight"><code class="hljs"><span class="nb">$ gcc -v
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/4.2.1
+Apple clang version 12.0.0 (clang-1200.0.32.27)
+Target: x86_64-apple-darwin20.1.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+</span></code></pre>
+
+<h3 id="compiler-and-link-separately">Compiler and Link Separately</h3>
+
+<p>A few commonly-used GCC compiler options are:</p>
+<ul>
+  <li>-o: specifies the output executable filename</li>
+  <li>-Wall: prints “all” Warning messages</li>
+  <li>-g: generate additional symbolic debugging information for use with gdb debugger</li>
+</ul>
+
+<pre class="highlight">For example:<code class="hljs"><span class="nb">CC = gcc
+CFLAGS = -g -Wall
+DIR = obj
+SDIR = src
+
+INC = -I .
+
+OUT = exe/timer
+
+posix_timer:
+	$(CC) $(CFLAGS) $(INC) -c $(SDIR)/$@.c -o $(DIR)/$@.o
+
+main:
+	$(CC) $(CFLAGS) $(INC) -o $(OUT) $@.c $(DIR)/*o
+
+clean:
+	rm -f $(DIR)/*.o $(OUT) core.*
+
+mrproper: clean
+	rm -f posix_timer
+</span></code></pre>
+
+<h3 id="gcc-environment-variables">GCC Environment Variables</h3>
+
+<p>GCC uses the following environment variables:</p>
+<ul>
+  <li>PATH: searching the executables and runtime shared libraries</li>
+  <li>LIBRARY_PATH: searching library-paths for link libraries. It is searched after the paths specified in -L&lt;dir&gt; options</li>
+</ul>
+
+<h2 id="utilities-for-examining-the-compiled-files">Utilities for Examining the Compiled Files</h2>
+
+<p>For all the GNU utilities, you can use “man” command to display the man pages.</p>
+
+<h3 id="file-utility">file Utility</h3>
+
+<p>The utility “file” can be used to display the type of object files and executable files.</p>
+
+<pre class="highlight">For example:<code class="hljs"><span class="nb">$ file src/posix_timer.c
+src/posix_timer.c: c program text, ASCII text 
+
+$ file obj/posix_timer.o
+obj/posix_timer.o: Mach-O 64-bit object x86_64
+
+$ file exe/timer
+exe/timer: Mach-O 64-bit executable x86_64
+</span></code></pre>
+
+<h3 id="nm-utility">nm Utility</h3>
+
+<p>The utility “nm” lists symbol table of object files.</p>
+
+<pre class="highlight">For example:<code class="hljs"><span class="nb">$ nm obj/posix_timer.o
+0000000000000110 T _hello_world
+                 U _printf
+                 U _pthread_cancel
+                 U _pthread_self
+00000000000000a0 T _should_kill_thread
+                 U _sleep
+                 U _time
+</span></code></pre>
+
+<p>“nm” is commonly-used to check if a particular function is defined in an object file. The common symbol type are:</p>
+<ul>
+  <li>T: indicates a function that is defined</li>
+  <li>U: indicates a function which is undefined and should be resolved by the linker</li>
+</ul>
+
+<h3 id="otool-utility">otool Utility</h3>
+
+<p>The utility “otool” is for MacOS system, its functionality is similar as ldd, and examines an executable to display a list of the shared libraries that it needs.</p>
+
+<pre class="highlight"><code class="hljs"><span class="nb">$ otool -L exe/timer
+exe/timer:
+        /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.0.0)
+</span></code></pre>
+
+<h2 id="reference">Reference</h2>
+<p><a href="https://www3.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html#zz-2.3">GCC and Make Compiling, Linking and Building C/C++ Applications</a></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Richard_Stallman">Wiki - Richard Stallman</a></p>
+
+<p><a href="https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/64bitPorting/building/building.html">Compiling 64-Bit Code</a></p>
+:ET

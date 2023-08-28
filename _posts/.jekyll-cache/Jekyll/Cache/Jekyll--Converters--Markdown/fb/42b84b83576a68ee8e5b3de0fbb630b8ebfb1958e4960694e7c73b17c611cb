@@ -1,0 +1,72 @@
+I"¸<h2 id="fread-fseek-and-ftell-functions">fread, fseek and ftell functions</h2>
+
+<h3 id="fread-function">fread function</h3>
+<p>This function is used for reading data from the given file pointer into the array pointer.</p>
+
+<p>Usage:</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">size_t fread(void *arr_ptr, size_t size, size_t element, FILE *file)</span></code></pre></div>
+
+<h3 id="fseek-function">fseek function</h3>
+<p>This function is used for setting the position of the file pointer to the given offset.</p>
+
+<p>Usage:</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">int fseek(FILE *file, long int offset, int position)</span></code></pre></div>
+
+<p>The position is specified by the following constants:</p>
+<h6><ol>
+    <li>SEEK_END: End of file</li>  
+    <li>SEEK_SET: Starting of file</li>
+    <li>SEEK_CUR: Current position of file pointer</li>
+</ol></h6>
+
+<h3 id="ftell-function">ftell function</h3>
+<p>This function is used for returnning the current position of the given file pointer.</p>
+
+<p>Usage:</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">long int ftell(FILE *file)</span></code></pre></div>
+
+<h3 id="example">Example:</h3>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">int main(int argc, char **argv) {
+  FILE *fp_in = NULL;
+  char data[100];
+  long int position;
+
+  char *filename = "data.txt";
+
+  fp_in = fopen(filename, "rb");
+
+  // Read data chunk
+  fread(data, 1, 100, fp_in);
+
+  // Read the position of pointer
+  position = ftell(fp_in);
+  printf("the position of pointer = %d \n", position);
+
+  fseek(fp_in, 10, SEEK_CUR);    // shift 10 bytes
+
+  // Read the position of pointer
+  position = ftell(fp_in);
+  printf("the position of pointer after shifting= %d \n", position);
+
+  return 0;
+}</span></code></pre></div>
+
+<p>Result:</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight" style="font-size:12px"><code class="hljs ruby"><span class="nb">the position of pointer = 100 
+the position of pointer after shifting= 110</span></code></pre></div>
+
+<p>=========== To be continuedâ€¦. ==========</p>
+
+<h2 id="reference">Reference</h2>
+<p>[1] <a href="https://www.tutorialspoint.com/c_standard_library/c_function_fseek.htm">C library function - fseek</a></p>
+
+<p>[2] <a href="https://www.tutorialspoint.com/c_standard_library/c_function_fread.htm">C library function - fread</a></p>
+
+<p>[3] <a href="https://www.tutorialspoint.com/c_standard_library/c_function_ftell.htm">C library function - ftell</a></p>
+
+<h2 id="note">Note</h2>
+<p>If you have any constructive criticism or advises, leave the comments below or feel free to email me @qazqazqaz850@gmail.com.
+
+Hope this post will help! :)
+</p>
+:ET

@@ -1,0 +1,62 @@
+I"�	<h2 id="purpose">Purpose</h2>
+
+<p>To analyze the c programming performance, the CPU time is one of the good indications of how to measure user CPU time, system CPU time, and wall clock time.</p>
+
+<p>For avoiding to forget bit and pieces of how to measure CPU time in C programming, I found some relevant information and recorded in this post.</p>
+
+<h2 id="c-library-function---clock">C library function - clock()</h2>
+
+<h3 id="description">Description</h3>
+
+<p>The C lib function clock_t clock(void) returns the number of clock ticks elapsed. To get the number of seconds used by the CPU, you will need to divide by CLOCKS_PER_SEC. Generally, on a 32-bit system, the CLOCKS_PER_SEC equals 1000000.</p>
+
+<h4 id="example">Example</h4>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">#include &lt; stdio.h &gt;
+#include &lt; stdlib.h &gt;
+#include &lt; sys/times.h &gt;
+#include &lt; time.h &gt;
+
+int
+main(int argc,char **argv) {
+
+  //To find MIPS
+  clock_t start_t, end_t;
+  int i;
+
+  // In the initialization portion of the code:
+  start_t = clock();
+
+  // Code to be profiled
+  /****** Code to be profiled ******/
+  printf("Starting of the program, start_t = %ld\n", start_t);
+  for (i = 0; i &lt; 10000000; i++) {
+  }
+  /*****************************/
+
+  end_t = clock();
+
+  // Print the information about the CPU time
+  printf("End of the big loop, end_t = %ld\n", end_t);
+  printf("Total time taken by CPU= %5.3f seconds\n",
+      (((double) (end_t - start_t)) / CLOCKS_PER_SEC));
+  return 0;
+}</span></code></pre></div>
+
+<h4 id="result">Result</h4>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code class="hljs ruby"><span class="nb">Starting of the program, start_t = 631
+End of the big loop, end_t = 13142
+Total time taken by CPU= 0.013 seconds</span></code></pre></div>
+
+<p>=========== To be continued…. ==========</p>
+
+<h2 id="reference">Reference</h2>
+<p>[1] <a href="https://www.tutorialspoint.com/c_standard_library/c_function_clock">Linux Programmer’s ManualC library function - clock()</a></p>
+
+<p>[2] <a href="https://www.itread01.com/content/1544395890.html">程式/程序執行時間分析（user cpu time, system cpu time, elpapsed time）</a></p>
+
+<h2 id="note">Note</h2>
+<p>If you have any constructive criticism or advises, leave the comments below or feel free to email me @qazqazqaz850@gmail.com.
+
+Hope this post will help! :)
+</p>
+:ET
