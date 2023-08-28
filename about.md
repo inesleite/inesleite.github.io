@@ -4,42 +4,42 @@ layout: page
 ---
 ![Profile Image]({% if site.external-image %}{{ site.picture }}{% else %}{{ site.url }}/{{ site.picture }}{% endif %})
 
-<p>Cyber Security Enthusiast, eJPT, CTF player, Yogosha Member, Learning blockchain & smart contracts pentesting, TryHackme Top 1500 Global. Red Team guy with a keen interest in Blue Teaming(I.e. Purple team)
-</p>
+<p>Lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 <h2>Skills</h2>
 
 <ul class="skill-list">
-	<li>Python</li>
-	<li>C</li>
-	<li>Bash</li>
-	<li>Kali Linux</li>
-	<li>Parrot OS</li>
-	<li>Arch Linux</li>
-	<li>Solidity</li>
-	<li>HTML & CSS</li>
-	<li>PHP</li>
-	<li>Golang</li>
+	<li>HTML - Jade - Haml - Erb</li>
+	<li>Responsive (Mobile First)</li>
+	<li>CSS (Stylus, Sass, Less)</li>
+	<li>Css Frameworks (Bootstrap, Foundation)</li>
+	<li>Javascript (Design Patterns, Testes)</li>
+	<li>AngularJS - ReactJS</li>
+	<li>Grunt - Gulp - Yeoman</li>
 	<li>Git</li>
-	<li>SQL</li>
-	<li>MarkDown</li>
-	<li>LaTex</li>
-	<li>Virtual Box, VmWare</li>
-	<li>Docker</li>
-	<li>Object Oriented Programming</li>
-	<li>C++</li>
-	<li>Rust</li>
-	<li>Java</li>
-
+	<li>PHP</li>
+	<li>Python</li>
+	<li>MySQL - MongoDB</li>
+	<li>Scrum and Kanban</li>
+	<li>TDD e Continuous Integration</li>
 </ul>
 
 <h2>Projects</h2>
 
 <ul>
-	<li><a href="https://github.com/Aviksaikat/LinGhost">LinGhost</a></li>
-	<li><a href="https://github.com/Aviksaikat/Bug-bounty-essentials">Bug Bounty Tools</a></li>
-	<li><a href="https://github.com/Aviksaikat/eJPT">eJPT Notes</a></li>
-	<li><a href="https://github.com/Aviksaikat/Markdown-to-pdf">Markdown To PDF</a></li>
-	<li><a href="https://github.com/Aviksaikat/">More About my tools & utility scripts</a></li>
+	<li><a href="https://github.com/">Lorem Lorem</a></li>
+	<li><a href="https://github.com/">Ipsum Dolor</a></li>
+	<li><a href="https://github.com/">Dolor Lorem</a></li>
 </ul>
