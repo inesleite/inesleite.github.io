@@ -51,9 +51,7 @@ If you want to test locally on your machine, do the following steps also:
 You must fill some informations on `_config.yml` to customize your site.
 
 ```
-name: John Doe
-bio: 'A Man who travels the world eating noodles'
-picture: 'assets/images/profile.jpg'
+name: Inês Leite
 ...
 
 and lot of other options, like width, projects, pages, read-time, tags, related posts, animations, multiple-authors, etc.
