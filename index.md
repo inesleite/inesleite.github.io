@@ -2,14 +2,14 @@
 
 ---
 
-[**Promotions Impact on Sales**](/promo_impact.md)
+[Promotions Impact on Sales](/promo_impact.md)
 
 
 ---
 
-[**Price Elasticity of Demand**](html/elasticity.html)
+[Price Elasticity of Demand](html/elasticity.html)
 
-<img src="images/elasticity_formula.png?raw=true"/>
+<img src="img/elasticity_formula.png?raw=true"/>
 
 
 **Price elasticity of demand (PED)** is a measure representing the quantity demanded to the change in the price of a product or service.
