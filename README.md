@@ -24,7 +24,6 @@ The task is to create a model that predicts the customer lifetime value (aka **L
 As a social network platform, one of our major concerns is user churn. The ability to identify potential user churn and proactively respond to retain those users is a valuable asset.
 
 - Design a solution to identify users at risk of churning. This solution should include your approach to data analysis, choice of model(s), feature selection, and strategies for user retention.
-
 - Implement a proof of concept of your solution design. This includes data preprocessing, a basic prediction model for user churn, and evaluation of the model's performance.
 
 ---
@@ -54,11 +53,10 @@ The training dataset contains the history of loan requests (orders) of a set of 
 [Github](https://github.com/inesleite/keystroke-dynamics)
 [nbviewer](https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb)
 
-[Kaggle challenge](https://www.kaggle.com/competitions/keystroke-dynamics-challenge-1/overview)
-Identify users based on the way they type
+[Kaggle challenge](https://www.kaggle.com/competitions/keystroke-dynamics-challenge-1/overview) - Identify users based on the way they type
 
-- press-1 - timestamp when the 1st key was pressed
-- release-1 - timestamp when the 1st key was released
+- *press-1* - timestamp when the 1st key was pressed
+- *release-1* - timestamp when the 1st key was released
 
 ---- 
 
@@ -68,8 +66,8 @@ Identify users based on the way they type
 [nbviewer](https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb)
 
 Kaggle challenge
-The data consists on timestamps, device and device_activated, the number of times each device was activated.
 
+The data consists on timestamps, device and device_activated, the number of times each device was activated.
 The objective of the challenge is to predict the next 24 hours individually, a predictions for 9:00 AM, 10:00 AM, and so on until 23:00PM the last timestamp of each day.
 
 ---- 
@@ -80,7 +78,6 @@ The objective of the challenge is to predict the next 24 hours individually, a p
 [nbviewer-1st](https://nbviewer.org/github/inesleite/conversion-improvements/blob/main/problem1.ipynb)
 [nbviewer-2nd](https://nbviewer.org/github/inesleite/conversion-improvements/blob/main/problem2.ipynb)
 
-Conversion Improvements
 The goal is to optimise conversion funnel by applying your data science skills to uncover user behaviour patterns in the data. The deliverable of this problem is to provide one or more recommendations on how we can improve conversion.
 
 ---- 
