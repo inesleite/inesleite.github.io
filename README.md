@@ -48,3 +48,39 @@ Build a credit model to predict future unpayments.
 The training dataset contains the history of loan requests (orders) of a set of customers, as well as when they paid. The test dataset, contains the details of the last transaction requested by some of these users. The goal is to estimate the likelihood of the customers not paying it. 
 
 ---
+
+## Keystroke Dynamics
+
+[Github](https://github.com/inesleite/keystroke-dynamics)
+[nbviewer](https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb)
+
+Kaggle challenge
+Identify users based on the way they type
+
+- press-1 - timestamp when the 1st key was pressed
+- release-1 - timestamp when the 1st key was released
+
+---- 
+
+## Device Activations Challenge
+
+[Github](https://github.com/inesleite/device-activations)
+[nbviewer](https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb)
+
+Kaggle challenge
+The data consists on timestamps, device and device_activated, the number of times each device was activated.
+
+The objective of the challenge is to predict the next 24 hours individually, a predictions for 9:00 AM, 10:00 AM, and so on until 23:00PM the last timestamp of each day.
+
+---- 
+
+## Conversion Improvements
+
+[Github](https://github.com/inesleite/conversion-improvements)
+[nbviewer](https://nbviewer.org/github/inesleite/conversion-improvements/blob/main/problem1.ipynb)
+[nbviewer](https://nbviewer.org/github/inesleite/conversion-improvements/blob/main/problem2.ipynb)
+
+Conversion Improvements
+The goal is to optimise conversion funnel by applying your data science skills to uncover user behaviour patterns in the data. The deliverable of this problem is to provide one or more recommendations on how we can improve conversion.
+
+---- 
