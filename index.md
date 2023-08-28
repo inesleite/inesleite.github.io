@@ -1,16 +1,11 @@
 ## Portfolio
 
+
+[Promotions Impact on Sales](/sample_page.md)
 ---
-
-### Category Name 1 
-
-[Project 1 Title](/sample_page)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
-
+[Price Elasticity of Demand](https://github.com/inesleite/price-elasticity)
 ---
-[Project 2 Title](/pdf/sample_presentation.pdf)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
-
+[Credit Decision Model](https://github.com/inesleite/credit-decision-model)
 ---
 [Project 3 Title](http://example.com/)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
