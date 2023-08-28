@@ -16,7 +16,7 @@
 
 ---
 
-[Credit Decision Model](https://github.com/inesleite/credit-decision-model)
+[Credit Decision Model](html/credit-decision-model.html)
 
 Build a credit model to predict future unpayments.
 
