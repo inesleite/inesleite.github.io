@@ -2,11 +2,12 @@
 
 ---
 
-[Promotions Impact on Sales](/promo_impact.md)
+[**Promotions Impact on Sales**](/promo_impact.md)
+
 
 ---
 
-[Price Elasticity of Demand](https://github.com/inesleite/price-elasticity)
+[**Price Elasticity of Demand**](html/elasticity.html)
 
 <img src="images/elasticity_formula.png?raw=true"/>
 
@@ -16,7 +17,7 @@
 
 ---
 
-[Credit Decision Model](html/credit-decision-model.html)
+[**Credit Decision Model**](html/credit-decision-model.html)
 
 Build a credit model to predict future unpayments.
 
