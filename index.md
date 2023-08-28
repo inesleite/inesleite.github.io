@@ -17,7 +17,7 @@
 
 ---
 
-[**Credit Decision Model**](html/credit-decision-model.html)
+[Credit Decision Model](html/credit-decision-model.html)
 
 Build a credit model to predict future unpayments.
 
