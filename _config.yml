@@ -1,13 +1,12 @@
 
 # Site settings
-title: Ines Leite
-name: Ines Leite
+title: Inês Leite
+name: Inês Leite
 subtitle: Learnings, Ramblings and Rants
 email: inesmarreirosleite@gmail.com
 description: >
   A personal website about technical projects that I did.
 baseurl: ""
-url: "https://www.inesleite.dev"
 github_username:  inesleite
 disqus_baseurl: "https://inesleite.github.io//"
 permalink: :title
@@ -40,10 +39,6 @@ gems:
 exclude:
   - "/vendor/"
 
-# Collections
-collections:
-  - talks
-
 #
 # Social settings are used in two places:
 # * In the footer, as links to your personal profiles
@@ -70,7 +65,7 @@ social:
 
   - name: LinkedIn
     icon: linkedin
-    username: Ines Leite
+    username: Inês Leite
     url: https://www.linkedin.com/in/ileite/
     desc: Connect with me on LinkedIn
     share: true
