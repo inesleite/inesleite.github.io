@@ -1,12 +1,26 @@
 ## Portfolio
 
+---
 
-[Promotions Impact on Sales](/sample_page.md)
+[Promotions Impact on Sales](/promo_impact.md)
+
 ---
+
 [Price Elasticity of Demand](https://github.com/inesleite/price-elasticity)
+
+Price elasticity of demand (PED) is a measure representing the quantity demanded to the change in the price of a product or service.
+
+<img src="images/elasticity_formula.jpg?raw=true"/>
+
+
 ---
+
 [Credit Decision Model](https://github.com/inesleite/credit-decision-model)
+
+Build a credit model to predict future unpayments.
+
+- The training dataset contains the history of loan requests (orders) of a set of customers, as well as when they paid. 
+- The test dataset, contains the details of the last transaction requested by some of these users. The goal is to estimate the likelihood of the customers not paying it.
+
 ---
-[Project 3 Title](http://example.com/)
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
 
