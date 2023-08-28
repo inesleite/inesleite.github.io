@@ -7,7 +7,7 @@
 
 ---
 
-[Price Elasticity of Demand](projects/elasticity.md)
+[Price Elasticity of Demand](projects/elasticity/elasticity.md)
 
 <img src="img/elasticity_formula.png?raw=true"/>
 
