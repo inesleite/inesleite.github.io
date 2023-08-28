@@ -2,15 +2,10 @@
 
 ---
 
-[Promotions Impact on Sales](/promo_impact.md)
-
----
-
-
 [Customer lifetime value](projects/ltv/ltv.md)
 
 
-**Price elasticity of demand (PED)** is a measure representing the quantity demanded to the change in the price of a product or service.
+Predicts the customer lifetime value (aka **LTV**) of a customer for the next 12 months. This metric is the sum of the monthly commission we collect from a customer during the first 12 months since they join us, plus the one time commission from additional products they might purchase (cross sell). The customers can cancel their subscription at any time.
 
 
 ---
@@ -20,12 +15,11 @@
 <img src="img/elasticity_formula.png?raw=true"/>
 
 
-**Price elasticity of demand (PED)** is a measure representing the quantity demanded to the change in the price of a product or service.
-
+Price elasticity of demand (**PED**) is a measure representing the quantity demanded to the change in the price of a product or service.
 
 ---
 
-[Credit Decision Model](html/credit-decision-model.html)
+[Credit Decision Model](projects/credit-model/credit-model.md)
 
 Build a credit model to predict future unpayments.
 
