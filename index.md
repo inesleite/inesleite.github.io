@@ -4,6 +4,14 @@
 
 [Promotions Impact on Sales](/promo_impact.md)
 
+---
+
+
+[Customer lifetime value](projects/ltv/ltv.md)
+
+
+**Price elasticity of demand (PED)** is a measure representing the quantity demanded to the change in the price of a product or service.
+
 
 ---
 
