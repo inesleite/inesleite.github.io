@@ -24,7 +24,7 @@ Rossmann is challenging you to predict 6 weeks of daily sales for 1,115 stores l
 
 Content optimisation: We currently have a very large library of voices and sounds. Sounds are grouped in “Theme packs” (Like Xmas, Video Games, movie titles etc). Each week each user gets one pack for free. You are told to maximize the usage of the weekly packs. What would you do? What data would you need?
 
-Churn reduction: Subscription business model where optimizing churn is a key factor. Using telco client churn sample data. The analysis is focus on different offers and the impact of selecting these offers. In this challenge I used the [econml library](https://econml.azurewebsites.net/_autosummary/econml.dr.DRLearner.html)
+Churn reduction: Subscription business model where optimizing churn is a key factor. Using telco client churn sample data. The analysis is focus on different offers and the impact of selecting these offers. In this challenge I used the [econml library](https://econml.azurewebsites.net/_autosummary/econml.dr.DRLearner.html).
 
 Telco Customer Churn Challenge - Focused customer retention programs - [link](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 
