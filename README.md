@@ -17,6 +17,19 @@ Rossmann is challenging you to predict 6 weeks of daily sales for 1,115 stores l
 
 ---
 
+## Offer Optimization
+
+[Github](https://github.com/inesleite/offer-optimization)
+[nbviewer](https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb)
+
+Content optimisation: We currently have a very large library of voices and sounds. Sounds are grouped in “Theme packs” (Like Xmas, Video Games, movie titles etc). Each week each user gets one pack for free. You are told to maximize the usage of the weekly packs. What would you do? What data would you need?
+
+Churn reduction: Subscription business model where optimizing churn is a key factor. Using telco client churn sample data. The analysis is focus on different offers and the impact of selecting these offers. 
+
+Telco Customer Churn Challenge - Focused customer retention programs - [link](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
+
+---
+
 ## Customer Lifetime Value
 
 [Github](https://github.com/inesleite/ltv-prediction)
@@ -67,8 +80,8 @@ The training dataset contains the history of loan requests (orders) of a set of 
 
 [Kaggle challenge](https://www.kaggle.com/competitions/keystroke-dynamics-challenge-1/overview) - Identify users based on the way they type
 
-- *press-1* - timestamp when the 1st key was pressed
-- *release-1* - timestamp when the 1st key was released
+- `press_1` - timestamp when the 1st key was pressed
+- `release_1` - timestamp when the 1st key was released
 
 ---- 
 
