@@ -4,12 +4,12 @@ This portfolio is a compilation of notebooks which I created for data analysis o
 
 ---
 
-## Rossmann Causality
+## Rossmann Uplift Model
 
-[Github](https://github.com/inesleite/rossmann-causality)
-[nbviewer](https://nbviewer.org/github/inesleite/rossmann-causality/blob/main/solution.ipynb)
+[Github](https://github.com/inesleite/rossmann-uplift)
+[nbviewer](https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb)
 
-Causality approach using 2 different models - My hypothesis is Sales can be optimized (maximized) if certain promotions in certain segments of products (Assortments) are launched in specific days and holidays. The ultimate goal would be to automate promotions and eventually stocks.
+Uplift model approach using 2 different models - My hypothesis is Sales can be optimized (maximized) if certain promotions in certain segments of products (Assortments) are launched in specific days and holidays. The ultimate goal would be to automate promotions and eventually stocks.
 
 Rossmann Store Sales Challenge - Forecast sales using store, promotion, and competitor data - [link](https://www.kaggle.com/c/rossmann-store-sales)
 
