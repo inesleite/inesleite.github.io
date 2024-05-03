@@ -1,6 +1,6 @@
 # Data science portfolio by Inês Leite
 
-This portfolio is a compilation of notebooks which I created for data analysis or for exploration of machine learning algorithms. You can find my resume [here](https://drive.google.com/file/d/15VQ4gAFr1AjVtJkus3zB9PzAaYqyF7DZ/view?usp=sharing).
+This portfolio is a compilation of notebooks which I created for data analysis or for exploration of machine learning algorithms. You can find my resume [here](https://drive.google.com/file/d/1lrVJkKgnXtQWhRNQxV2yxp9Igp7ASEfK/view?usp=sharing).
 
 
 ---
@@ -23,12 +23,15 @@ The standard shipment flow for our parcel lockers is as follows:
 Every day, we must decide which lockers to visit. This decision involves a **trade-off between conflicting business objectives**. Visiting more lockers increases delivery speed, but it also increases delivery costs.
 
 ---
+
 ## MTA Ridership Forecast
 
 [Github](https://github.com/inesleite/mta-ridership)
 [nbviewer](https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb)
 
 The Metropolitan Transit Authority, MTA runs the subway and buses in NYC. In order to better plan staff at various subway stations to serve passengers, it’s essential to understand the historical traffic pattern. Furthermore, realistic forecasting on ridership is important for staff planners to assess how many staff members are needed over time.
+
+---
 
 ## Rossmann Uplift Model
 
