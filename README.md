@@ -344,7 +344,7 @@ I am data scientist with a passion for turning data into actionable insights. Wi
       <img src="https://img.icons8.com/ios-filled/50/0078D4/email.png" alt="Email" width="20" height="20"> Email
     </a>
     |
-    <a href="https://www.linkedin.com/in/inesleite">
+    <a href="https://www.linkedin.com/in/ileite/">
       <img src="https://img.icons8.com/ios-filled/50/0078D4/linkedin.png" alt="LinkedIn" width="20" height="20"> LinkedIn
     </a>
     |
