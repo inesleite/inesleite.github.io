@@ -3,7 +3,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     line-height: 1.75;
     color: #333;
-    background: linear-gradient(135deg, #F0F4FD 0%, #FFFFFF 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(214, 51, 132, 0.1) 100%);
     padding: 40px;
     max-width: 1200px;
     margin: 0 auto;
@@ -148,6 +148,7 @@ nav a {
     color: #0056b3;
     text-decoration: none;
     margin-bottom: 10px;
+    font-size: 1.1em; /* Updated font size */
 }
 
 nav a:hover {
@@ -180,5 +181,9 @@ nav a:hover {
     .project-icons img {
         width: 30px;
         height: 30px;
+    }
+
+    nav a {
+        font-size: 1em; /* Smaller font size for Table of Contents on mobile */
     }
 }
