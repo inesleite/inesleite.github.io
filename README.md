@@ -48,29 +48,34 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 
   <div class="project-icons">
     <a href="https://github.com/inesleite/prioritize-lockers">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="20" height="20">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
     </a>
     <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="20" height="20">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
     </a>
   </div>
 </div>
 
-### MTA Ridership Forecast
+<div class="project" id="mta-ridership-forecast">
+  <h3>MTA Ridership Forecast</h3>
+  <p><b>Objective</b>: Forecast subway ridership to optimize staff allocation at various NYC subway stations.</p>
+  <p><b>Context</b>: The MTA needs accurate predictions to improve operational efficiency and passenger experience.</p>
+  
+  <p><b>Methodology</b>:</p>
+  <ul>
+    <li><b>Time Series Modeling</b>: Employed advanced models like <i>LightGBM</i> and <i>Prophet</i> to capture seasonality and external factors..</li>
+    <li><b>Model Evaluation</b>: Used <i>MAPE</i> and <i>RMSE</i> for performance assessment, with cross-validation for robustness.</li>
+  </ul>
 
-[GitHub Repository](https://github.com/inesleite/mta-ridership) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb)
-
-#### Project Overview
-
-- **Objective**: Forecast subway ridership to optimize staff allocation at various NYC subway stations.
-- **Context**: The MTA needs accurate predictions to improve operational efficiency and passenger experience.
-
-#### Methodology
-
-- **Time Series Modeling**: Employed advanced models like **LightGBM** and **Prophet** to capture seasonality and external factors.
-- **Model Evaluation**: Used **MAPE** and **RMSE** for performance assessment, with cross-validation for robustness.
-
----
+  <div class="project-icons">
+    <a href="https://github.com/inesleite/mta-ridership">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+    </a>
+    <a href="https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+    </a>
+  </div>
+</div>
 
 ### Rossmann Uplift Model
 
