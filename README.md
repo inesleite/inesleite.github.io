@@ -353,6 +353,3 @@ I am data scientist with a passion for turning data into actionable insights. Wi
     </a>
   </p>
 </div>
-
-
-Thank you for visiting my portfolio!
