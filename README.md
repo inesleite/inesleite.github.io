@@ -46,6 +46,20 @@ Rossmann is challenging you to predict 6 weeks of daily sales for 1,115 stores l
 
 ---
 
+## Pricing Optimization
+
+[Github](https://github.com/inesleite/pricing-optimization)
+[nbviewer](https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/))
+
+
+Two-sided ride-hailing marketplace, meaning that we need to balance the needs and demands of both drivers and passengers.
+
+On one side of the marketplace, we have passengers who rely on the platform to quickly and conveniently find rides. They expect a seamless experience, with minimal waiting times and reasonable prices. On the other side, we have drivers, who use the platform to find passengers and generate income. Their needs include a steady stream of ride requests with fair compensation.
+
+Dynamic pricing plays a critical role in maintaining this balance. By adjusting prices in real-time based on supply and demand, we can incentivise drivers to be available on the platform during high-demand periods, ensuring that passengers can find rides quickly even when the need is greatest. Moreover, dynamic pricing helps manage demand by moderating the number of ride requests. When demand is exceptionally high, slightly higher prices can prevent the system from becoming overloaded with requests, thus maintaining service quality and availability. Conversely, during low-demand periods, lower prices can attract more passengers, ensuring that drivers still have enough ride requests to remain active and profitable.
+
+---
+
 ## Customer Segmentation
 
 [Github](https://github.com/inesleite/segmentation)
@@ -53,8 +67,8 @@ Rossmann is challenging you to predict 6 weeks of daily sales for 1,115 stores l
 
 Every row of the dataset represents one customer who has registered to use the service during September 2020 and either has or hasn’t made orders during the time from then and October 2021.
 
-- EDA: Imagine that you are asked to present customer’s insights for the newly created Consumer Product team for a service. What can you find in the dataset that will be interesting for them to know?
-- Segmentation: Provide a user segmentation that could be used by a marketing team to reactivate different kinds of users. Add recommendations on how to use the segmentation for this purpose. Remember to justify your segmentation approach so that we understand why the way you did it is better than an arbitrary solution by a non-data scientist who can do some slicing-and-dicing with the data.
+- **EDA:** Imagine that you are asked to present customer’s insights for the newly created Consumer Product team for a service. What can you find in the dataset that will be interesting for them to know?
+- **Segmentation:** Provide a user segmentation that could be used by a marketing team to reactivate different kinds of users. Add recommendations on how to use the segmentation for this purpose. Remember to justify your segmentation approach so that we understand why the way you did it is better than an arbitrary solution by a non-data scientist who can do some slicing-and-dicing with the data.
 
 ---
 
@@ -141,8 +155,7 @@ The objective of the challenge is to predict the next 24 hours individually, a p
 ## Conversion Improvements
 
 [Github](https://github.com/inesleite/conversion-improvements)
-[nbviewer-1st](https://nbviewer.org/github/inesleite/conversion-improvements/blob/main/problem1.ipynb)
-[nbviewer-2nd](https://nbviewer.org/github/inesleite/conversion-improvements/blob/main/problem2.ipynb)
+[nbviewer](https://nbviewer.org/github/inesleite/conversion-improvements/tree/main/)
 
 The goal is to optimise conversion funnel by applying your data science skills to uncover user behaviour patterns in the data. The deliverable of this problem is to provide one or more recommendations on how we can improve conversion.
 
