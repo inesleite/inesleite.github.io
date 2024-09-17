@@ -36,15 +36,30 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 
 ## Projects
 
-### Prioritize Lockers
-
 <div class="project">
   <h3>Prioritize Lockers</h3>
   <p><b>Objective</b>: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.</p>
   <p><b>Context</b>: Managing a network of parcel lockers requires strategic decisions that impact customer satisfaction and efficiency.</p>
-  <p><b>Methodology</b>: Developed a linear programming model using <i>PuLP</i> to minimize costs while meeting delivery speed requirements. The model incorporates locker demand, geographical locations, and vehicle capacities.</p>
-  <p><a href="https://github.com/inesleite/prioritize-lockers">GitHub Repository</a> | <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">Notebook on nbviewer</a></p>
+  <p><b>Methodology</b>:</p>
+  <ul>
+    <li><b>Optimization Model</b>: Formulated a linear programming model using <i>PuLP</i> to minimize costs while meeting delivery speed requirements.</li>
+    <li><b>Constraints and Variables</b>: Incorporated factors such as locker demand, geographical locations, and vehicle capacities.</li>
+    <li><b>Advanced Techniques</b>: Utilized constraint programming and sensitivity analysis to enhance the model's robustness.</li>
+  </ul>
+  <p>
+    <a href="https://github.com/inesleite/prioritize-lockers">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="20" height="20">
+      GitHub Repository
+    </a>
+    |
+    <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">
+      <img src="https://nbviewer.org/static/img/nbviewer_logo.png" alt="nbviewer" width="20" height="20">
+      Notebook on nbviewer
+    </a>
+  </p>
 </div>
+
+### Prioritize Lockers
 
 [GitHub Repository](https://github.com/inesleite/prioritize-lockers) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb)
 
