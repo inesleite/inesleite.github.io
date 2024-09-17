@@ -24,13 +24,25 @@ body {
     text-decoration: none;
     font-size: 18px;
     color: #333;
-    display: block;
+    display: flex;
+    align-items: center;
     transition: 0.3s;
+}
+
+.sidebar a img {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    filter: brightness(0); /* Make icons match text color */
 }
 
 .sidebar a:hover {
     background-color: #d63384;
     color: white;
+}
+
+.sidebar a:hover img {
+    filter: brightness(5); /* Change icon color on hover */
 }
 
 .main-content {
@@ -66,6 +78,14 @@ ul {
 ul li {
     margin-left: 20px;
     list-style-type: disc;
+    display: flex;
+    align-items: center;
+}
+
+ul li img {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
 }
 
 a {
@@ -77,82 +97,6 @@ a {
 a:hover {
     text-decoration: underline;
     color: #d63384;
-}
-
-/* Project cards */
-.project {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.project:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    transform: scale(1.02);
-}
-
-.project h3:hover {
-    color: #d63384;
-    text-decoration: underline;
-}
-
-/* Project icons */
-.project-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-}
-
-.project-icons img {
-    width: 35px;
-    height: 35px;
-    margin: 0 10px;
-    opacity: 0.9;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.project-icons img:hover {
-    opacity: 1;
-    transform: scale(1.2); /* Increased size on hover */
-}
-
-/* Contact section */
-.contact-info {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.contact-info a {
-    margin-right: 15px;
-    font-size: 18px;
-    display: inline-block;
-    padding: 12px 20px;
-    background-color: #eaeaea;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s ease;
-}
-
-.contact-info a:hover {
-    background-color: #d63384;
-    color: #fff;
-    transform: translateY(-3px);
-}
-
-.contact-info img {
-    width: 25px;
-    height: 25px;
-    margin-right: 10px;
-    vertical-align: middle;
 }
 
 /* Responsive design */
