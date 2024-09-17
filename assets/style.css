@@ -27,14 +27,24 @@ h3 {
 }
 
 p, ul li {
-    font-size: 1em; /* Ensures consistency between paragraphs and list items */
-    margin-bottom: 15px;
+    font-size: 1em; /* Consistent size between paragraphs and list items */
+    margin-bottom: 10px;
     line-height: 1.6; /* Improves readability */
 }
 
+ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 ul li {
-    list-style-type: disc;
     margin-left: 20px;
+    list-style-type: disc;
+}
+
+/* Ensures no hover effect on list items unless they contain a link */
+ul li:hover {
+    color: inherit; /* No hover color change on plain text list items */
 }
 
 a {
@@ -111,12 +121,6 @@ a:hover {
     height: 25px;
     margin-right: 10px;
     vertical-align: middle;
-}
-
-/* Hover effects for project content */
-.project ul li:hover {
-    color: #d63384;
-    transition: color 0.3s ease;
 }
 
 /* Responsive design */
