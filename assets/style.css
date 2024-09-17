@@ -14,7 +14,6 @@ h1 {
     color: #d63384;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1.8em; /* Main heading size */
     margin-bottom: 15px;
 }
 
@@ -22,12 +21,10 @@ h3 {
     color: #d63384;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1.25em; /* Reduced size for project titles */
     margin-bottom: 10px;
 }
 
 p {
-    font-size: 1em;
     margin-bottom: 15px;
 }
 
@@ -115,18 +112,6 @@ a:hover {
 
     .project {
         padding: 15px;
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-
-    h3 {
-        font-size: 1.1em;
-    }
-
-    p {
-        font-size: 0.9em;
     }
 
     .project-icons img {
