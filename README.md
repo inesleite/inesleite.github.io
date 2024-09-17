@@ -261,7 +261,9 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 
 - **Data Exploration**: Used **SQL** queries to calculate key metrics such as conversion rate and user device preferences based on session data.
 - **Feature Aggregation**: Aggregated session data to extract key features like time of day, user device type, and geographic location for deeper analysis of conversion patterns.
-- **Machine Learning**: Trained a **Random Forest Classifier** to predict conversions and applied **SHAP** (SHapley Additive exPlanations) to interpret model predictions and identify the most important factors driving conversions.
+- **Machine Learning**: Trained a **Random Forest Classifier** to predict conversions and applied **SHAP** to interpret model predictions and identify the most important factors driving conversions.
+
+  
 ---
 
 ## Contact Information
