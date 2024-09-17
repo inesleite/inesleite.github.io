@@ -36,166 +36,242 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 
 ### Prioritize Lockers
 
-**GitHub**: [Repository Link](https://github.com/inesleite/prioritize-lockers)  
-**Notebook**: [View on nbviewer](https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb)
+[GitHub Repository](https://github.com/inesleite/prioritize-lockers) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb)
 
 #### Project Overview
 
 - **Objective**: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.
-- **Context**: Managing a network of parcel lockers used for shipping items requires making strategic decisions that impact customer satisfaction and efficiency.
-  
+- **Context**: Managing a network of parcel lockers requires strategic decisions that impact customer satisfaction and efficiency.
+
 #### Methodology
 
-- **Data Handling**: Cleaned and processed shipment and locker data to ensure accuracy.
-- **Optimization Model**: Formulated a linear programming model to minimize costs while meeting delivery speed requirements.
-- **Constraints**: Considered factors like locker demand, geographical locations, and capacity limitations.
+- **Optimization Model**: Formulated a linear programming model using **PuLP** to minimize costs while meeting delivery speed requirements.
+- **Constraints and Variables**: Incorporated factors such as locker demand, geographical locations, and vehicle capacities.
+- **Advanced Techniques**: Utilized constraint programming and sensitivity analysis to enhance the model's robustness.
 
 ---
 
 ### MTA Ridership Forecast
 
-**GitHub**: [Repository Link](https://github.com/inesleite/mta-ridership)  
-**Notebook**: [View on nbviewer](https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb)
+[GitHub Repository](https://github.com/inesleite/mta-ridership) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb)
 
 #### Project Overview
 
 - **Objective**: Forecast subway ridership to optimize staff allocation at various NYC subway stations.
-- **Context**: The Metropolitan Transit Authority (MTA) needs accurate predictions to improve operational efficiency and passenger experience.
+- **Context**: The MTA needs accurate predictions to improve operational efficiency and passenger experience.
 
 #### Methodology
 
-- **Data Handling**: Merged historical ridership data with external variables such as weather conditions and public events.
-- **Modeling Techniques**: Employed ARIMA, SARIMAX, and Prophet models for time series forecasting.
-- **Feature Engineering**: Created lag variables and moving averages to capture trends and seasonality.
+- **Time Series Modeling**: Employed advanced models like **LightGBM** and **Prophet** to capture seasonality and external factors.
+- **Model Evaluation**: Used **MAPE** and **RMSE** for performance assessment, with cross-validation for robustness.
 
 ---
 
-## Rossmann Uplift Model
+### Rossmann Uplift Model
 
-[Github](https://github.com/inesleite/rossmann-uplift)
-[nbviewer](https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb)
+[GitHub Repository](https://github.com/inesleite/rossmann-uplift) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb)
 
-Uplift model approach using 2 different models - My hypothesis is Sales can be optimized (maximized) if certain promotions in certain segments of products (Assortments) are launched in specific days and holidays. The ultimate goal would be to automate promotions and eventually stocks.
+#### Project Overview
 
-Rossmann Store Sales Challenge - Forecast sales using store, promotion, and competitor data - [link](https://www.kaggle.com/c/rossmann-store-sales)
+- **Objective**: Optimize sales through targeted promotions using uplift modeling.
+- **Context**: Rossmann seeks to automate promotions and inventory management across its extensive retail network.
 
-Rossmann is challenging you to predict 6 weeks of daily sales for 1,115 stores located across Germany. Reliable sales forecasts enable store managers to create effective staff schedules that increase productivity and motivation. By helping Rossmann create a robust prediction model, you will help store managers stay focused on what’s most important to them: their customers and their teams! 
+#### Methodology
 
----
-
-## Pricing Optimization
-
-[Github](https://github.com/inesleite/pricing-optimization)
-[nbviewer](https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/)
-
-
-Two-sided ride-hailing marketplace, meaning that we need to balance the needs and demands of both drivers and passengers.
-
-- On one side of the marketplace, we have passengers who rely on the platform to quickly and conveniently find rides. They expect a seamless experience, with minimal waiting times and reasonable prices.
-- On the other side, we have drivers, who use the platform to find passengers and generate income. Their needs include a steady stream of ride requests with fair compensation.
-
-Dynamic pricing plays a critical role in maintaining this balance. By adjusting prices in real-time based on supply and demand, we can incentivise drivers to be available on the platform during high-demand periods, ensuring that passengers can find rides quickly even when the need is greatest. 
-Moreover, dynamic pricing helps manage demand by moderating the number of ride requests. When demand is exceptionally high, slightly higher prices can prevent the system from becoming overloaded with requests, thus maintaining service quality and availability. Conversely, during low-demand periods, lower prices can attract more passengers, ensuring that drivers still have enough ride requests to remain active and profitable.
+- **Uplift Modeling**: Employed a two-model approach (treatment and control) using **scikit-learn** classifiers to estimate the incremental impact of promotions.
+- **Data Analysis**: Analyzed historical sales data, promotions, and store information to identify key factors influencing uplift.
+- **Evaluation Metrics**: Used **uplift scores** to assess model performance.
+- **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.
 
 ---
 
-## Customer Segmentation
+### Pricing Optimization
 
-[Github](https://github.com/inesleite/segmentation)
-[nbviewer](https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb)
+[GitHub Repository](https://github.com/inesleite/pricing-optimization) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/)
 
-Every row of the dataset represents one customer who has registered to use the service during September 2020 and either has or hasn’t made orders during the time from then and October 2021.
+#### Project Overview
 
-- **EDA:** Imagine that you are asked to present customer’s insights for the newly created Consumer Product team for a service. What can you find in the dataset that will be interesting for them to know?
-- **Segmentation:** Provide a user segmentation that could be used by a marketing team to reactivate different kinds of users. Add recommendations on how to use the segmentation for this purpose. Remember to justify your segmentation approach so that we understand why the way you did it is better than an arbitrary solution by a non-data scientist who can do some slicing-and-dicing with the data.
+- **Objective**: Implement dynamic pricing in a ride-hailing marketplace to balance supply and demand.
+- **Context**: Ensuring passenger satisfaction with minimal wait times while maximizing driver earnings.
 
----
+#### Methodology
 
-## Offer Optimization
+- **Behavior Modeling**: Trained machine learning models to predict the **probability of passenger acceptance** of a price quote and the **probability of driver acceptance** of a ride offer. Used labeled datasets to explore and evaluate these models.
+- **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.
+- **Reinforcement Learning**: Developed a pricing agent using **Deep Q-Networks (DQN)** with **TensorFlow**.
+- **Simulation Environment**: Created a custom simulation to model marketplace dynamics and test pricing strategies.
+- **Optimization Techniques**: Applied advanced algorithms like **Proximal Policy Optimization (PPO)** for continuous action spaces.
 
-[Github](https://github.com/inesleite/offer-optimization)
-[nbviewer](https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb)
-
-Content optimisation: We currently have a very large library of voices and sounds. Sounds are grouped in “Theme packs” (Like Xmas, Video Games, movie titles etc). Each week each user gets one pack for free. You are told to maximize the usage of the weekly packs. What would you do? What data would you need?
-
-Churn reduction: Subscription business model where optimizing churn is a key factor. Using telco client churn sample data. The analysis is focus on different offers and the impact of selecting these offers. In this challenge I used the [econml library](https://econml.azurewebsites.net/_autosummary/econml.dr.DRLearner.html).
-
-Telco Customer Churn Challenge - Focused customer retention programs - [link](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 
 ---
 
-## Customer Lifetime Value
+### Customer Segmentation
 
-[Github](https://github.com/inesleite/ltv-prediction)
-[nbviewer](https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb)
+[GitHub Repository](https://github.com/inesleite/segmentation) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb)
 
-The business model is subscription based. They have different insurance products and we have a wide variety of features available per user, some of which can change over time.
+#### Project Overview
 
-The task is to create a model that predicts the customer lifetime value (aka **LTV**) of a customer for the next 12 months. This metric is the sum of the monthly commission we collect from a customer during the first 12 months since they join us, plus the one time commission from additional products they might purchase (cross sell). The customers can cancel their subscription at any time.
+- **Objective**: Segment users to enhance targeted marketing and reactivation strategies.
+- **Context**: Understanding customer behavior to reduce churn and increase engagement.
 
----
+#### Methodology
 
-## Churn predictions
+- **Clustering Techniques**: Applied **K-Means** clustering to group users based on behavioral patterns derived from Recency, Frequency, and Monetary (RFM) analysis.
+- **Feature Engineering**: Utilized RFM analysis and additional behavioral metrics (e.g., purchase timing) to define segmentation variables.
+- **Survival Analysis**: Implemented the **Cox Proportional Hazards** model to assess how various covariates affect the risk of customer churn.
+- **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.
 
-[Github](https://github.com/inesleite/ltv-prediction)
-[nbviewer](https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb)
-
-As a social network platform, one of our major concerns is user churn. The ability to identify potential user churn and proactively respond to retain those users is a valuable asset.
-
-- Design a solution to identify users at risk of churning. This solution should include your approach to data analysis, choice of model(s), feature selection, and strategies for user retention.
-- Implement a proof of concept of your solution design. This includes data preprocessing, a basic prediction model for user churn, and evaluation of the model's performance.
 
 ---
 
-## Price Elasticity of Demand
+### Offer Optimization
 
-[Github](https://github.com/inesleite/price-elasticity)
-[nbviewer](https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb)
+[GitHub Repository](https://github.com/inesleite/offer-optimization) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb)
 
-Price elasticity of demand (**PED**) is a measure representing the quantity demanded to the change in the price of a product or service. To simplify, it is the ratio of percentage change in quantity demanded of a product in response to the percent change in its price.
+#### Project Overview
+
+- **Objective**: Maximize user engagement by optimizing weekly content offers.
+- **Context**: Providing users with free theme packs to increase app usage and reduce churn.
+
+#### Methodology
+
+- **Causal Inference**: Employed a **Difference-in-Means Estimator** to compute the **Average Treatment Effect (ATE)** of different offers on churn, improving the efficiency of the estimator with additional covariates.
+- **Machine Learning**: Built a **LightGBM** model to predict churn probabilities, tuned with **Optuna** to optimize hyperparameters.
+- **Policy Evaluation**: Assessed the impact of offers on profits for high-revenue customers by comparing profits for treated and untreated individuals, and evaluated policies for targeting high-revenue customers to reduce churn.
+- **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.
+
 
 ---
 
-## Credit Decision Model
+### Customer Lifetime Value
 
-[Github](https://github.com/inesleite/credit-decision-model)
-[nbviewer](https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb)
+[GitHub Repository](https://github.com/inesleite/ltv-prediction) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb)
 
-Build a credit model to predict future unpayments.
+#### Project Overview
 
-The training dataset contains the history of loan requests (orders) of a set of customers, as well as when they paid. The test dataset, contains the details of the last transaction requested by some of these users. The goal is to estimate the likelihood of the customers not paying it. 
+- **Objective**: Predict the 12-month customer lifetime value (LTV) for a subscription-based insurance company.
+- **Context**: Enhancing revenue forecasting and informing customer acquisition strategies.
+
+#### Methodology
+
+- **Predictive Modeling**: Built regression models using **LightGBM** and survival analysis techniques.
+- **Churn Modeling**: Integrated churn probability into LTV predictions.
+- **Feature Engineering**: Captured customer behavior over time.
+- **Business Impact**: Estimated the business impact by targeting the top 20% of customers with the highest predicted LTV. This approach allows for calculating the number of retained customers, comparing the new churn rate with the baseline, and estimating the potential increase in revenue due to improved retention.
 
 ---
 
-## Keystroke Dynamics
+### Churn Predictions
 
-[Github](https://github.com/inesleite/keystroke-dynamics)
-[nbviewer](https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb)
+[GitHub Repository](https://github.com/inesleite/churn-prediction) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb)
 
-[Kaggle challenge](https://www.kaggle.com/competitions/keystroke-dynamics-challenge-1/overview) - Identify users based on the way they type
+#### Project Overview
 
-- `press_1` - timestamp when the 1st key was pressed
-- `release_1` - timestamp when the 1st key was released
+- **Objective**: Identify users at risk of churning from a social network platform to enable proactive retention strategies.
+- **Context**: User retention is critical for growth and revenue in social media applications.
 
----- 
+#### Methodology
 
-## Device Activations Challenge
+- **Machine Learning Models**: Implemented **LightGBM** classifiers to predict churn.
+- **Hyperparameter Tuning**: Utilized **Grid Search** for hyperparameter tuning to optimize the performance of the models.
+- **Feature Engineering**: Developed features based on user engagement metrics and social connections to capture user behavior and interaction patterns.
 
-[Github](https://github.com/inesleite/device-activations)
-[nbviewer](https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb)
+---
 
-Kaggle challenge
+### Price Elasticity of Demand
 
-The data consists on timestamps, device and device_activated, the number of times each device was activated.
-The objective of the challenge is to predict the next 24 hours individually, a predictions for 9:00 AM, 10:00 AM, and so on until 23:00PM the last timestamp of each day.
+[GitHub Repository](https://github.com/inesleite/price-elasticity) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb)
 
----- 
+#### Project Overview
 
-## Conversion Improvements
+- **Objective**: Calculate price elasticity to inform pricing strategies.
+- **Context**: Essential for revenue optimization through pricing adjustments.
 
-[Github](https://github.com/inesleite/conversion-improvements)
-[nbviewer](https://nbviewer.org/github/inesleite/conversion-improvements/tree/main/)
+#### Methodology
 
-The goal is to optimise conversion funnel by applying your data science skills to uncover user behaviour patterns in the data. The deliverable of this problem is to provide one or more recommendations on how we can improve conversion.
+- **Linear Regression and Price Elasticity Estimation**: Applied linear regression models to estimate price elasticity for various product categories. Calculated price elasticity using the formula `(slope) * (mean_price / mean_quantity)` and performed null hypothesis testing to validate statistically significant results.
+- **Cross-Price Elasticity**: Used multi-linear regression to calculate cross-price elasticity across different product categories. This included modeling the impact of competitor pricing on the demand of other products, using a significance threshold to reject the null hypothesis for categories with significant relationships.
+- **Hypothesis Testing**: Tested the null hypothesis that price changes do not affect demand. Rejected the hypothesis for categories where price elasticity and cross-price elasticity coefficients were significant.
+- **Visualization**: Generated divergent plots to visualize the elasticity of various product categories, indicating which products are elastic or inelastic with respect to price changes.
+- **Business Insights**: The elasticity and cross-elasticity insights allow for informed pricing strategies. Products with negative price elasticity were found to be more sensitive to price changes, guiding decisions on which products can bear price increases without reducing demand.
 
----- 
+---
+
+### Credit Decision Model
+
+[GitHub Repository](https://github.com/inesleite/credit-decision-model) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb)
+
+#### Project Overview
+
+- **Objective**: Build a credit risk model to predict loan defaults.
+- **Context**: Minimize financial risk and comply with regulatory standards.
+
+#### Methodology
+
+- **Machine Learning Models**: Implemented **RandomForestClassifier** to predict the probability of loan defaults, with the model trained to handle imbalanced data. Model performance was evaluated using **ROC curves**, **precision-recall curves**, and **classification reports**.
+- **Feature Engineering**: Developed meaningful features from the loan data, including payment history, loan amount, and customer demographics. These features were refined and tested to optimize model performance.
+
+---
+
+### Keystroke Dynamics
+
+[GitHub Repository](https://github.com/inesleite/keystroke-dynamics) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb)
+
+#### Project Overview
+
+- **Objective**: Identify users based on typing patterns for enhanced security.
+- **Context**: Behavioral biometrics for user authentication.
+
+#### Methodology
+
+- **Machine Learning Models**: Used **KNeighborsClassifier** with cross-validation to predict user identities based on typing patterns. Also employed **XGBoost** with **Grid Search** to optimize hyperparameters for improved classification performance.
+- **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model’s predictions and understand the impact of individual features.
+- **Model Evaluation**: Evaluated models using accuracy scores, with the best configuration achieving high accuracy through fine-tuning of hyperparameters.
+
+---
+
+### Device Activations Challenge
+
+[GitHub Repository](https://github.com/inesleite/device-activations) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb)
+
+#### Project Overview
+
+- **Objective**: Predict hourly device activations for resource planning.
+- **Context**: Helps in scaling server capacity and staffing.
+
+#### Methodology
+
+- **Logistic Regression**: Trained a **Logistic Regression** model to predict device activations, utilizing standardized features and temporal train-test splits for time series forecasting.
+- **Feature Engineering**: Computed lag features for different time intervals (24, 48, 72 hours) to capture historical trends and improve model accuracy.
+- **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.
+- **Model Evaluation**: Assessed model performance using **classification reports** and plotted standardized coefficients to understand feature contributions.
+
+---
+
+### Conversion Improvements
+
+[GitHub Repository](https://github.com/inesleite/conversion-improvements) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/conversion-improvements/tree/main/)
+
+#### Project Overview
+
+- **Objective**: Optimize the conversion funnel by analyzing user behavior.
+- **Context**: Direct impact on revenue and customer acquisition costs.
+
+#### Methodology
+
+- **Data Exploration**: Used **SQL** queries to calculate key metrics such as conversion rate and user device preferences based on session data.
+- **Feature Aggregation**: Aggregated session data to extract key features like time of day, user device type, and geographic location for deeper analysis of conversion patterns.
+- **Machine Learning**: Trained a **Random Forest Classifier** to predict conversions and applied **SHAP** (SHapley Additive exPlanations) to interpret model predictions and identify the most important factors driving conversions.
+---
+
+## Contact Information
+
+Feel free to reach out if you'd like to discuss any of these projects or explore potential collaborations.
+
+- **Email**: [inesmarreirosleite@gmail.com](mailto:inesmarreirosleite@gmail.com)
+- **LinkedIn**: [linkedin.com/in/inesleite](https://www.linkedin.com/in/inesleite)
+- **GitHub**: [github.com/inesleite](https://github.com/inesleite)
+
+---
+
+Thank you for visiting my portfolio!
