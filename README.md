@@ -48,10 +48,10 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 
   <div class="project-icons">
     <a href="https://github.com/inesleite/prioritize-lockers">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="20" height="20">
     </a>
     <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="20" height="20">
     </a>
   </div>
 </div>
