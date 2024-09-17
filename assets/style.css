@@ -14,6 +14,7 @@ h1 {
     color: #d63384;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+    font-size: 1.8em;
     margin-bottom: 15px;
 }
 
@@ -21,11 +22,19 @@ h3 {
     color: #d63384;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+    font-size: 1.4em;
     margin-bottom: 10px;
 }
 
-p {
+p, ul li {
+    font-size: 1em; /* Ensures consistency between paragraphs and list items */
     margin-bottom: 15px;
+    line-height: 1.6; /* Improves readability */
+}
+
+ul li {
+    list-style-type: disc;
+    margin-left: 20px;
 }
 
 a {
@@ -61,7 +70,7 @@ a:hover {
 }
 
 .project-icons img {
-    width: 35px; /* Slightly larger icons */
+    width: 35px;
     height: 35px;
     margin: 0 10px;
     opacity: 0.9;
@@ -104,6 +113,12 @@ a:hover {
     vertical-align: middle;
 }
 
+/* Hover effects for project content */
+.project ul li:hover {
+    color: #d63384;
+    transition: color 0.3s ease;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     body {
@@ -112,6 +127,18 @@ a:hover {
 
     .project {
         padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    p, ul li {
+        font-size: 0.9em;
     }
 
     .project-icons img {
