@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="assets/style.css">
+
 # Data Science Portfolio
 
 Welcome to my data science portfolio! Here you'll find a collection of my projects that showcase my expertise in data analysis, machine learning, optimization, and more. Each project addresses a real-world business problem, and I provide detailed explanations of my approach, methodologies, and the impact of my work.
@@ -35,6 +37,14 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 ## Projects
 
 ### Prioritize Lockers
+
+<div class="project">
+  <h3>Prioritize Lockers</h3>
+  <p><b>Objective</b>: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.</p>
+  <p><b>Context</b>: Managing a network of parcel lockers requires strategic decisions that impact customer satisfaction and efficiency.</p>
+  <p><b>Methodology</b>: Developed a linear programming model using <i>PuLP</i> to minimize costs while meeting delivery speed requirements. The model incorporates locker demand, geographical locations, and vehicle capacities.</p>
+  <p><a href="https://github.com/inesleite/prioritize-lockers">GitHub Repository</a> | <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">Notebook on nbviewer</a></p>
+</div>
 
 [GitHub Repository](https://github.com/inesleite/prioritize-lockers) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb)
 
@@ -273,6 +283,11 @@ Feel free to reach out if you'd like to discuss any of these projects or explore
 - **Email**: [inesmarreirosleite@gmail.com](mailto:inesmarreirosleite@gmail.com)
 - **LinkedIn**: [linkedin.com/in/inesleite](https://www.linkedin.com/in/inesleite)
 - **GitHub**: [github.com/inesleite](https://github.com/inesleite)
+
+<div class="contact-info">
+  <p>Feel free to reach out if you'd like to discuss any of these projects or explore potential collaborations.</p>
+  <p><a href="mailto:inesmarreirosleite@gmail.com"><i class="fas fa-envelope"></i> Email</a> | <a href="https://www.linkedin.com/in/inesleite"><i class="fab fa-linkedin"></i> LinkedIn</a> | <a href="https://github.com/inesleite"><i class="fab fa-github"></i> GitHub</a></p>
+</div>
 
 ---
 
