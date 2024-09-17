@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Data Science Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation Sidebar -->
+  <div class="sidebar">
+    <a href="index.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Projects</h1>
+
+    <!-- Collapsible Project Sections -->
+    <button class="collapsible">Prioritize Lockers</button>
+    <div class="content">
+      <p><b>Objective</b>: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.</p>
+      <p><b>Context</b>: Managing a network of parcel lockers requires strategic decisions that impact customer satisfaction and efficiency.</p>
+      <ul>
+        <li><b>Optimization Model</b>: Formulated a linear programming model using <i>PuLP</i> to minimize costs while meeting delivery speed requirements.</li>
+        <li><b>Constraints and Variables</b>: Incorporated factors such as locker demand, geographical locations, and vehicle capacities.</li>
+        <li><b>Advanced Techniques</b>: Utilized constraint programming and sensitivity analysis to enhance the model's robustness.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/prioritize-lockers">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">MTA Ridership Forecast</button>
+    <div class="content">
+      <p><b>Objective</b>: Forecast subway ridership to optimize staff allocation at various NYC subway stations.</p>
+      <p><b>Context</b>: The MTA needs accurate predictions to improve operational efficiency and passenger experience.</p>
+      <ul>
+        <li><b>Time Series Modeling</b>: Employed advanced models like <i>LightGBM</i> and <i>Prophet</i> to capture seasonality and external factors.</li>
+        <li><b>Model Evaluation</b>: Used <i>MAPE</i> and <i>RMSE</i> for performance assessment, with cross-validation for robustness.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/mta-ridership">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Rossmann Uplift Model</button>
+    <div class="content">
+      <p><b>Objective</b>: Optimize sales through targeted promotions using uplift modeling.</p>
+      <p><b>Context</b>: Rossmann seeks to automate promotions and inventory management across its extensive retail network.</p>
+      <ul>
+        <li><b>Uplift Modeling</b>: Employed a two-model approach (treatment and control) using <i>scikit-learn</i> classifiers to estimate the incremental impact of promotions.</li>
+        <li><b>Data Analysis</b>: Analyzed historical sales data, promotions, and store information to identify key factors influencing uplift.</li>
+        <li><b>Evaluation Metrics</b>: Used <i>uplift scores</i> to assess model performance.</li>
+        <li><b>Model Explainability</b>: Applied <i>SHAP</i> to interpret the model's predictions and visualize feature importance.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/rossmann-uplift">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+    
+    <button class="collapsible">Pricing Optimization</button>
+    <div class="content">
+      <p><b>Objective</b>: Implement dynamic pricing in a ride-hailing marketplace to balance supply and demand.</p>
+      <p><b>Context</b>: Ensuring passenger satisfaction with minimal wait times while maximizing driver earnings.</p>
+      <ul>
+        <li><b>Behavior Modeling</b>: Trained machine learning models to predict the probability of passenger and driver acceptance of price quotes.</li>
+        <li><b>Model Explainability</b>: Applied <i>SHAP</i> to interpret the model's predictions.</li>
+        <li><b>Reinforcement Learning</b>: Developed a pricing agent using <i>Deep Q-Networks (DQN)</i>.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/pricing-optimization">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Customer Segmentation</button>
+    <div class="content">
+      <p><b>Objective</b>: Segment users to enhance targeted marketing and reactivation strategies.</p>
+      <p><b>Context</b>: Understanding customer behavior to reduce churn and increase engagement.</p>
+      <ul>
+        <li><b>Clustering Techniques</b>: Applied <i>K-Means</i> clustering based on RFM analysis.</li>
+        <li><b>Feature Engineering</b>: Utilized RFM and behavioral metrics.</li>
+        <li><b>Survival Analysis</b>: Used the <i>Cox Proportional Hazards</i> model to assess customer churn risk.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/segmentation">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Offer Optimization</button>
+    <div class="content">
+      <p><b>Objective</b>: Maximize user engagement by optimizing weekly content offers.</p>
+      <p><b>Context</b>: Providing users with free theme packs to increase app usage and reduce churn.</p>
+      <ul>
+        <li><b>Causal Inference</b>: Employed a <i>Difference-in-Means Estimator</i> to compute the <i>Average Treatment Effect (ATE)</i>.</li>
+        <li><b>Machine Learning</b>: Built a <i>LightGBM</i> model to predict churn probabilities.</li>
+        <li><b>Model Explainability</b>: Applied <i>SHAP</i> for feature importance.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/offer-optimization">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Customer Lifetime Value</button>
+    <div class="content">
+      <p><b>Objective</b>: Predict the 12-month customer lifetime value (LTV) for a subscription-based insurance company.</p>
+      <p><b>Context</b>: Enhancing revenue forecasting and informing customer acquisition strategies.</p>
+      <ul>
+        <li><b>Predictive Modeling</b>: Built regression models using <i>LightGBM</i> and survival analysis techniques.</li>
+        <li><b>Churn Modeling</b>: Integrated churn probability into LTV predictions.</li>
+        <li><b>Feature Engineering</b>: Captured customer behavior over time.</li>
+        <li><b>Business Impact</b>: Estimated the business impact by targeting the top 20% of customers with the highest predicted LTV.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/ltv-prediction">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Churn Predictions</button>
+    <div class="content">
+      <p><b>Objective</b>: Identify users at risk of churning from a social network platform to enable proactive retention strategies.</p>
+      <p><b>Context</b>: User retention is critical for growth and revenue in social media applications.</p>
+      <ul>
+        <li><b>Machine Learning Models</b>: Implemented <i>LightGBM</i> classifiers to predict churn.</li>
+        <li><b>Hyperparameter Tuning</b>: Utilized <i>Grid Search</i> for hyperparameter tuning to optimize the models.</li>
+        <li><b>Feature Engineering</b>: Developed features based on user engagement metrics and social connections.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/churn-prediction">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Price Elasticity of Demand</button>
+    <div class="content">
+      <p><b>Objective</b>: Calculate price elasticity to inform pricing strategies.</p>
+      <p><b>Context</b>: Essential for revenue optimization through pricing adjustments.</p>
+      <ul>
+        <li><b>Linear Regression and Price Elasticity Estimation</b>: Applied linear regression models to estimate price elasticity for various product categories.</li>
+        <li><b>Cross-Price Elasticity</b>: Used multi-linear regression to calculate cross-price elasticity.</li>
+        <li><b>Hypothesis Testing</b>: Tested the null hypothesis that price changes do not affect demand.</li>
+        <li><b>Visualization</b>: Generated divergent plots to visualize the elasticity of various product categories.</li>
+        <li><b>Business Insights</b>: The elasticity insights helped guide pricing strategies for sensitive products.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/price-elasticity">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Credit Decision Model</button>
+    <div class="content">
+      <p><b>Objective</b>: Build a credit risk model to predict loan defaults.</p>
+      <p><b>Context</b>: Minimize financial risk and comply with regulatory standards.</p>
+      <ul>
+        <li><b>Machine Learning Models</b>: Implemented <i>RandomForestClassifier</i> to predict the probability of loan defaults.</li>
+        <li><b>Feature Engineering</b>: Developed meaningful features from loan data, including payment history and customer demographics.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/credit-decision-model">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Keystroke Dynamics</button>
+    <div class="content">
+      <p><b>Objective</b>: Identify users based on typing patterns for enhanced security.</p>
+      <p><b>Context</b>: Behavioral biometrics for user authentication.</p>
+      <ul>
+        <li><b>Machine Learning Models</b>: Used <i>KNeighborsClassifier</i> with cross-validation to predict user identities based on typing patterns.</li>
+        <li><b>Model Explainability</b>: Applied <i>SHAP</i> to interpret the model's predictions.</li>
+        <li><b>Model Evaluation</b>: Evaluated models using accuracy scores.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/keystroke-dynamics">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+     <button class="collapsible">Device Activations Challenge</button>
+    <div class="content">
+      <p><b>Objective</b>: Predict hourly device activations for resource planning.</p>
+      <p><b>Context</b>: Helps in scaling server capacity and staffing.</p>
+      <ul>
+        <li><b>Logistic Regression</b>: Trained a <i>Logistic Regression</i> model to predict device activations.</li>
+        <li><b>Feature Engineering</b>: Computed lag features for different time intervals (24, 48, 72 hours) to capture historical trends.</li>
+        <li><b>Model Explainability</b>: Applied <i>SHAP</i> to interpret the model's predictions.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/device-activations">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+    <button class="collapsible">Conversion Improvements</button>
+    <div class="content">
+      <p><b>Objective</b>: Optimize the conversion funnel by analyzing user behavior.</p>
+      <p><b>Context</b>: Direct impact on revenue and customer acquisition costs.</p>
+      <ul>
+        <li><b>Data Exploration</b>: Used <i>SQL</i> queries to calculate key metrics such as conversion rate.</li>
+        <li><b>Feature Aggregation</b>: Aggregated session data to extract key features like time of day, user device type, and geographic location.</li>
+        <li><b>Machine Learning</b>: Trained a <i>Random Forest Classifier</i> to predict conversions and applied <i>SHAP</i> to interpret model predictions.</li>
+      </ul>
+      <div class="project-icons">
+        <a href="https://github.com/inesleite/conversion-improvements">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+        <a href="https://nbviewer.org/github/inesleite/conversion-improvements/tree/main/">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Include the script for collapsible functionality -->
+  <script src="script.js"></script>
+</body>
+</html>
