@@ -1,0 +1,88 @@
+/* General settings */
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.75;
+    color: #333;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(214, 51, 132, 0.1) 100%);
+    padding-left: 220px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #d63384;
+    color: white;
+}
+
+.main-content {
+    margin-left: 20px;
+    padding: 20px;
+}
+
+h1 {
+    color: #d63384;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.collapsible {
+    background-color: #d63384;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.active, .collapsible:hover {
+    background-color: #0056b3;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+}
