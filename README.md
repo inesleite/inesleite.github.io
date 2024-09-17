@@ -49,12 +49,10 @@ I am data scientist with a passion for turning data into actionable insights. Wi
   <p>
     <a href="https://github.com/inesleite/prioritize-lockers">
       <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="20" height="20">
-      GitHub Repository
     </a>
     |
     <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">
-      <img src="https://nbviewer.org/static/img/nbviewer_logo.png" alt="nbviewer" width="20" height="20">
-      Notebook on nbviewer
+      <img src="https://images.app.goo.gl/Lk3dhQDdPMoKunqr9" alt="nbviewer" width="20" height="20">
     </a>
   </p>
 </div>
@@ -299,9 +297,22 @@ Feel free to reach out if you'd like to discuss any of these projects or explore
 - **LinkedIn**: [linkedin.com/in/inesleite](https://www.linkedin.com/in/inesleite)
 - **GitHub**: [github.com/inesleite](https://github.com/inesleite)
 
+
 <div class="contact-info">
   <p>Feel free to reach out if you'd like to discuss any of these projects or explore potential collaborations.</p>
-  <p><a href="mailto:inesmarreirosleite@gmail.com"><i class="fas fa-envelope"></i> Email</a> | <a href="https://www.linkedin.com/in/inesleite"><i class="fab fa-linkedin"></i> LinkedIn</a> | <a href="https://github.com/inesleite"><i class="fab fa-github"></i> GitHub</a></p>
+  <p>
+    <a href="mailto:inesmarreirosleite@gmail.com">
+      <img src="https://img.icons8.com/ios-filled/50/0078D4/email.png" alt="Email" width="20" height="20"> Email
+    </a>
+    |
+    <a href="https://www.linkedin.com/in/inesleite">
+      <img src="https://img.icons8.com/ios-filled/50/0078D4/linkedin.png" alt="LinkedIn" width="20" height="20"> LinkedIn
+    </a>
+    |
+    <a href="https://github.com/inesleite">
+      <img src="https://img.icons8.com/ios-filled/50/0078D4/github.png" alt="GitHub" width="20" height="20"> GitHub
+    </a>
+  </p>
 </div>
 
 ---
