@@ -45,29 +45,94 @@ h1 {
     margin-bottom: 15px;
 }
 
-.collapsible {
-    background-color: #d63384;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.active, .collapsible:hover {
-    background-color: #0056b3;
-}
-
-.content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
+h3 {
+    color: #d63384;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
     margin-bottom: 10px;
+}
+
+p, ul li {
+    font-size: 1.1em; /* Consistent size between paragraphs and list items */
+    margin-bottom: 10px;
+    line-height: 1.75; /* Improves readability */
+}
+
+ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+ul li {
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #d63384; /* Hover color */
+}
+
+/* Project cards */
+.project {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.project:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02); /* Slight enlargement on hover */
+}
+
+/* Project titles */
+.project h3:hover {
+    color: #d63384;
+    text-decoration: underline;
+}
+
+/* Contact section */
+.contact-info {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.contact-info a {
+    margin-right: 15px;
+    font-size: 18px;
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #eaeaea;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.contact-info a:hover {
+    background-color: #d63384; /* Soft hover effect */
+    color: #fff; /* Text color change on hover */
+    transform: translateY(-3px);
+}
+
+.contact-info img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 /* Responsive design */
