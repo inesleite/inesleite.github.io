@@ -32,11 +32,9 @@ You can view my resume [here](https://drive.google.com/file/d/1lrVJkKgnXtQWhRNQx
 
 I am data scientist with a passion for turning data into actionable insights. With extensive experience in machine learning, statistical modeling, and data-driven decision-making, I have helped organizations solve complex problems and optimize their operations. My expertise spans various industries, including retail, transportation, finance, and technology.
 
----
-
 ## Projects
 
-<div class="project">
+<div class="project" id="prioritize-lockers">
   <h3>Prioritize Lockers</h3>
   <p><b>Objective</b>: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.</p>
   <p><b>Context</b>: Managing a network of parcel lockers requires strategic decisions that impact customer satisfaction and efficiency.</p>
@@ -46,33 +44,16 @@ I am data scientist with a passion for turning data into actionable insights. Wi
     <li><b>Constraints and Variables</b>: Incorporated factors such as locker demand, geographical locations, and vehicle capacities.</li>
     <li><b>Advanced Techniques</b>: Utilized constraint programming and sensitivity analysis to enhance the model's robustness.</li>
   </ul>
-  <p>
+  <div style="text-align:center;">
     <a href="https://github.com/inesleite/prioritize-lockers">
       <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="20" height="20">
     </a>
     |
     <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">
-      <img src="https://images.app.goo.gl/Lk3dhQDdPMoKunqr9" alt="nbviewer" width="20" height="20">
+      <img src="https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.svg" alt="nbviewer" width="20" height="20">
     </a>
-  </p>
+  </div>
 </div>
-
-### Prioritize Lockers
-
-[GitHub Repository](https://github.com/inesleite/prioritize-lockers) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb)
-
-#### Project Overview
-
-- **Objective**: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.
-- **Context**: Managing a network of parcel lockers requires strategic decisions that impact customer satisfaction and efficiency.
-
-#### Methodology
-
-- **Optimization Model**: Formulated a linear programming model using **PuLP** to minimize costs while meeting delivery speed requirements.
-- **Constraints and Variables**: Incorporated factors such as locker demand, geographical locations, and vehicle capacities.
-- **Advanced Techniques**: Utilized constraint programming and sensitivity analysis to enhance the model's robustness.
-
----
 
 ### MTA Ridership Forecast
 
