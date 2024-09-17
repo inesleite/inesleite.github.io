@@ -136,7 +136,7 @@ I am data scientist with a passion for turning data into actionable insights. Wi
   <ul>
     <li><b>Clustering Techniques</b>: Applied <i>K-Means</i> clustering to group users based on behavioral patterns derived from Recency, Frequency, and Monetary (RFM) analysis.</li>
     <li><b>Feature Engineering</b>: Utilized RFM analysis and additional behavioral metrics (e.g., purchase timing) to define segmentation variables.</li>
-    <li><b>RSurvival Analysis</b>: Implemented the <i>Cox Proportional Hazards</i> model to assess how various covariates affect the risk of customer churn.</li>
+    <li><b>Survival Analysis</b>: Implemented the <i>Cox Proportional Hazards</i> model to assess how various covariates affect the risk of customer churn.</li>
     <li><b>Model Explainability</b>: Applied <i>SHAP</i> (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.</li>
   </ul>
 
@@ -157,7 +157,7 @@ I am data scientist with a passion for turning data into actionable insights. Wi
   
   <p><b>Methodology</b>:</p>
   <ul>
-    <li><b>Causal Inference</b>: Employed a <i>Difference-in-Means Estimator</i> to compute the **Average Treatment Effect (ATE)** of different offers on churn, improving the efficiency of the estimator with additional covariates.</li>
+    <li><b>Causal Inference</b>: Employed a <i>Difference-in-Means Estimator</i> to compute the <i>Average Treatment Effect (ATE)</i> of different offers on churn, improving the efficiency of the estimator with additional covariates.</li>
     <li><b>Machine Learning</b>: Built a <i>LightGBM</i> model to predict churn probabilities, tuned with <i>Optuna</i> to optimize hyperparameters.</li>
     <li><b>Policy Evaluation</b>: Assessed the impact of offers on profits for high-revenue customers by comparing profits for treated and untreated individuals, and evaluated policies for targeting high-revenue customers to reduce churn.</li>
     <li><b>Model Explainability</b>: Applied <i>SHAP</i> (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.</li>
