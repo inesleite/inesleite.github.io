@@ -38,19 +38,20 @@ I am data scientist with a passion for turning data into actionable insights. Wi
   <h3>Prioritize Lockers</h3>
   <p><b>Objective</b>: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.</p>
   <p><b>Context</b>: Managing a network of parcel lockers requires strategic decisions that impact customer satisfaction and efficiency.</p>
+  
   <p><b>Methodology</b>:</p>
   <ul>
     <li><b>Optimization Model</b>: Formulated a linear programming model using <i>PuLP</i> to minimize costs while meeting delivery speed requirements.</li>
     <li><b>Constraints and Variables</b>: Incorporated factors such as locker demand, geographical locations, and vehicle capacities.</li>
     <li><b>Advanced Techniques</b>: Utilized constraint programming and sensitivity analysis to enhance the model's robustness.</li>
   </ul>
-  <div style="text-align:center;">
+
+  <div class="project-icons">
     <a href="https://github.com/inesleite/prioritize-lockers">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="20" height="20">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
     </a>
-    |
     <a href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb">
-      <img src="https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.svg" alt="nbviewer" width="20" height="20">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer">
     </a>
   </div>
 </div>
