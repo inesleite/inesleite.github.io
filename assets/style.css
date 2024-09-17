@@ -39,20 +39,12 @@ a:hover {
 .project h3 {
     margin-top: 0;
     font-weight: 700; /* Ensure project titles are bold */
-    text-align: center;
 }
 
 /* Project icons */
 .project-icons {
     text-align: center;
     margin-top: 15px;
-}
-
-.project-icons img {
-    width: 30px;
-    height: 30px;
-    margin-right: 20px;
-    vertical-align: middle;
 }
 
 .project-icons img:last-child {
