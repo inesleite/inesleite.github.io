@@ -53,9 +53,9 @@ h3 {
 }
 
 p, ul li {
-    font-size: 1.1em; /* Consistent size between paragraphs and list items */
+    font-size: 1.1em;
     margin-bottom: 10px;
-    line-height: 1.75; /* Improves readability */
+    line-height: 1.75;
 }
 
 ul {
@@ -76,7 +76,7 @@ a {
 
 a:hover {
     text-decoration: underline;
-    color: #d63384; /* Hover color */
+    color: #d63384;
 }
 
 /* Project cards */
@@ -92,13 +92,33 @@ a:hover {
 
 .project:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    transform: scale(1.02); /* Slight enlargement on hover */
+    transform: scale(1.02);
 }
 
-/* Project titles */
 .project h3:hover {
     color: #d63384;
     text-decoration: underline;
+}
+
+/* Project icons */
+.project-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.project-icons img {
+    width: 35px;
+    height: 35px;
+    margin: 0 10px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-icons img:hover {
+    opacity: 1;
+    transform: scale(1.2); /* Increased size on hover */
 }
 
 /* Contact section */
@@ -123,8 +143,8 @@ a:hover {
 }
 
 .contact-info a:hover {
-    background-color: #d63384; /* Soft hover effect */
-    color: #fff; /* Text color change on hover */
+    background-color: #d63384;
+    color: #fff;
     transform: translateY(-3px);
 }
 
