@@ -46,6 +46,18 @@ Rossmann is challenging you to predict 6 weeks of daily sales for 1,115 stores l
 
 ---
 
+## Customer Segmentation
+
+[Github](https://github.com/inesleite/segmentation)
+[nbviewer](https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb)
+
+Every row of the dataset represents one customer who has registered to use the service during September 2020 and either has or hasn’t made orders during the time from then and October 2021.
+
+- EDA: Imagine that you are asked to present customer’s insights for the newly created Consumer Product team for a service. What can you find in the dataset that will be interesting for them to know?
+- Segmentation: Provide a user segmentation that could be used by a marketing team to reactivate different kinds of users. Add recommendations on how to use the segmentation for this purpose. Remember to justify your segmentation approach so that we understand why the way you did it is better than an arbitrary solution by a non-data scientist who can do some slicing-and-dicing with the data.
+
+---
+
 ## Offer Optimization
 
 [Github](https://github.com/inesleite/offer-optimization)
