@@ -1,35 +1,72 @@
-# Data science portfolio by Inês Leite
+# Data Science Portfolio
 
-This portfolio is a compilation of notebooks which I created for data analysis or for exploration of machine learning algorithms. You can find my resume [here](https://drive.google.com/file/d/1lrVJkKgnXtQWhRNQxV2yxp9Igp7ASEfK/view?usp=sharing).
+Welcome to my data science portfolio! Here you'll find a collection of my projects that showcase my expertise in data analysis, machine learning, optimization, and more. Each project addresses a real-world business problem, and I provide detailed explanations of my approach, methodologies, and the impact of my work.
 
+You can view my resume [here](https://drive.google.com/file/d/1lrVJkKgnXtQWhRNQxV2yxp9Igp7ASEfK/view?usp=sharing).
 
 ---
 
-## Prioritize Lockers
+## Table of Contents
 
-[Github](https://github.com/inesleite/prioritize-lockers)
-[nbviewer](https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb)
+- [About Me](#about-me)
+- [Projects](#projects)
+  - [Prioritize Lockers](#prioritize-lockers)
+  - [MTA Ridership Forecast](#mta-ridership-forecast)
+  - [Rossmann Uplift Model](#rossmann-uplift-model)
+  - [Pricing Optimization](#pricing-optimization)
+  - [Customer Segmentation](#customer-segmentation)
+  - [Offer Optimization](#offer-optimization)
+  - [Customer Lifetime Value Prediction](#customer-lifetime-value-prediction)
+  - [Churn Prediction](#churn-prediction)
+  - [Price Elasticity of Demand](#price-elasticity-of-demand)
+  - [Credit Decision Model](#credit-decision-model)
+  - [Keystroke Dynamics](#keystroke-dynamics)
+  - [Device Activations Challenge](#device-activations-challenge)
+  - [Conversion Improvements](#conversion-improvements)
+- [Contact Information](#contact-information)
 
-Network of parcel lockers. These parcel lockers are used by users to ship items.
+---
+## About Me
 
-The standard shipment flow for our parcel lockers is as follows:
+I am data scientist with a passion for turning data into actionable insights. With extensive experience in machine learning, statistical modeling, and data-driven decision-making, I have helped organizations solve complex problems and optimize their operations. My expertise spans various industries, including retail, transportation, finance, and technology.
 
-- Seller of a pre-loved item drops off their parcel at a locker;
-- Driver picks up the parcel from the origin locker & brings it to a warehouse;
-- Parcels are sorted in the warehouse;
-- Driver picks up the parcel from the warehouse & drops it off at the destination locker;
-- Buyer of a pre-loved item picks up the parcel from the destination locker.
+---
+
+## Projects
+
+### Prioritize Lockers
+
+**GitHub**: [Repository Link](https://github.com/inesleite/prioritize-lockers)  
+**Notebook**: [View on nbviewer](https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb)
+
+#### Project Overview
+
+- **Objective**: Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.
+- **Context**: Managing a network of parcel lockers used for shipping items requires making strategic decisions that impact customer satisfaction and efficiency.
   
-Every day, we must decide which lockers to visit. This decision involves a **trade-off between conflicting business objectives**. Visiting more lockers increases delivery speed, but it also increases delivery costs.
+#### Methodology
+
+- **Data Handling**: Cleaned and processed shipment and locker data to ensure accuracy.
+- **Optimization Model**: Formulated a linear programming model to minimize costs while meeting delivery speed requirements.
+- **Constraints**: Considered factors like locker demand, geographical locations, and capacity limitations.
 
 ---
 
-## MTA Ridership Forecast
+### MTA Ridership Forecast
 
-[Github](https://github.com/inesleite/mta-ridership)
-[nbviewer](https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb)
+**GitHub**: [Repository Link](https://github.com/inesleite/mta-ridership)  
+**Notebook**: [View on nbviewer](https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb)
 
-The Metropolitan Transit Authority, MTA runs the subway and buses in NYC. In order to better plan staff at various subway stations to serve passengers, it’s essential to understand the historical traffic pattern. Furthermore, realistic forecasting on ridership is important for staff planners to assess how many staff members are needed over time.
+#### Project Overview
+
+- **Objective**: Forecast subway ridership to optimize staff allocation at various NYC subway stations.
+- **Context**: The Metropolitan Transit Authority (MTA) needs accurate predictions to improve operational efficiency and passenger experience.
+
+#### Methodology
+
+- **Data Handling**: Merged historical ridership data with external variables such as weather conditions and public events.
+- **Modeling Techniques**: Employed ARIMA, SARIMAX, and Prophet models for time series forecasting.
+- **Feature Engineering**: Created lag variables and moving averages to capture trends and seasonality.
 
 ---
 
@@ -49,14 +86,16 @@ Rossmann is challenging you to predict 6 weeks of daily sales for 1,115 stores l
 ## Pricing Optimization
 
 [Github](https://github.com/inesleite/pricing-optimization)
-[nbviewer](https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/))
+[nbviewer](https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/)
 
 
 Two-sided ride-hailing marketplace, meaning that we need to balance the needs and demands of both drivers and passengers.
 
-On one side of the marketplace, we have passengers who rely on the platform to quickly and conveniently find rides. They expect a seamless experience, with minimal waiting times and reasonable prices. On the other side, we have drivers, who use the platform to find passengers and generate income. Their needs include a steady stream of ride requests with fair compensation.
+- On one side of the marketplace, we have passengers who rely on the platform to quickly and conveniently find rides. They expect a seamless experience, with minimal waiting times and reasonable prices.
+- On the other side, we have drivers, who use the platform to find passengers and generate income. Their needs include a steady stream of ride requests with fair compensation.
 
-Dynamic pricing plays a critical role in maintaining this balance. By adjusting prices in real-time based on supply and demand, we can incentivise drivers to be available on the platform during high-demand periods, ensuring that passengers can find rides quickly even when the need is greatest. Moreover, dynamic pricing helps manage demand by moderating the number of ride requests. When demand is exceptionally high, slightly higher prices can prevent the system from becoming overloaded with requests, thus maintaining service quality and availability. Conversely, during low-demand periods, lower prices can attract more passengers, ensuring that drivers still have enough ride requests to remain active and profitable.
+Dynamic pricing plays a critical role in maintaining this balance. By adjusting prices in real-time based on supply and demand, we can incentivise drivers to be available on the platform during high-demand periods, ensuring that passengers can find rides quickly even when the need is greatest. 
+Moreover, dynamic pricing helps manage demand by moderating the number of ride requests. When demand is exceptionally high, slightly higher prices can prevent the system from becoming overloaded with requests, thus maintaining service quality and availability. Conversely, during low-demand periods, lower prices can attract more passengers, ensuring that drivers still have enough ride requests to remain active and profitable.
 
 ---
 
