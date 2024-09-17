@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="assets/style.css">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
 
 # Data Science Portfolio
 
@@ -77,23 +80,28 @@ I am data scientist with a passion for turning data into actionable insights. Wi
   </div>
 </div>
 
-### Rossmann Uplift Model
+<div class="project" id="rossmann-uplift-model">
+  <h3>Rossmann Uplift Model</h3>
+  <p><b>Objective</b>: Optimize sales through targeted promotions using uplift modeling.</p>
+  <p><b>Context</b>: Rossmann seeks to automate promotions and inventory management across its extensive retail network.</p>
+  
+  <p><b>Methodology</b>:</p>
+  <ul>
+    <li><b>Uplift Modeling</b>: Employed a two-model approach (treatment and control) using <i>scikit-learn</i> classifiers to estimate the incremental impact of promotions.</li>
+    <li><b>Data Analysis</b>: Analyzed historical sales data, promotions, and store information to identify key factors influencing uplift.</li>
+    <li><b>Evaluation Metrics</b>: Used <i>uplift scores</i> to assess model performance.</li>
+    <li><b>Model Explainability</b>: Applied <i>SHAP</i> (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.</li>
+  </ul>
 
-[GitHub Repository](https://github.com/inesleite/rossmann-uplift) | [Notebook on nbviewer](https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb)
-
-#### Project Overview
-
-- **Objective**: Optimize sales through targeted promotions using uplift modeling.
-- **Context**: Rossmann seeks to automate promotions and inventory management across its extensive retail network.
-
-#### Methodology
-
-- **Uplift Modeling**: Employed a two-model approach (treatment and control) using **scikit-learn** classifiers to estimate the incremental impact of promotions.
-- **Data Analysis**: Analyzed historical sales data, promotions, and store information to identify key factors influencing uplift.
-- **Evaluation Metrics**: Used **uplift scores** to assess model performance.
-- **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.
-
----
+  <div class="project-icons">
+    <a href="https://github.com/inesleite/rossmann-uplift">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+    </a>
+    <a href="https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="nbviewer" width="30" height="30">
+    </a>
+  </div>
+</div>
 
 ### Pricing Optimization
 
@@ -278,26 +286,19 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 
 ## Contact Information
 
-Feel free to reach out if you'd like to discuss any of these projects or explore potential collaborations.
-
-- **Email**: [inesmarreirosleite@gmail.com](mailto:inesmarreirosleite@gmail.com)
-- **LinkedIn**: [linkedin.com/in/inesleite](https://www.linkedin.com/in/inesleite)
-- **GitHub**: [github.com/inesleite](https://github.com/inesleite)
-
-
 <div class="contact-info">
   <p>Feel free to reach out if you'd like to discuss any of these projects or explore potential collaborations.</p>
   <p>
     <a href="mailto:inesmarreirosleite@gmail.com">
-      <img src="https://img.icons8.com/ios-filled/50/0078D4/email.png" alt="Email" width="20" height="20"> Email
+      <img src="https://img.icons8.com/ios-filled/50/0078D4/email.png" alt="Email" width="30" height="30"> Email
     </a>
     |
     <a href="https://www.linkedin.com/in/inesleite">
-      <img src="https://img.icons8.com/ios-filled/50/0078D4/linkedin.png" alt="LinkedIn" width="20" height="20"> LinkedIn
+      <img src="https://img.icons8.com/ios-filled/50/0078D4/linkedin.png" alt="LinkedIn" width="30" height="30"> LinkedIn
     </a>
     |
     <a href="https://github.com/inesleite">
-      <img src="https://img.icons8.com/ios-filled/50/0078D4/github.png" alt="GitHub" width="20" height="20"> GitHub
+      <img src="https://img.icons8.com/ios-filled/50/0078D4/github.png" alt="GitHub" width="30" height="30"> GitHub
     </a>
   </p>
 </div>
