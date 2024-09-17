@@ -100,7 +100,7 @@ I am data scientist with a passion for turning data into actionable insights. Wi
 - **Model Explainability**: Applied **SHAP** (SHapley Additive exPlanations) to interpret the model's predictions and visualize feature importance.
 - **Reinforcement Learning**: Developed a pricing agent using **Deep Q-Networks (DQN)** with **TensorFlow**.
 - **Simulation Environment**: Created a custom simulation to model marketplace dynamics and test pricing strategies.
-- **Optimization Techniques**: Applied advanced algorithms like **Proximal Policy Optimization (PPO)** for continuous action spaces.
+- **Optimization Techniques**: Applied advanced algorithms like **Boltzmann Q Policy** for continuous action spaces.
 
 
 ---
