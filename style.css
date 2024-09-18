@@ -40,6 +40,7 @@ body {
     color: #333;
     transition: 0.3s;
     display: block;
+    text-align: center;
 }
 
 .sidebar-icons img {
@@ -69,6 +70,12 @@ body {
     padding: 20px;
     max-width: 900px;
     margin: 0 auto;
+    transition: padding-left 0.3s ease;
+}
+
+/* Adjusting for expanded sidebar */
+.sidebar:hover ~ .main-content {
+    padding-left: 220px;
 }
 
 /* Headings */
