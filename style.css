@@ -4,64 +4,48 @@ body {
     line-height: 1.75;
     color: #333;
     background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(214, 51, 132, 0.1) 100%);
-    padding-left: 60px; /* Adjusted for collapsible sidebar */
+    padding-left: 220px;
     max-width: 1200px;
     margin: 0 auto;
     font-size: 16px;
 }
 
-/* Collapsible Sidebar */
+/* Sidebar */
 .sidebar {
     height: 100%;
-    width: 60px; /* Collapsed width */
+    width: 200px;
     position: fixed;
     top: 0;
     left: 0;
     background-color: #f8f9fa;
-    transition: width 0.3s ease;
-    z-index: 100;
-}
-
-.sidebar:hover {
-    width: 200px; /* Expanded width */
-}
-
-.sidebar-icons {
     padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.sidebar-icons a {
-    padding: 12px 0;
+.sidebar a {
+    padding: 12px 20px;
     text-decoration: none;
     font-size: 16px;
     color: #333;
+    display: flex;
+    align-items: center;
     transition: 0.3s;
-    display: block;
-    text-align: center;
 }
 
-.sidebar-icons img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
+.sidebar a:hover {
+    background-color: #d63384;
+    color: white;
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+.sidebar img {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
     transition: transform 0.3s ease;
 }
 
-.sidebar:hover .sidebar-icons img {
+.sidebar a:hover img {
     transform: scale(1.2);
-}
-
-/* Sidebar Hover Effect */
-.sidebar-icons a:hover {
-    background-color: #d63384;
-    color: white;
-}
-
-.sidebar-icons a:hover img {
-    transform: scale(1.3); /* Slight enlargement */
 }
 
 /* Main content */
@@ -70,19 +54,13 @@ body {
     padding: 20px;
     max-width: 900px;
     margin: 0 auto;
-    transition: padding-left 0.3s ease;
-}
-
-/* Adjusting for expanded sidebar */
-.sidebar:hover ~ .main-content {
-    padding-left: 220px;
 }
 
 /* Headings */
 h1 {
     color: #d63384;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 600; /* Lighter than bold */
     font-size: 2rem;
     margin-bottom: 10px;
 }
@@ -97,7 +75,7 @@ h3 {
 
 /* Paragraph and List styles */
 p, ul li {
-    font-size: 1rem;
+    font-size: 1rem; /* Smaller body text */
     margin-bottom: 8px;
     line-height: 1.6;
 }
@@ -113,7 +91,7 @@ ul li {
 }
 
 a {
-    color: #d63384;
+    color: #0056b3;
     text-decoration: none;
     font-weight: 500;
 }
@@ -187,25 +165,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Collapsible project details */
-.project-details {
-    display: none;
-}
-
-.project button {
-    background-color: #d63384;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.project button:hover {
-    background-color: #c0276d;
-}
-
 /* Project icons */
 .project-icons {
     display: flex;
@@ -225,6 +184,13 @@ a:hover {
 .project-icons img:hover {
     opacity: 1;
     transform: scale(1.2); /* Increased size on hover */
+}
+
+/* Project paragraphs */
+.project p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
 
 /* Responsive Design */
