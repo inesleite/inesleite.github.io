@@ -22,7 +22,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Inês Leite - Portfolio",
-  description: "Data Science",
+  description: "My Personal Data Science Portfolio by Ines Leite",
 };
 
 export default function RootLayout({
