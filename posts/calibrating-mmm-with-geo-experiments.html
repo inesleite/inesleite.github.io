@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calibrating MMM with geo experiments — Inês Leite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf9;
+      --surface: #ffffff;
+      --border: #e8e8e5;
+      --text: #1a1a18;
+      --muted: #6b6b67;
+      --tag-bg: #f0f0ed;
+      --nav-h: 64px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(250,250,249,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      width: 100%; max-width: 720px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-back {
+      font-size: 0.875rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-home {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-home:hover { color: var(--text); }
+
+    main {
+      max-width: 720px; margin: 0 auto;
+      padding: calc(var(--nav-h) + 64px) 24px 96px;
+    }
+
+    .post-header { margin-bottom: 48px; }
+    .post-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .post-title {
+      font-size: 2rem; font-weight: 600; line-height: 1.25;
+      letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .post-meta {
+      font-size: 0.875rem; color: var(--muted);
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .post-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      background: var(--tag-bg); color: var(--muted);
+      padding: 4px 10px; border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    .post-divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    .post-body { font-size: 1rem; font-weight: 300; }
+    .post-body p { margin-bottom: 20px; }
+    .post-body h2 {
+      font-size: 1.125rem; font-weight: 600;
+      letter-spacing: -0.01em; margin: 36px 0 12px;
+    }
+    .post-body code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82em; font-weight: 400;
+      background: var(--tag-bg);
+      padding: 2px 6px; border-radius: 3px;
+    }
+    .post-body ul { margin: 0 0 20px 0; padding-left: 20px; }
+    .post-body ul li { margin-bottom: 8px; }
+
+    .post-footer {
+      margin-top: 64px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .post-footer-back {
+      font-size: 0.875rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .post-footer-back:hover { color: var(--text); }
+    .post-footer-copy {
+      font-size: 0.8rem; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-back" href="../index.html#writing">← all posts</a>
+      <a class="nav-home" href="../index.html">inesleite.github.io</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="post-header">
+      <p class="post-label">marketing mix modelling</p>
+      <h1 class="post-title">Calibrating MMM with geo experiments</h1>
+      <div class="post-meta">
+        <span>January 2026</span>
+        <span>· 3 min read</span>
+      </div>
+      <div class="post-tags">
+        <span class="tag">MMM</span>
+        <span class="tag">geo experiments</span>
+        <span class="tag">calibration</span>
+      </div>
+    </header>
+
+    <hr class="post-divider">
+
+    <div class="post-body">
+
+      <p>Marketing mix models are useful for budget allocation precisely because they operate at the aggregate level — no cookies, no user tracking, just time-series data on spend and outcomes. But that same aggregate nature makes them hard to validate. You fit a model, you get channel coefficients, and then what? How do you know if the elasticities are right?</p>
+
+      <p>Geo experiments offer a natural answer. If you run a holdout in a subset of regions — cutting spend on one channel while keeping everything else constant — you get a clean estimate of that channel's incremental effect in those regions. That estimate can be used as a prior or a constraint when fitting the MMM.</p>
+
+      <h2>The calibration loop</h2>
+
+      <p>The basic workflow is: run the MMM on national-level data, look at the implied return on ad spend (ROAS) for each channel, then compare those numbers against geo experiment results for the same channels. If the model says paid social has a ROAS of 4 but your holdout measured 1.8, something is off — either the model structure is wrong, the feature engineering is wrong, or there is confounding you have not accounted for.</p>
+
+      <p>The calibration is not just a sanity check. You can encode the geo experiment result directly as a Bayesian prior on the relevant coefficient. This is especially useful for channels where the observational data is noisy or collinear with other variables. The experiment anchors the model to something credible rather than letting the optimiser land wherever the data happens to point.</p>
+
+      <h2>What can go wrong</h2>
+
+      <p>The main risk is assuming that a geo experiment result scales cleanly to the national model. Geo holdouts estimate a local treatment effect — specific regions, specific time window, specific spend level. If the treated regions are not representative, or if you ran the experiment during a promotional period, the calibration can make the model worse rather than better.</p>
+
+      <p>It helps to run several geo tests across different regions and different times of year, then look at whether the estimates cluster. If they are stable, you have a robust calibration target. If they vary widely, you need to understand why before imposing them on the model.</p>
+
+      <h2>An honest limitation</h2>
+
+      <p>MMM calibrated with geo experiments is still a model. It will still miss interactions between channels, it will still struggle with long-term brand effects, and it will still require human judgement at the budget allocation step. But combining the two methods — experiments for ground truth on individual channels, models for portfolio-level optimisation — is currently the most defensible approach available for most teams. The alternative is relying on the model alone, which is almost always worse.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a class="post-footer-back" href="../index.html#writing">← back to writing</a>
+      <span class="post-footer-copy">© 2026 Inês Leite</span>
+    </footer>
+  </main>
+
+</body>
+</html>
