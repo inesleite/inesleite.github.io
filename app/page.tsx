@@ -1,842 +1,692 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Linkedin, Github, Home, Briefcase, ChevronLeft, ChevronRight, FileText, BookOpen, Search, Moon, Sun, ArrowUp, GraduationCap } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from 'react'
+import type { ReactNode } from 'react'
+import { Moon, Sun, ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type Role = {
+  id: string
+  title: string
+  company: string
+  period: string
+  bullets: string[]
+  stack: string[]
+}
 
 type Project = {
   id: string
+  domain: string
   title: string
-  impact: string
-  objective: string
+  method: string
+  description: string
   methodology: string[]
-  githubUrl: string
-  notebookUrl: string
-  tags: string[]
+  featured?: boolean
+  githubUrl?: string
+  notebookUrl?: string
 }
+
+type Colors = {
+  bg: string
+  text: string
+  muted: string
+  border: string
+  rowHover: string
+  expandedBg: string
+  accent: string
+}
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const roles: Role[] = [
+  {
+    id: 'flix-sr',
+    title: 'Senior Data Scientist',
+    company: 'FlixBus',
+    period: 'Sep 2025 – Present',
+    bullets: [
+      'Designed Flix\'s geo-based incrementality measurement framework — running causal experiments across US, Canada, Europe, and LATAM to separate true media-driven growth from organic demand.',
+      'Integrated experiment results into attribution systems as calibration signals, making media mix decisions more grounded in evidence than modeled assumptions.',
+    ],
+    stack: ['Python', 'Causal Inference', 'Geo Experiments', 'Attribution', 'MMM'],
+  },
+  {
+    id: 'flix-ds',
+    title: 'Data Scientist',
+    company: 'FlixBus',
+    period: 'Dec 2023 – Sep 2025',
+    bullets: [
+      'Built CRM models and customer analytics systems — including an email volume optimizer that balanced engagement uplift against unsubscribe risk.',
+      'Designed a LLM pipeline using LangChain to surface structured insights from app review data, feeding directly into product planning.',
+    ],
+    stack: ['Python', 'LightGBM', 'LangChain', 'CRM', 'NLP', 'SQL'],
+  },
+  {
+    id: 'onfido-ds',
+    title: 'Data Scientist',
+    company: 'Onfido',
+    period: 'Sep 2022 – Nov 2023',
+    bullets: [
+      'Built an NLP-based anomaly detection system to flag unusual patterns in identity verification data, reducing false positives in production.',
+      'Automated rule extraction from historical data, turning manual analyst workflows into reproducible pipelines with measurable accuracy gains.',
+    ],
+    stack: ['Python', 'NLP', 'Anomaly Detection', 'Scikit-learn', 'SQL'],
+  },
+  {
+    id: 'farfetch-ds',
+    title: 'Data Scientist',
+    company: 'Farfetch',
+    period: 'Jun 2021 – Aug 2022',
+    bullets: [
+      'Developed a multi-horizon forecasting framework covering LTV, churn, and GMV — used across teams to align planning with modeled demand.',
+      'Turned raw customer review text into reusable NLP features, shared across marketing and ML use cases.',
+    ],
+    stack: ['Python', 'LightGBM', 'Time Series', 'NLP', 'SQL'],
+  },
+  {
+    id: 'farfetch-jr',
+    title: 'Junior Data Scientist',
+    company: 'Farfetch',
+    period: 'Apr 2020 – Jun 2021',
+    bullets: [
+      'Trained and deployed a product categorization model based on global customs codes, replacing a largely manual classification process.',
+      'Modeled payment provider performance across markets to optimize routing decisions for conversion and order value.',
+    ],
+    stack: ['Python', 'Scikit-learn', 'SQL', 'GCP'],
+  },
+  {
+    id: 'farfetch-int',
+    title: 'Data Scientist, Intern',
+    company: 'Farfetch',
+    period: 'Sep 2019 – Apr 2020',
+    bullets: [
+      'Engineered NLP and numerical features for a delivery date estimation system, and supported its rollout on GCP including training and inference pipelines.',
+    ],
+    stack: ['Python', 'NLP', 'GCP'],
+  },
+]
 
 const projects: Project[] = [
   {
-    id: "prioritize-lockers",
-    title: "Prioritize Lockers",
-    impact: "Reduced operational costs by optimizing daily locker selection using linear programming.",
-    objective: "Optimize the daily selection of parcel lockers to visit, balancing delivery speed with operational costs.",
+    id: 'prioritize-lockers',
+    domain: 'Optimization',
+    title: 'Prioritize Lockers',
+    method: 'Linear Programming',
+    featured: true,
+    description: 'Which lockers are actually worth visiting today? Given locker demand, vehicle capacity, and delivery SLAs, a linear program selects the optimal subset each day — making the decision systematically rather than by gut.',
     methodology: [
-      "Formulated a linear programming model using PuLP to minimize costs while meeting delivery speed requirements.",
-      "Incorporated factors such as locker demand, geographical locations, and vehicle capacities.",
-      "Utilized constraint programming and sensitivity analysis to enhance the model's robustness."
+      'Formulated as a linear program using PuLP, with constraints on vehicle capacity and delivery speed requirements.',
+      'Incorporated locker demand signals and geographic data to weight selection priority.',
+      'Used sensitivity analysis to understand how the solution shifts under capacity changes.',
     ],
-    githubUrl: "https://github.com/inesleite/prioritize-lockers",
-    notebookUrl: "https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb",
-    tags: ["optimization", "linear programming", "logistics"]
+    githubUrl: 'https://github.com/inesleite/prioritize-lockers',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb',
   },
   {
-    id: "mta-ridership-forecast",
-    title: "MTA Ridership Forecast",
-    impact: "Enabled smarter staff allocation across NYC subway stations through accurate ridership forecasts.",
-    objective: "Forecast subway ridership to optimize staff allocation at various NYC subway stations.",
+    id: 'mta-ridership',
+    domain: 'Forecasting',
+    title: 'MTA Ridership Forecast',
+    method: 'Time Series',
+    featured: true,
+    description: 'Predicting how many people will be at a subway station and when — so the MTA can staff it right. A time series challenge using NYC subway data, forecasting ridership at hourly resolution across stations while accounting for seasonality, events, and day-of-week patterns.',
     methodology: [
-      "Employed advanced models like LightGBM and Prophet to capture seasonality and external factors.",
-      "Used MAPE and RMSE for performance assessment, with cross-validation for robustness."
+      'LightGBM for feature-rich gradient boosting; Prophet for interpretable seasonality decomposition.',
+      'Evaluated with MAPE and RMSE using temporal cross-validation to avoid data leakage.',
     ],
-    githubUrl: "https://github.com/inesleite/mta-ridership",
-    notebookUrl: "https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb",
-    tags: ["forecasting", "time series", "transportation"]
+    githubUrl: 'https://github.com/inesleite/mta-ridership',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb',
   },
   {
-    id: "rossmann-uplift-model",
-    title: "Rossmann Uplift Model",
-    impact: "Improved promotion targeting by estimating the true incremental effect on sales using uplift modeling.",
-    objective: "Optimize sales through targeted promotions using uplift modeling.",
+    id: 'rossmann-uplift',
+    domain: 'Causal',
+    title: 'Rossmann Uplift Model',
+    method: 'Causal Inference',
+    featured: true,
+    description: 'Not just "do promotions work?" but "for which stores do they actually work?" Rossmann runs thousands of retail locations — the challenge is finding which ones see genuine lift from a promotion versus those that would have performed the same regardless.',
     methodology: [
-      "Employed a two-model approach (treatment and control) using scikit-learn classifiers to estimate the incremental impact of promotions.",
-      "Analyzed historical sales data, promotions, and store information to identify key factors influencing uplift.",
-      "Used uplift scores to assess model performance.",
-      "Applied SHAP to interpret the model's predictions and visualize feature importance."
+      'Two-model (T-learner) approach using Scikit-learn classifiers to estimate individual treatment effects.',
+      'SHAP to interpret feature contributions and understand what drives treatment sensitivity.',
     ],
-    githubUrl: "https://github.com/inesleite/rossmann-uplift",
-    notebookUrl: "https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb",
-    tags: ["uplift modeling", "retail", "promotions"]
+    githubUrl: 'https://github.com/inesleite/rossmann-uplift',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb',
   },
   {
-    id: "pricing-optimization",
-    title: "Pricing Optimization",
-    impact: "Balanced supply and demand in a ride-hailing marketplace through a reinforcement learning pricing agent.",
-    objective: "Implement dynamic pricing in a ride-hailing marketplace to balance supply and demand.",
+    id: 'pricing-optimization',
+    domain: 'Optimization',
+    title: 'Pricing Optimization',
+    method: 'Reinforcement Learning',
+    description: 'Teaching an agent to price rides dynamically in a simulated ride-hailing marketplace. The agent learns a policy through interaction with a custom environment, rewarded for reducing rider wait times and maximizing driver earnings — a reinforcement learning approach to the surge pricing problem.',
     methodology: [
-      "Trained machine learning models to predict the probability of passenger and driver acceptance.",
-      "Developed a pricing agent using Deep Q-Networks (DQN) with TensorFlow.",
-      "Created a custom simulation to model marketplace dynamics and test pricing strategies.",
-      "Applied advanced algorithms like Boltzmann Q Policy for continuous action spaces."
+      'Deep Q-Network (DQN) implemented in TensorFlow with a custom simulation environment.',
+      'Explored reward shaping to balance the competing objectives of supply and demand.',
     ],
-    githubUrl: "https://github.com/inesleite/pricing-optimization",
-    notebookUrl: "https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/",
-    tags: ["pricing", "reinforcement learning", "marketplace"]
+    githubUrl: 'https://github.com/inesleite/pricing-optimization',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/',
   },
   {
-    id: "customer-segmentation",
-    title: "Customer Segmentation",
-    impact: "Identified high-value customer segments to power targeted reactivation and retention campaigns.",
-    objective: "Segment users to enhance targeted marketing and reactivation strategies.",
+    id: 'customer-segmentation',
+    domain: 'CRM',
+    title: 'Customer Segmentation',
+    method: 'Clustering',
+    description: 'Grouping customers by behavior to find who deserves a reactivation offer — and who is already engaged. An RFM-based clustering exercise on transactional data, building segments that are useful for CRM targeting rather than just analytically neat.',
     methodology: [
-      "Applied K-Means clustering to group users based on behavioral patterns derived from RFM analysis.",
-      "Utilized RFM analysis and additional behavioral metrics to define segmentation variables.",
-      "Implemented the Cox Proportional Hazards model to assess how various covariates affect the risk of customer churn.",
-      "Applied SHAP to interpret the model's predictions and visualize feature importance."
+      'RFM analysis to engineer meaningful behavioral variables, then K-Means for segmentation.',
+      'Cox Proportional Hazards model layered on top to rank segments by churn risk.',
     ],
-    githubUrl: "https://github.com/inesleite/segmentation",
-    notebookUrl: "https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb",
-    tags: ["customer segmentation", "clustering", "churn analysis"]
+    githubUrl: 'https://github.com/inesleite/segmentation',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb',
   },
   {
-    id: "offer-optimization",
-    title: "Offer Optimization",
-    impact: "Maximized ROI on weekly offers by combining causal inference with churn prediction to target the right users.",
-    objective: "Maximize user engagement by optimizing weekly content offers.",
+    id: 'offer-optimization',
+    domain: 'Causal',
+    title: 'Offer Optimization',
+    method: 'Causal Inference',
+    featured: true,
+    description: "The question isn't whether an offer works on average — it's whether it works on this particular user. By combining causal estimation with a tuned churn model, only genuinely responsive users are targeted, skipping those who'd engage (or churn) regardless.",
     methodology: [
-      "Employed a Difference-in-Means Estimator to compute the Average Treatment Effect (ATE) of different offers on churn.",
-      "Built a LightGBM model to predict churn probabilities, tuned with Optuna to optimize hyperparameters.",
-      "Assessed the impact of offers on profits for high-revenue customers.",
-      "Applied SHAP to interpret the model's predictions and visualize feature importance."
+      'Difference-in-Means Estimator to measure the average treatment effect of offers on churn.',
+      'LightGBM churn model tuned with Optuna; SHAP for understanding model decisions.',
     ],
-    githubUrl: "https://github.com/inesleite/offer-optimization",
-    notebookUrl: "https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb",
-    tags: ["offer optimization", "churn prediction", "causal inference"]
+    githubUrl: 'https://github.com/inesleite/offer-optimization',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb',
   },
   {
-    id: "customer-lifetime-value",
-    title: "Customer Lifetime Value",
-    impact: "Improved revenue forecasting for an insurance company by predicting 12-month LTV with survival analysis.",
-    objective: "Predict the 12-month customer lifetime value (LTV) for a subscription-based insurance company.",
+    id: 'ltv',
+    domain: 'Finance',
+    title: 'Customer Lifetime Value',
+    method: 'Regression',
+    description: 'Predicting 12-month customer lifetime value for an insurance subscription business, with churn risk baked into the estimate. The goal: help the acquisition team decide which customers are worth acquiring at what cost, combining LightGBM revenue prediction with survival analysis.',
     methodology: [
-      "Built regression models using LightGBM and survival analysis techniques.",
-      "Integrated churn probability into LTV predictions.",
-      "Captured customer behavior over time.",
-      "Estimated the business impact by targeting the top 20% of customers with the highest predicted LTV."
+      'LightGBM regression for revenue prediction; survival analysis to integrate churn probability into LTV.',
+      'Evaluated business impact by comparing acquisition ROI across predicted LTV tiers.',
     ],
-    githubUrl: "https://github.com/inesleite/ltv-prediction",
-    notebookUrl: "https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb",
-    tags: ["customer lifetime value", "regression", "insurance"]
+    githubUrl: 'https://github.com/inesleite/ltv-prediction',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb',
   },
   {
-    id: "churn-predictions",
-    title: "Churn Predictions",
-    impact: "Enabled proactive retention for a social network by identifying at-risk users before they disengaged.",
-    objective: "Identify users at risk of churning from a social network platform to enable proactive retention strategies.",
+    id: 'churn',
+    domain: 'CRM',
+    title: 'Churn Predictions',
+    method: 'Classification',
+    description: 'Flagging users before they leave — so retention efforts land when they still matter. Using engagement signals and social graph features to predict churn in a social network, identifying at-risk users before they\'ve disengaged rather than after.',
     methodology: [
-      "Implemented LightGBM classifiers to predict churn.",
-      "Utilized Grid Search for hyperparameter tuning to optimize the performance of the models.",
-      "Developed features based on user engagement metrics and social connections to capture user behavior and interaction patterns."
+      'LightGBM classifier with Grid Search hyperparameter tuning.',
+      'Features built from user activity patterns and social connection depth.',
     ],
-    githubUrl: "https://github.com/inesleite/churn-prediction",
-    notebookUrl: "https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb",
-    tags: ["churn prediction", "social media", "classification"]
+    githubUrl: 'https://github.com/inesleite/churn-prediction',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb',
   },
   {
-    id: "price-elasticity",
-    title: "Price Elasticity of Demand",
-    impact: "Delivered actionable pricing strategies by quantifying demand sensitivity across product categories.",
-    objective: "Calculate price elasticity to inform pricing strategies.",
+    id: 'elasticity',
+    domain: 'Finance',
+    title: 'Price Elasticity of Demand',
+    method: 'Regression',
+    description: 'Quantifying how sensitive demand is to price changes — product by product. Estimating own-price and cross-price elasticity using regression, then visualizing the distribution across categories to surface where pricing decisions can have the most impact.',
     methodology: [
-      "Applied linear regression models to estimate price elasticity for various product categories.",
-      "Used multi-linear regression to calculate cross-price elasticity across different product categories.",
-      "Tested the null hypothesis that price changes do not affect demand.",
-      "Generated divergent plots to visualize the elasticity of various product categories.",
-      "Provided insights for informed pricing strategies based on elasticity and cross-elasticity analysis."
+      'Linear and multi-linear regression to estimate own-price and cross-price elasticity coefficients.',
+      'Divergent bar charts to visualize elasticity distribution across product categories.',
     ],
-    githubUrl: "https://github.com/inesleite/price-elasticity",
-    notebookUrl: "https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb",
-    tags: ["price elasticity", "regression", "pricing strategy"]
+    githubUrl: 'https://github.com/inesleite/price-elasticity',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb',
   },
   {
-    id: "credit-decision-model",
-    title: "Credit Decision Model",
-    impact: "Reduced default risk exposure by building a robust credit scoring model on imbalanced loan data.",
-    objective: "Build a credit risk model to predict loan defaults.",
+    id: 'credit',
+    domain: 'Finance',
+    title: 'Credit Decision Model',
+    method: 'Classification',
+    description: 'Building a credit scoring model on highly imbalanced data, where defaults are rare but costly to miss. Payment history and financial behavior features feed a Random Forest model, with evaluation focused on the minority class to avoid optimizing for the wrong metric.',
     methodology: [
-      "Implemented RandomForestClassifier to predict the probability of loan defaults, with the model trained to handle imbalanced data.",
-      "Developed meaningful features from the loan data, including payment history, loan amount, and customer demographics."
+      'Random Forest classifier with engineered payment history features.',
+      'Addressed class imbalance with resampling; evaluated on precision-recall to focus on the minority class.',
     ],
-    githubUrl: "https://github.com/inesleite/credit-decision-model",
-    notebookUrl: "https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb",
-    tags: ["credit risk", "classification", "finance"]
+    githubUrl: 'https://github.com/inesleite/credit-decision-model',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb',
   },
   {
-    id: "keystroke-dynamics",
-    title: "Keystroke Dynamics",
-    impact: "Achieved high-accuracy user authentication using behavioral biometrics derived from typing patterns.",
-    objective: "Identify users based on typing patterns for enhanced security.",
+    id: 'keystroke',
+    domain: 'Security',
+    title: 'Keystroke Dynamics',
+    method: 'Classification',
+    description: 'You can identify someone by how they type — timing between keystrokes carries a behavioral fingerprint. A biometrics challenge: authenticate users from typing patterns (dwell time, flight time) without passwords, using KNN classification.',
     methodology: [
-      "Used KNeighborsClassifier with cross-validation to predict user identities based on typing patterns.",
-      "Applied SHAP to interpret the model's predictions and understand the impact of individual features.",
-      "Evaluated models using accuracy scores, with the best configuration achieving high accuracy through fine-tuning of hyperparameters."
+      'KNN classifier trained on timing features (dwell time, flight time) extracted from keystroke sequences.',
+      'SHAP for feature interpretation; cross-validation to assess generalization across users.',
     ],
-    githubUrl: "https://github.com/inesleite/keystroke-dynamics",
-    notebookUrl: "https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb",
-    tags: ["biometrics", "security", "classification"]
+    githubUrl: 'https://github.com/inesleite/keystroke-dynamics',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb',
   },
   {
-    id: "device-activations",
-    title: "Device Activations Challenge",
-    impact: "Improved resource planning accuracy by forecasting hourly device activations with lag-based features.",
-    objective: "Predict hourly device activations for resource planning.",
+    id: 'device-activations',
+    domain: 'Forecasting',
+    title: 'Device Activations',
+    method: 'Time Series',
+    description: 'Hourly device activation forecasting for infrastructure capacity planning. Recent activation history feeds as 24/48/72-hour lag features into a Logistic Regression model, with careful temporal splits to prevent leakage in time-ordered data.',
     methodology: [
-      "Trained a Logistic Regression model to predict device activations, utilizing standardized features and temporal train-test splits for time series forecasting.",
-      "Computed lag features for different time intervals (24, 48, 72 hours) to capture historical trends and improve model accuracy.",
-      "Applied SHAP to interpret the model's predictions and visualize feature importance.",
-      "Assessed model performance using classification reports and plotted standardized coefficients to understand feature contributions."
+      'Logistic Regression with 24/48/72-hour lag features.',
+      'Careful temporal train-test splits to prevent leakage in time-ordered data.',
     ],
-    githubUrl: "https://github.com/inesleite/device-activations",
-    notebookUrl: "https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb",
-    tags: ["time series", "forecasting", "resource planning"]
+    githubUrl: 'https://github.com/inesleite/device-activations',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb',
   },
   {
-    id: "conversion-improvements",
-    title: "Conversion Improvements",
-    impact: "Uncovered the key behavioral drivers of conversion to guide funnel optimization and reduce acquisition costs.",
-    objective: "Optimize the conversion funnel by analyzing user behavior.",
+    id: 'conversion',
+    domain: 'Analytics',
+    title: 'Conversion Improvements',
+    method: 'Classification',
+    description: 'Understanding why users drop off in a conversion funnel — by looking at who they are and when they arrive. SQL-engineered features (time of day, device, geography) feed a Random Forest model, with SHAP surfacing the behavioral drivers of drop-off.',
     methodology: [
-      "Used SQL queries to calculate key metrics such as conversion rate and user device preferences based on session data.",
-      "Aggregated session data to extract key features like time of day, user device type, and geographic location for deeper analysis of conversion patterns.",
-      "Trained a Random Forest Classifier to predict conversions and applied SHAP to interpret model predictions and identify the most important factors driving conversions."
+      'SQL-based feature engineering on session-level data.',
+      'Random Forest classifier with SHAP for feature importance and partial dependence analysis.',
     ],
-    githubUrl: "https://github.com/inesleite/conversion-improvements",
-    notebookUrl: "https://nbviewer.org/github/inesleite/conversion-improvements/tree/main/",
-    tags: ["conversion optimization", "user behavior", "classification"]
-  }
+    githubUrl: 'https://github.com/inesleite/conversion-improvements',
+    notebookUrl: 'https://nbviewer.org/github/inesleite/conversion-improvements/tree/main/',
+  },
 ]
 
-const skillCategories = [
-  {
-    label: "Languages & Querying",
-    skills: ["Python", "SQL"]
-  },
-  {
-    label: "ML & Modeling",
-    skills: ["Machine Learning", "Statistical Modeling", "Time Series Analysis", "Natural Language Processing", "LLMs", "Scikit-learn", "TensorFlow", "PyTorch"]
-  },
-  {
-    label: "Data Engineering & Cloud",
-    skills: ["dbt", "Snowflake", "AWS", "GCP", "Big Data Technologies"]
-  },
-  {
-    label: "Analytics & Visualization",
-    skills: ["Data Analysis", "Data Visualization", "Plotly", "Looker"]
-  }
+const skillRows = [
+  { label: 'Programming', value: 'Python · SQL' },
+  { label: 'ML & Modeling', value: 'Machine Learning · Statistical Modeling · Causal Inference · A/B Testing · Experimentation · Attribution · Marketing Measurement · Time Series · NLP · LLMs' },
+  { label: 'Libraries', value: 'Scikit-learn · LightGBM · TensorFlow · PyTorch · StatsModels · Optuna · LangChain' },
+  { label: 'Data & Cloud', value: 'dbt · Snowflake · BigQuery · AWS · GCP · Databricks' },
+  { label: 'Visualization', value: 'Plotly · Looker · Tableau' },
 ]
 
-const accentColor = "#d63384"
+const publications = [
+  {
+    title: 'Context-sensitive modeling of public transport data',
+    venue: 'Transport Research Arena (TRA2020)',
+    url: 'https://www.semanticscholar.org/paper/Context-sensitive-modeling-of-public-transport-data-Leite-Finamore/9a3a9182d19178c8e98242e6f49d15e621af5fec',
+  },
+  {
+    title: 'LM2F: a life-cycle model maintenance framework for co-evolving enterprise architecture models',
+    venue: 'European Conference on Information Systems, AIS (2019)',
+    url: 'https://aisel.aisnet.org/ecis2019_rp/6/',
+  },
+]
 
-export default function Component() {
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const [currentPage, setCurrentPage] = useState('home')
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [showScrollTop, setShowScrollTop] = useState(false)
-  const pathname = usePathname()
+const domains = ['All', ...Array.from(new Set(projects.map(p => p.domain)))]
 
-  useEffect(() => {
-    if (pathname === '/') {
-      setCurrentPage('home')
-    } else if (pathname === '/projects') {
-      setCurrentPage('projects')
-    }
-  }, [pathname])
+// ─── Main Component ───────────────────────────────────────────────────────────
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.pageYOffset > 300)
-    }
+export default function Portfolio() {
+  const [isDark, setIsDark] = useState(false)
+  const [expandedRole, setExpandedRole] = useState<string | null>(null)
+  const [expandedProject, setExpandedProject] = useState<string | null>(null)
+  const [activeFilter, setActiveFilter] = useState('All')
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const c: Colors = isDark
+    ? {
+        bg: '#111110',
+        text: '#e8e5df',
+        muted: '#6b6864',
+        border: '#252321',
+        rowHover: '#191817',
+        expandedBg: '#161514',
+        accent: '#9abfb2',
+      }
+    : {
+        bg: '#f5f4f0',
+        text: '#1a1918',
+        muted: '#8a8784',
+        border: '#e2dfd9',
+        rowHover: '#edecea',
+        expandedBg: '#e8e5e0',
+        accent: '#2d4a3e',
+      }
 
-  const toggleSidebar = () => setIsCollapsed(!isCollapsed)
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode)
-
-  const navigateTo = (page: string) => {
-    setCurrentPage(page)
-  }
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const allTags = Array.from(new Set(projects.flatMap(project => project.tags)))
+  const filtered = activeFilter === 'All' ? projects : projects.filter(p => p.domain === activeFilter)
 
   return (
-    <div className={`flex min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'} font-[var(--font-montserrat),var(--font-geist-sans),sans-serif]`}>
-      {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 h-full ${isDarkMode ? 'bg-gray-800' : 'bg-white'} transition-all duration-300 ease-in-out ${isCollapsed ? 'w-20' : 'w-64'} flex flex-col items-center py-8`}>
-        <div className="flex flex-col items-center w-full space-y-6">
-          {/* Navigation buttons */}
-          <nav className="flex flex-col items-center space-y-2 w-full">
-            <Button 
-              variant="ghost" 
-              className={`w-full justify-center ${isCollapsed ? 'px-0' : ''} transition-colors duration-300`}
-              onClick={() => navigateTo('home')}
-              style={currentPage === 'home' ? { backgroundColor: accentColor, color: 'white' } : {}}
-            >
-              <Home className={`h-5 w-5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`} />
-              {!isCollapsed && <span className={`ml-2 transition-none transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>Home</span>}
-            </Button>
-            <Button
-              variant="ghost"
-              className={`w-full justify-center ${isCollapsed ? 'px-0' : ''} transition-colors duration-300`}
-              onClick={() => navigateTo('projects')}
-              style={currentPage === 'projects' ? { backgroundColor: accentColor, color: 'white' } : {}}
-            >
-              <Briefcase className={`h-5 w-5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`} />
-              {!isCollapsed && <span className={`ml-2 transition-none transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>Projects</span>}
-            </Button>
-            <Button
-              variant="ghost"
-              className={`w-full justify-center ${isCollapsed ? 'px-0' : ''} transition-colors duration-300`}
-              onClick={() => navigateTo('cv')}
-              style={currentPage === 'cv' ? { backgroundColor: accentColor, color: 'white' } : {}}
-            >
-              <FileText className={`h-5 w-5 transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`} />
-              {!isCollapsed && <span className={`ml-2 transition-none transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>CV</span>}
-            </Button>
-          </nav>
-        </div>
+    <div style={{ backgroundColor: c.bg, color: c.text }} className="min-h-screen transition-colors duration-300">
+      <div className="max-w-4xl mx-auto px-6 md:px-12 py-20 md:py-28">
 
-        {/* Controls at the bottom */}
-        <div className="mt-auto flex flex-col items-center space-y-4">
-          {/* Dark mode toggle */}
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div 
-                  className={`flex items-center justify-between w-16 h-8 rounded-full p-1 cursor-pointer transition-colors duration-300 ${
-                    isDarkMode ? 'bg-gray-600' : 'bg-gray-300'
-                  }`}
-                  onClick={toggleDarkMode}
-                >
-                  <motion.div
-                    className={`flex items-center justify-center w-6 h-6 rounded-full ${
-                      isDarkMode ? 'bg-gray-800' : 'bg-white'
-                    }`}
-                    animate={{ x: isDarkMode ? 32 : 0 }}
-                    transition={{ type: "spring", stiffness: 700, damping: 30 }}
-                  >
-                    {isDarkMode ? (
-                      <Moon className="h-4 w-4 text-yellow-300" />
-                    ) : (
-                      <Sun className="h-4 w-4 text-yellow-500" />
-                    )}
-                  </motion.div>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Toggle dark mode</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
-          {/* Collapse/Expand button */}
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={toggleSidebar}
-            className={`mt-2 transition-colors duration-300 ${isDarkMode ? 'text-white hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-200'}`}
-          >
-            {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-          </Button>
-        </div>
-      </aside>
-
-      {/* Main content */}
-      <main className={`flex-1 p-8 overflow-auto ${isCollapsed ? 'ml-20' : 'ml-64'}`}>
-        <AnimatePresence mode="wait">
-          {currentPage === 'home' && (
-            <motion.div
-              key="home"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <HomePage isDarkMode={isDarkMode} skillCategories={skillCategories} navigateTo={navigateTo} accentColor={accentColor} />
-            </motion.div>
-          )}
-          {currentPage === 'projects' && (
-            <motion.div
-              key="projects"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ProjectsPage
-                projects={projects.filter(project =>
-                  project.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                  (selectedTags.length === 0 || selectedTags.some(tag => project.tags.includes(tag)))
-                )}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                selectedTags={selectedTags}
-                setSelectedTags={setSelectedTags}
-                allTags={Array.from(new Set(projects.flatMap(project => project.tags)))}
-                isDarkMode={isDarkMode}
-                accentColor={accentColor}
-              />
-            </motion.div>
-          )}
-          {currentPage === 'cv' && (
-            <motion.div
-              key="cv"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <CVPage isDarkMode={isDarkMode} accentColor={accentColor} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Scroll to top button */}
-        <AnimatePresence>
-          {showScrollTop && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.2 }}
-              className="fixed bottom-4 right-4"
-            >
-              <Button
-                className="rounded-full p-2"
-                onClick={scrollToTop}
-                style={{ backgroundColor: accentColor}}
+        {/* ── Header ── */}
+        <header className="mb-24">
+          <div className="flex items-start justify-between mb-10">
+            <div>
+              <h1
+                className="font-light tracking-tight mb-4"
+                style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', letterSpacing: '-0.025em', lineHeight: 1 }}
               >
-                <ArrowUp className="h-6 w-6" />
-              </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </main>
-    </div>
-  )
-}
-
-function HomePage({ isDarkMode, skillCategories, navigateTo, accentColor }: { isDarkMode: boolean, skillCategories: { label: string, skills: string[] }[], navigateTo: (page: string) => void, accentColor: string }) {
-  const [typedText, setTypedText] = useState("")
-  const fullText = "Turning messy data into decisions that move the needle."
-  const typingSpeed = 50
-
-  useEffect(() => {
-    if (typedText.length < fullText.length) {
-      const timeout = setTimeout(() => {
-        setTypedText(fullText.slice(0, typedText.length + 1))
-      }, typingSpeed)
-      return () => clearTimeout(timeout)
-    }
-  }, [typedText])
-
-  return (
-    <div className="space-y-12 max-w-4xl mx-auto">
-      <section className="text-center">
-        <motion.h1
-          className="text-5xl font-bold mb-2"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{ color: accentColor }}
-        >
-          Inês Leite
-        </motion.h1>
-        <motion.p
-          className="text-2xl mb-2"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          Data Scientist
-        </motion.p>
-        <motion.p
-          className="text-sm tracking-widest uppercase mb-8 opacity-60"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          ML · Causal Inference · Optimization · NLP
-        </motion.p>
-        <p className="text-lg mb-8 h-8">
-          {typedText}
-        </p>
-        <Button style={{ backgroundColor: accentColor }} className="hover:opacity-90 text-white" onClick={() => navigateTo('projects')}>
-          View My Projects
-        </Button>
-      </section>
-
-      <section>
-        <h2 className="text-3xl font-bold mb-4" style={{ color: accentColor }}>About</h2>
-        <p className="text-lg leading-relaxed">
-          I build data products and ML systems that help organizations make better decisions — from dynamic pricing and churn prediction to causal inference and demand forecasting. My work spans retail, logistics, finance, and marketplaces, with a focus on models that are interpretable, production-ready, and grounded in business outcomes.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-3xl font-bold mb-6" style={{ color: accentColor }}>Skills</h2>
-        <div className="space-y-5">
-          {skillCategories.map((category, catIndex) => (
-            <div key={catIndex}>
-              <p className={`text-xs font-semibold uppercase tracking-widest mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                {category.label}
+                Inês Leite
+              </h1>
+              <p className="text-lg mb-1.5">Senior Data Scientist</p>
+              <p className="text-xs tracking-widest uppercase" style={{ color: c.muted }}>
+                ML · Causal Inference · Optimization · NLP · Munich
               </p>
-              <motion.div
-                className="flex flex-wrap gap-2"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: { opacity: 0 },
-                  visible: {
-                    opacity: 1,
-                    transition: { delayChildren: catIndex * 0.1, staggerChildren: 0.05 }
-                  }
+            </div>
+            <button
+              onClick={() => setIsDark(!isDark)}
+              style={{ color: c.muted }}
+              className="mt-1 transition-opacity hover:opacity-100 opacity-50"
+              aria-label="Toggle dark mode"
+            >
+              {isDark ? <Sun size={14} /> : <Moon size={14} />}
+            </button>
+          </div>
+          <div style={{ borderTop: `1px solid ${c.border}` }} />
+        </header>
+
+        {/* ── Experience ── */}
+        <section className="mb-24">
+          <Label text="Experience" color={c.muted} border={c.border} />
+          {roles.map(role => (
+            <ExpandableRow
+              key={role.id}
+              isExpanded={expandedRole === role.id}
+              onToggle={() => setExpandedRole(expandedRole === role.id ? null : role.id)}
+              colors={c}
+              summary={
+                <div className="grid gap-4 w-full" style={{ gridTemplateColumns: '3fr 2fr 2fr auto' }}>
+                  <span className="text-sm">{role.title}</span>
+                  <span className="text-sm font-medium">{role.company}</span>
+                  <span className="text-sm text-right" style={{ color: c.muted }}>{role.period}</span>
+                  <ChevronIcon expanded={expandedRole === role.id} color={c.muted} />
+                </div>
+              }
+              detail={
+                <div className="grid gap-4" style={{ gridTemplateColumns: '3fr 7fr' }}>
+                  <div />
+                  <div className="pb-1">
+                    <div className="space-y-3 mb-5">
+                      {role.bullets.map((b, i) => (
+                        <p key={i} className="text-sm leading-relaxed" style={{ color: c.muted }}>
+                          <span style={{ color: c.accent, marginRight: '0.5rem', opacity: 0.7 }}>—</span>{b}
+                        </p>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {role.stack.map((s, i) => (
+                        <span
+                          key={i}
+                          className="text-xs px-2 py-0.5"
+                          style={{ border: `1px solid ${c.border}`, color: c.muted, borderRadius: '2px' }}
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              }
+            />
+          ))}
+        </section>
+
+        {/* ── Projects ── */}
+        <section className="mb-24">
+          <Label
+            text="Projects"
+            color={c.muted}
+            border={c.border}
+            aside={
+              <span className="text-xs" style={{ color: c.muted }}>
+                {filtered.length} / {projects.length}
+              </span>
+            }
+          />
+
+          {/* Domain filter */}
+          <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6">
+            {domains.map(d => (
+              <button
+                key={d}
+                onClick={() => setActiveFilter(d)}
+                className="text-xs uppercase tracking-widest transition-all pb-0.5"
+                style={{
+                  color: activeFilter === d ? c.text : c.muted,
+                  borderBottom: activeFilter === d ? `1px solid ${c.text}` : '1px solid transparent',
                 }}
               >
-                {category.skills.map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    variants={{ hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1 } }}
-                  >
-                    <Badge
-                      variant="secondary"
-                      className={`text-sm px-3 py-1 ${isDarkMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'}`}
-                    >
-                      {skill}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-3xl font-bold mb-4" style={{ color: accentColor }}>Contact</h2>
-        <div className="flex flex-wrap justify-center gap-4">
-          <motion.a
-            href="https://www.linkedin.com/in/ileite/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md ${isDarkMode ? 'text-gray-900 bg-gray-100 hover:bg-gray-200' : 'text-white hover:opacity-90'} focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200`}
-            style={{ backgroundColor: accentColor }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Linkedin className="mr-2 h-4 w-4" />
-            LinkedIn
-          </motion.a>
-          <motion.a
-            href="https://github.com/inesleite"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md ${isDarkMode ? 'text-gray-900 bg-gray-100 hover:bg-gray-200' : 'text-white hover:opacity-90'} focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200`}
-            style={{ backgroundColor: accentColor }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Github className="mr-2 h-4 w-4" />
-            GitHub
-          </motion.a>
-        </div>
-      </section>
-
-    </div>
-  )
-}
-
-function ProjectsPage({ 
-  projects, 
-  searchTerm, 
-  setSearchTerm, 
-  selectedTags, 
-  setSelectedTags, 
-  allTags,
-  isDarkMode,
-  accentColor
-}: { 
-  projects: Project[], 
-  searchTerm: string, 
-  setSearchTerm: (term: string) => void,
-  selectedTags: string[],
-  setSelectedTags: (tags: string[]) => void,
-  allTags: string[],
-  isDarkMode: boolean,
-  accentColor: string
-}) {
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null)
-
-  return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8" style={{ color: accentColor }}>My Projects</h1>
-      <div className="mb-6 relative">
-        <Input
-          type="text"
-          placeholder="Search projects..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className={`w-full pl-10 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}
-        />
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-      </div>
-      <ScrollArea className="h-20 mb-6">
-        <div className="flex flex-wrap gap-2">
-          {allTags.map(tag => (
-            <Badge
-              key={tag}
-              variant={selectedTags.includes(tag) ? "default" : "outline"}
-              className={`cursor-pointer ${isDarkMode ? 'hover:bg-gray-700 bg-gray-800 text-white' : 'hover:bg-gray-200'}`}
-              style={selectedTags.includes(tag) ? { backgroundColor: accentColor } : {}}
-              onClick={() => {
-                if (selectedTags.includes(tag)) {
-                  setSelectedTags(selectedTags.filter(t => t !== tag))
-                } else {
-                  setSelectedTags([...selectedTags, tag])
-                }
-              }}
-            >
-              {tag}
-            </Badge>
-          ))}
-        </div>
-      </ScrollArea>
-      <div className="space-y-8">
-        {projects.map((project) => (
-          <motion.div
-            key={project.id}
-            onHoverStart={() => setHoveredProject(project.id)}
-            onHoverEnd={() => setHoveredProject(null)}
-          >
-            <Card 
-              className={`transition-all duration-300 hover:shadow-lg ${
-                hoveredProject === project.id ? 'border-2' : ''
-              } ${isDarkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-white hover:bg-gray-50'}`}
-              style={hoveredProject === project.id ? { borderColor: accentColor } : {}}
-            >
-              <CardContent className="p-6">
-                <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="hover:no-underline">
-                      <div className="text-left">
-                        <h2 className="text-2xl font-semibold" style={{ color: accentColor }}>
-                          {project.title}
-                        </h2>
-                        <p className={`text-sm mt-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-500'}`}>
-                          {project.impact}
-                        </p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="mt-4 space-y-4">
-                        <div>
-                          <h3 className="font-semibold mb-2">Objective:</h3>
-                          <p>{project.objective}</p>
-                        </div>
-                        <div>
-                          <h3 className="font-semibold mb-2">Methodology:</h3>
-                          <ul className="list-disc pl-5">
-                            {project.methodology.map((step, stepIndex) => (
-                              <li key={stepIndex}>{step}</li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div className="flex flex-wrap gap-2 mt-4">
-                          {project.tags.map(tag => (
-                            <Badge key={tag} variant="secondary" className={isDarkMode ? 'bg-gray-700 text-white' : ''}>{tag}</Badge>
-                          ))}
-                        </div>
-                        <div className="flex justify-center gap-4 mt-4">
-                          <motion.a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md ${isDarkMode ? 'text-gray-900 bg-gray-100 hover:bg-gray-200' : 'text-white hover:opacity-90'} focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200`}
-                            style={{ backgroundColor: accentColor }}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <Github className="mr-2 h-4 w-4" />
-                            GitHub
-                          </motion.a>
-                          <motion.a
-                            href={project.notebookUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md ${isDarkMode ? 'text-gray-900 bg-gray-100 hover:bg-gray-200' : 'text-white hover:opacity-90'} focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200`}
-                            style={{ backgroundColor: accentColor }}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <BookOpen className="mr-2 h-4 w-4" />
-                            Notebook
-                          </motion.a>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-type ExperienceEntry = {
-  company: string
-  location: string
-  roles: { title: string; period: string; bullets: string[] }[]
-}
-
-const experience: ExperienceEntry[] = [
-  {
-    company: "FlixBus",
-    location: "Munich, DE",
-    roles: [
-      {
-        title: "Senior Data Scientist",
-        period: "Sep 2025 – Present",
-        bullets: [
-          "Built the incrementality measurement framework for geo-based marketing experiments across the US, Canada, Europe, and LATAM, evaluating 18 geo testing opportunities and supporting ~€15M in media investment.",
-          "Led integration of incrementality test results into attribution systems as a calibration factor, contributing to ~€400k in monthly optimization impact."
-        ]
-      },
-      {
-        title: "Data Scientist",
-        period: "Dec 2023 – Sep 2025",
-        bullets: [
-          "Developed CRM and customer analytics solutions, including an email volume optimization model that improved booking rates by 2.7% while managing unsubscribe risk.",
-          "Implemented a LLM workflow using LangChain to inform product decisions from user feedback (app review data)."
-        ]
-      }
-    ]
-  },
-  {
-    company: "Onfido",
-    location: "Remote",
-    roles: [
-      {
-        title: "Data Scientist",
-        period: "Sep 2022 – Nov 2023",
-        bullets: [
-          "Reduced false-positive rates by 3% through an NLP-based outlier detection system.",
-          "Automated data analysis for business rule extraction, increasing true-positive rates by 2.7% and improving operational efficiency."
-        ]
-      }
-    ]
-  },
-  {
-    company: "Farfetch",
-    location: "Remote",
-    roles: [
-      {
-        title: "Data Scientist",
-        period: "Jun 2021 – Aug 2022",
-        bullets: [
-          "Developed a forecasting framework across multiple business KPIs supporting decisions related to LTV, churn, and GMV.",
-          "Applied NLP to customer reviews to create reusable features for machine learning and targeted marketing."
-        ]
-      },
-      {
-        title: "Junior Data Scientist",
-        period: "Apr 2020 – Jun 2021",
-        bullets: [
-          "Developed and deployed a predictive model for product categorization, reducing manual classification errors and improving profitability.",
-          "Optimized payment provider selection across global markets, improving conversion and customer retention."
-        ]
-      },
-      {
-        title: "Data Scientist (Intern)",
-        period: "Sep 2019 – Apr 2020",
-        bullets: [
-          "Engineered NLP features for delivery date estimation and supported deployment of the EDD system on GCP."
-        ]
-      }
-    ]
-  }
-]
-
-function CVPage({ isDarkMode, accentColor }: { isDarkMode: boolean; accentColor: string }) {
-  return (
-    <div className="max-w-3xl mx-auto space-y-12">
-      <section>
-        <h1 className="text-4xl font-bold mb-1" style={{ color: accentColor }}>Experience</h1>
-        <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Munich, Germany</p>
-      </section>
-
-      <section className="space-y-10">
-        {experience.map((entry, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.08 }}
-          >
-            <div className="flex items-baseline justify-between mb-3">
-              <h2 className="text-xl font-bold">{entry.company}</h2>
-              <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{entry.location}</span>
-            </div>
-            <div className="space-y-5 pl-4 border-l-2" style={{ borderColor: accentColor }}>
-              {entry.roles.map((role, j) => (
-                <div key={j}>
-                  <div className="flex items-baseline justify-between mb-2">
-                    <span className="font-semibold">{role.title}</span>
-                    <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{role.period}</span>
-                  </div>
-                  <ul className="space-y-1">
-                    {role.bullets.map((bullet, k) => (
-                      <li key={k} className={`text-sm leading-relaxed pl-3 relative before:content-['–'] before:absolute before:left-0 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold mb-4" style={{ color: accentColor }}>Education</h2>
-        <div className="flex items-start gap-3">
-          <GraduationCap className="h-5 w-5 mt-1 flex-shrink-0" style={{ color: accentColor }} />
-          <div>
-            <p className="font-semibold">MSc in Computer Science — Machine Learning & Robotics</p>
-            <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>Instituto Superior Técnico, University of Lisbon · GPA 17/20 · 2017</p>
+                {d}
+              </button>
+            ))}
           </div>
-        </div>
-      </section>
 
-      <section>
-        <h2 className="text-2xl font-bold mb-4" style={{ color: accentColor }}>Publications</h2>
-        <ul className="space-y-2">
-          <li className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            <span className="font-medium">Context-sensitive modeling of public transport data</span> — Transport Research Arena (TRA2020)
-          </li>
-          <li className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            <span className="font-medium">LM2F: a life-cycle model maintenance framework for co-evolving enterprise architecture models</span> — European Conference on Information Systems, AIS (2019)
-          </li>
-        </ul>
-      </section>
+          {/* Column headers */}
+          <div
+            className="grid gap-4 pb-2 mb-0"
+            style={{ gridTemplateColumns: '2rem 1.5fr 4fr 2fr auto', borderBottom: `1px solid ${c.border}` }}
+          >
+            {['', 'Domain', 'Project', 'Method', ''].map((h, i) => (
+              <span key={i} className="text-xs uppercase tracking-widest" style={{ color: c.muted }}>
+                {h}
+              </span>
+            ))}
+          </div>
+
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filtered.map((project, idx) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <ExpandableRow
+                  isExpanded={expandedProject === project.id}
+                  onToggle={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
+                  colors={c}
+                  summary={
+                    <div className="grid gap-4 w-full" style={{ gridTemplateColumns: '2rem 1.5fr 4fr 2fr auto' }}>
+                      <span
+                        className="text-xs tabular-nums self-center"
+                        style={{ color: project.featured ? c.accent : c.muted }}
+                      >
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-sm" style={{ color: c.muted }}>{project.domain}</span>
+                      <span
+                        className="text-sm"
+                        style={{ fontWeight: project.featured ? 500 : 400 }}
+                      >
+                        {project.title}
+                      </span>
+                      <span className="text-sm" style={{ color: c.muted }}>{project.method}</span>
+                      <ChevronIcon expanded={expandedProject === project.id} color={c.muted} />
+                    </div>
+                  }
+                  detail={
+                    <div className="grid gap-4" style={{ gridTemplateColumns: '2rem 1.5fr 6fr' }}>
+                      <div />
+                      <div />
+                      <div className="space-y-3 pb-1">
+                        <p className="text-sm leading-relaxed" style={{ color: c.muted }}>{project.description}</p>
+                        <ul className="space-y-1 pt-1">
+                          {project.methodology.map((m, i) => (
+                            <li key={i} className="text-sm leading-relaxed" style={{ color: c.muted }}>
+                              — {m}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex gap-5 pt-1">
+                          {project.githubUrl && (
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                              className="text-xs hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
+                              GitHub ↗
+                            </a>
+                          )}
+                          {project.notebookUrl && (
+                            <a href={project.notebookUrl} target="_blank" rel="noopener noreferrer"
+                              className="text-xs hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
+                              Notebook ↗
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </section>
+
+        {/* ── Skills ── */}
+        <section className="mb-24">
+          <Label text="Skills" color={c.muted} border={c.border} />
+          {skillRows.map((row, i) => (
+            <div
+              key={i}
+              className="grid gap-4 py-3.5"
+              style={{ gridTemplateColumns: '2fr 5fr', borderBottom: `1px solid ${c.border}` }}
+            >
+              <span className="text-sm" style={{ color: c.muted }}>{row.label}</span>
+              <span className="text-sm">{row.value}</span>
+            </div>
+          ))}
+        </section>
+
+        {/* ── Education ── */}
+        <section className="mb-24">
+          <Label text="Education" color={c.muted} border={c.border} />
+          <div
+            className="grid gap-4 py-4"
+            style={{ gridTemplateColumns: '3fr 3fr 1fr', borderBottom: `1px solid ${c.border}` }}
+          >
+            <span className="text-sm">MSc Computer Science</span>
+            <span className="text-sm">Instituto Superior Técnico, Lisbon</span>
+            <span className="text-sm text-right" style={{ color: c.muted }}>2017</span>
+          </div>
+          <div
+            className="grid gap-4 py-3"
+            style={{ gridTemplateColumns: '3fr 3fr 1fr', borderBottom: `1px solid ${c.border}` }}
+          >
+            <span className="text-sm" style={{ color: c.muted }}>Machine Learning & Robotics</span>
+            <span />
+            <span />
+          </div>
+        </section>
+
+        {/* ── Publications ── */}
+        <section className="mb-24">
+          <Label text="Publications" color={c.muted} border={c.border} />
+          {publications.map((pub, i) => (
+            <div
+              key={i}
+              className="grid gap-4 py-4"
+              style={{ gridTemplateColumns: '4fr 3fr', borderBottom: `1px solid ${c.border}` }}
+            >
+              <span className="text-sm">
+                <a
+                  href={pub.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-70 transition-opacity"
+                  style={{ color: c.text }}
+                >
+                  {pub.title} ↗
+                </a>
+              </span>
+              <span className="text-sm text-right" style={{ color: c.muted }}>{pub.venue}</span>
+            </div>
+          ))}
+        </section>
+
+        {/* ── Contact ── */}
+        <footer>
+          <Label text="Contact" color={c.muted} border={c.border} />
+          <div className="py-6 space-y-1.5">
+            <div>
+              <a href="https://www.linkedin.com/in/ileite/" target="_blank" rel="noopener noreferrer"
+                className="text-sm hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
+                linkedin.com/in/ileite ↗
+              </a>
+            </div>
+            <div>
+              <a href="https://github.com/inesleite" target="_blank" rel="noopener noreferrer"
+                className="text-sm hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
+                github.com/inesleite ↗
+              </a>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  )
+}
+
+// ─── Reusable Components ──────────────────────────────────────────────────────
+
+function Label({
+  text,
+  color,
+  border,
+  aside,
+}: {
+  text: string
+  color: string
+  border: string
+  aside?: ReactNode
+}) {
+  return (
+    <div className="mb-5">
+      <div className="flex items-baseline justify-between mb-2.5">
+        <span className="text-xs uppercase tracking-widest" style={{ color }}>{text}</span>
+        {aside}
+      </div>
+      <div style={{ borderTop: `1px solid ${border}` }} />
+    </div>
+  )
+}
+
+function ChevronIcon({ expanded, color }: { expanded: boolean; color: string }) {
+  return (
+    <ChevronDown
+      size={13}
+      style={{ color, flexShrink: 0, transition: 'transform 0.2s', transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+    />
+  )
+}
+
+function ExpandableRow({
+  isExpanded,
+  onToggle,
+  colors,
+  summary,
+  detail,
+}: {
+  isExpanded: boolean
+  onToggle: () => void
+  colors: Colors
+  summary: ReactNode
+  detail: ReactNode
+}) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <div style={{ borderBottom: `1px solid ${colors.border}` }}>
+      <button
+        onClick={onToggle}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className="w-full text-left py-4 flex items-center gap-4 transition-colors duration-100"
+        style={{ backgroundColor: isExpanded ? colors.expandedBg : hovered ? colors.rowHover : 'transparent' }}
+      >
+        {summary}
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className="overflow-hidden"
+            style={{ backgroundColor: colors.expandedBg }}
+          >
+            <div className="px-0 pt-2 pb-5">
+              {detail}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
