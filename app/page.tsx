@@ -1,19 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { ReactNode } from 'react'
-import { Moon, Sun, ChevronDown } from 'lucide-react'
+import { Moon, Sun, ChevronDown, Mail, Linkedin, Github, BookOpen, ExternalLink } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Role = {
-  id: string
+type RoleEntry = {
   title: string
-  company: string
   period: string
   bullets: string[]
   stack: string[]
+}
+
+type Company = {
+  id: string
+  name: string
+  period: string
+  roles: RoleEntry[]
 }
 
 type Project = {
@@ -38,73 +43,84 @@ type Colors = {
   accent: string
 }
 
+type SummaryProp = ReactNode | ((hovered: boolean) => ReactNode)
+
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const roles: Role[] = [
+const companies: Company[] = [
   {
-    id: 'flix-sr',
-    title: 'Senior Data Scientist',
-    company: 'FlixBus',
-    period: 'Sep 2025 – Present',
-    bullets: [
-      'Designed Flix\'s geo-based incrementality measurement framework — running causal experiments across US, Canada, Europe, and LATAM to separate true media-driven growth from organic demand.',
-      'Integrated experiment results into attribution systems as calibration signals, making media mix decisions more grounded in evidence than modeled assumptions.',
+    id: 'flixbus',
+    name: 'FlixBus',
+    period: 'Dec 2023 – Present',
+    roles: [
+      {
+        title: 'Senior Data Scientist',
+        period: 'Sep 2025 – Present',
+        bullets: [
+          'Designed Flix\'s geo-based incrementality measurement framework — running causal experiments across US, Canada, Europe, and LATAM to separate true media-driven growth from organic demand.',
+          'Integrated experiment results into attribution systems as calibration signals, making media mix decisions more grounded in evidence than modeled assumptions.',
+        ],
+        stack: ['Python', 'Causal Inference', 'Geo Experiments', 'Attribution', 'MMM'],
+      },
+      {
+        title: 'Data Scientist',
+        period: 'Dec 2023 – Sep 2025',
+        bullets: [
+          'Built CRM models and customer analytics systems — including an email volume optimizer that balanced engagement uplift against unsubscribe risk.',
+          'Designed a LLM pipeline using LangChain to surface structured insights from app review data, feeding directly into product planning.',
+        ],
+        stack: ['Python', 'LightGBM', 'LangChain', 'CRM', 'NLP', 'SQL'],
+      },
     ],
-    stack: ['Python', 'Causal Inference', 'Geo Experiments', 'Attribution', 'MMM'],
   },
   {
-    id: 'flix-ds',
-    title: 'Data Scientist',
-    company: 'FlixBus',
-    period: 'Dec 2023 – Sep 2025',
-    bullets: [
-      'Built CRM models and customer analytics systems — including an email volume optimizer that balanced engagement uplift against unsubscribe risk.',
-      'Designed a LLM pipeline using LangChain to surface structured insights from app review data, feeding directly into product planning.',
-    ],
-    stack: ['Python', 'LightGBM', 'LangChain', 'CRM', 'NLP', 'SQL'],
-  },
-  {
-    id: 'onfido-ds',
-    title: 'Data Scientist',
-    company: 'Onfido',
+    id: 'onfido',
+    name: 'Onfido',
     period: 'Sep 2022 – Nov 2023',
-    bullets: [
-      'Built an NLP-based anomaly detection system to flag unusual patterns in identity verification data, reducing false positives in production.',
-      'Automated rule extraction from historical data, turning manual analyst workflows into reproducible pipelines with measurable accuracy gains.',
+    roles: [
+      {
+        title: 'Data Scientist',
+        period: 'Sep 2022 – Nov 2023',
+        bullets: [
+          'Built an NLP-based anomaly detection system to flag unusual patterns in identity verification data, reducing false positives in production.',
+          'Automated rule extraction from historical data, turning manual analyst workflows into reproducible pipelines with measurable accuracy gains.',
+        ],
+        stack: ['Python', 'NLP', 'Anomaly Detection', 'Scikit-learn', 'SQL'],
+      },
     ],
-    stack: ['Python', 'NLP', 'Anomaly Detection', 'Scikit-learn', 'SQL'],
   },
   {
-    id: 'farfetch-ds',
-    title: 'Data Scientist',
-    company: 'Farfetch',
-    period: 'Jun 2021 – Aug 2022',
-    bullets: [
-      'Developed a multi-horizon forecasting framework covering LTV, churn, and GMV — used across teams to align planning with modeled demand.',
-      'Turned raw customer review text into reusable NLP features, shared across marketing and ML use cases.',
+    id: 'farfetch',
+    name: 'Farfetch',
+    period: 'Sep 2019 – Aug 2022',
+    roles: [
+      {
+        title: 'Data Scientist',
+        period: 'Jun 2021 – Aug 2022',
+        bullets: [
+          'Developed a multi-horizon forecasting framework covering LTV, churn, and GMV — used across teams to align planning with modeled demand.',
+          'Turned raw customer review text into reusable NLP features, shared across marketing and ML use cases.',
+        ],
+        stack: ['Python', 'LightGBM', 'Time Series', 'NLP', 'SQL'],
+      },
+      {
+        title: 'Junior Data Scientist',
+        period: 'Apr 2020 – Jun 2021',
+        bullets: [
+          'Trained and deployed a product categorization model based on global customs codes, replacing a largely manual classification process.',
+          'Modeled payment provider performance across markets to optimize routing decisions for conversion and order value.',
+        ],
+        stack: ['Python', 'Scikit-learn', 'SQL', 'GCP'],
+      },
+      {
+        title: 'Data Scientist, Intern',
+        period: 'Sep 2019 – Apr 2020',
+        bullets: [
+          'Engineered NLP and numerical features for a delivery date estimation system, and supported its rollout on GCP including training and inference pipelines.',
+        ],
+        stack: ['Python', 'NLP', 'GCP'],
+      },
     ],
-    stack: ['Python', 'LightGBM', 'Time Series', 'NLP', 'SQL'],
-  },
-  {
-    id: 'farfetch-jr',
-    title: 'Junior Data Scientist',
-    company: 'Farfetch',
-    period: 'Apr 2020 – Jun 2021',
-    bullets: [
-      'Trained and deployed a product categorization model based on global customs codes, replacing a largely manual classification process.',
-      'Modeled payment provider performance across markets to optimize routing decisions for conversion and order value.',
-    ],
-    stack: ['Python', 'Scikit-learn', 'SQL', 'GCP'],
-  },
-  {
-    id: 'farfetch-int',
-    title: 'Data Scientist, Intern',
-    company: 'Farfetch',
-    period: 'Sep 2019 – Apr 2020',
-    bullets: [
-      'Engineered NLP and numerical features for a delivery date estimation system, and supported its rollout on GCP including training and inference pipelines.',
-    ],
-    stack: ['Python', 'NLP', 'GCP'],
   },
 ]
 
@@ -117,9 +133,9 @@ const projects: Project[] = [
     featured: true,
     description: 'Which lockers are actually worth visiting today? Given locker demand, vehicle capacity, and delivery SLAs, a linear program selects the optimal subset each day — making the decision systematically rather than by gut.',
     methodology: [
-      'Formulated as a linear program using PuLP, with constraints on vehicle capacity and delivery speed requirements.',
-      'Incorporated locker demand signals and geographic data to weight selection priority.',
-      'Used sensitivity analysis to understand how the solution shifts under capacity changes.',
+      'Formulated as a linear program using PuLP, with hard constraints on vehicle capacity and delivery speed SLAs.',
+      'Locker demand signals and geographic distance weights inform the objective function.',
+      'Sensitivity analysis on capacity bounds to quantify trade-offs between cost and service level.',
     ],
     githubUrl: 'https://github.com/inesleite/prioritize-lockers',
     notebookUrl: 'https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb',
@@ -132,8 +148,9 @@ const projects: Project[] = [
     featured: true,
     description: 'Predicting how many people will be at a subway station and when — so the MTA can staff it right. A time series challenge using NYC subway data, forecasting ridership at hourly resolution across stations while accounting for seasonality, events, and day-of-week patterns.',
     methodology: [
-      'LightGBM for feature-rich gradient boosting; Prophet for interpretable seasonality decomposition.',
-      'Evaluated with MAPE and RMSE using temporal cross-validation to avoid data leakage.',
+      'LightGBM with lag and rolling features; Prophet for interpretable seasonal decomposition.',
+      'Temporal cross-validation with walk-forward splits to reflect real deployment constraints.',
+      'MAPE and RMSE as primary metrics; residual analysis per station to diagnose systematic bias.',
     ],
     githubUrl: 'https://github.com/inesleite/mta-ridership',
     notebookUrl: 'https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb',
@@ -146,8 +163,9 @@ const projects: Project[] = [
     featured: true,
     description: 'Not just "do promotions work?" but "for which stores do they actually work?" Rossmann runs thousands of retail locations — the challenge is finding which ones see genuine lift from a promotion versus those that would have performed the same regardless.',
     methodology: [
-      'Two-model (T-learner) approach using Scikit-learn classifiers to estimate individual treatment effects.',
-      'SHAP to interpret feature contributions and understand what drives treatment sensitivity.',
+      'T-learner (two-model) approach: separate classifiers for treatment and control groups using Scikit-learn.',
+      'Individual treatment effect (ITE) estimation to rank stores by expected uplift.',
+      'SHAP for decomposing which store features drive promotion sensitivity.',
     ],
     githubUrl: 'https://github.com/inesleite/rossmann-uplift',
     notebookUrl: 'https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb',
@@ -159,8 +177,9 @@ const projects: Project[] = [
     method: 'Reinforcement Learning',
     description: 'Teaching an agent to price rides dynamically in a simulated ride-hailing marketplace. The agent learns a policy through interaction with a custom environment, rewarded for reducing rider wait times and maximizing driver earnings — a reinforcement learning approach to the surge pricing problem.',
     methodology: [
-      'Deep Q-Network (DQN) implemented in TensorFlow with a custom simulation environment.',
-      'Explored reward shaping to balance the competing objectives of supply and demand.',
+      'Deep Q-Network (DQN) in TensorFlow; experience replay and target network for training stability.',
+      'Custom Gym-compatible environment simulating supply/demand shocks and driver availability.',
+      'Reward shaping experiments to explore the Pareto frontier between wait time and earnings.',
     ],
     githubUrl: 'https://github.com/inesleite/pricing-optimization',
     notebookUrl: 'https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/',
@@ -172,8 +191,8 @@ const projects: Project[] = [
     method: 'Clustering',
     description: 'Grouping customers by behavior to find who deserves a reactivation offer — and who is already engaged. An RFM-based clustering exercise on transactional data, building segments that are useful for CRM targeting rather than just analytically neat.',
     methodology: [
-      'RFM analysis to engineer meaningful behavioral variables, then K-Means for segmentation.',
-      'Cox Proportional Hazards model layered on top to rank segments by churn risk.',
+      'K-Means (k=5, elbow method) over standardized RFM variables; silhouette score for cluster validation.',
+      'Cox Proportional Hazards layered on top to rank segments by predicted churn risk.',
     ],
     githubUrl: 'https://github.com/inesleite/segmentation',
     notebookUrl: 'https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb',
@@ -186,8 +205,9 @@ const projects: Project[] = [
     featured: true,
     description: "The question isn't whether an offer works on average — it's whether it works on this particular user. By combining causal estimation with a tuned churn model, only genuinely responsive users are targeted, skipping those who'd engage (or churn) regardless.",
     methodology: [
-      'Difference-in-Means Estimator to measure the average treatment effect of offers on churn.',
-      'LightGBM churn model tuned with Optuna; SHAP for understanding model decisions.',
+      'Difference-in-Means Estimator for ATE; propensity score weighting for covariate balance checks.',
+      'LightGBM churn model tuned with Optuna; uplift score used to rank users by treatment responsiveness.',
+      'SHAP to surface which user features predict responsiveness to offers.',
     ],
     githubUrl: 'https://github.com/inesleite/offer-optimization',
     notebookUrl: 'https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb',
@@ -199,8 +219,8 @@ const projects: Project[] = [
     method: 'Regression',
     description: 'Predicting 12-month customer lifetime value for an insurance subscription business, with churn risk baked into the estimate. The goal: help the acquisition team decide which customers are worth acquiring at what cost, combining LightGBM revenue prediction with survival analysis.',
     methodology: [
-      'LightGBM regression for revenue prediction; survival analysis to integrate churn probability into LTV.',
-      'Evaluated business impact by comparing acquisition ROI across predicted LTV tiers.',
+      'LightGBM regression for expected revenue; Kaplan-Meier and Weibull survival models for churn probability.',
+      'LTV = E[revenue | active] × P(still active at 12m); evaluated across acquisition cohorts.',
     ],
     githubUrl: 'https://github.com/inesleite/ltv-prediction',
     notebookUrl: 'https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb',
@@ -212,8 +232,8 @@ const projects: Project[] = [
     method: 'Classification',
     description: 'Flagging users before they leave — so retention efforts land when they still matter. Using engagement signals and social graph features to predict churn in a social network, identifying at-risk users before they\'ve disengaged rather than after.',
     methodology: [
-      'LightGBM classifier with Grid Search hyperparameter tuning.',
-      'Features built from user activity patterns and social connection depth.',
+      'LightGBM classifier; hyperparameter search with Grid Search CV, evaluated on F1 and ROC-AUC.',
+      'Engineered recency/frequency engagement ratios and graph features (degree centrality, clustering coefficient).',
     ],
     githubUrl: 'https://github.com/inesleite/churn-prediction',
     notebookUrl: 'https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb',
@@ -225,8 +245,8 @@ const projects: Project[] = [
     method: 'Regression',
     description: 'Quantifying how sensitive demand is to price changes — product by product. Estimating own-price and cross-price elasticity using regression, then visualizing the distribution across categories to surface where pricing decisions can have the most impact.',
     methodology: [
-      'Linear and multi-linear regression to estimate own-price and cross-price elasticity coefficients.',
-      'Divergent bar charts to visualize elasticity distribution across product categories.',
+      'Log-log OLS for own-price elasticity; multi-linear models for cross-price effects across substitutes.',
+      'Divergent bar charts to visualize elasticity distribution; confidence intervals on key estimates.',
     ],
     githubUrl: 'https://github.com/inesleite/price-elasticity',
     notebookUrl: 'https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb',
@@ -238,8 +258,8 @@ const projects: Project[] = [
     method: 'Classification',
     description: 'Building a credit scoring model on highly imbalanced data, where defaults are rare but costly to miss. Payment history and financial behavior features feed a Random Forest model, with evaluation focused on the minority class to avoid optimizing for the wrong metric.',
     methodology: [
-      'Random Forest classifier with engineered payment history features.',
-      'Addressed class imbalance with resampling; evaluated on precision-recall to focus on the minority class.',
+      'Random Forest with SMOTE oversampling to address ~5% default rate in training data.',
+      'Threshold optimization on the precision-recall curve; AUC-PR as the primary evaluation metric.',
     ],
     githubUrl: 'https://github.com/inesleite/credit-decision-model',
     notebookUrl: 'https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb',
@@ -251,8 +271,8 @@ const projects: Project[] = [
     method: 'Classification',
     description: 'You can identify someone by how they type — timing between keystrokes carries a behavioral fingerprint. A biometrics challenge: authenticate users from typing patterns (dwell time, flight time) without passwords, using KNN classification.',
     methodology: [
-      'KNN classifier trained on timing features (dwell time, flight time) extracted from keystroke sequences.',
-      'SHAP for feature interpretation; cross-validation to assess generalization across users.',
+      'KNN classifier on dwell time and flight time features extracted from fixed-text typing sequences.',
+      'Leave-one-subject-out cross-validation; SHAP to identify which timing intervals are most discriminative.',
     ],
     githubUrl: 'https://github.com/inesleite/keystroke-dynamics',
     notebookUrl: 'https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb',
@@ -262,10 +282,10 @@ const projects: Project[] = [
     domain: 'Forecasting',
     title: 'Device Activations',
     method: 'Time Series',
-    description: 'Hourly device activation forecasting for infrastructure capacity planning. Recent activation history feeds as 24/48/72-hour lag features into a Logistic Regression model, with careful temporal splits to prevent leakage in time-ordered data.',
+    description: 'Hourly device activation forecasting for infrastructure capacity planning. Recent activation history feeds as lag features into a classifier, with careful temporal splits to prevent leakage in time-ordered data.',
     methodology: [
-      'Logistic Regression with 24/48/72-hour lag features.',
-      'Careful temporal train-test splits to prevent leakage in time-ordered data.',
+      'Lag features at 24h, 48h, and 72h windows over rolling activation counts; Logistic Regression as the estimator.',
+      'Strict temporal train-test cutoffs — no future data in feature construction at any time step.',
     ],
     githubUrl: 'https://github.com/inesleite/device-activations',
     notebookUrl: 'https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb',
@@ -277,8 +297,8 @@ const projects: Project[] = [
     method: 'Classification',
     description: 'Understanding why users drop off in a conversion funnel — by looking at who they are and when they arrive. SQL-engineered features (time of day, device, geography) feed a Random Forest model, with SHAP surfacing the behavioral drivers of drop-off.',
     methodology: [
-      'SQL-based feature engineering on session-level data.',
-      'Random Forest classifier with SHAP for feature importance and partial dependence analysis.',
+      'Session-level features engineered in SQL: time-of-day buckets, device type, geo tier, entry page.',
+      'Random Forest with SHAP global and local explanations to identify high-impact funnel friction points.',
     ],
     githubUrl: 'https://github.com/inesleite/conversion-improvements',
     notebookUrl: 'https://nbviewer.org/github/inesleite/conversion-improvements/tree/main/',
@@ -308,13 +328,41 @@ const publications = [
 
 const domains = ['All', ...Array.from(new Set(projects.map(p => p.domain)))]
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [breakpoint])
+  return isMobile
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function Portfolio() {
   const [isDark, setIsDark] = useState(false)
-  const [expandedRole, setExpandedRole] = useState<string | null>(null)
+  const [expandedCompany, setExpandedCompany] = useState<string | null>(null)
   const [expandedProject, setExpandedProject] = useState<string | null>(null)
   const [activeFilter, setActiveFilter] = useState('All')
+  const isMobile = useIsMobile()
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setExpandedCompany(null)
+        setExpandedProject(null)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   const c: Colors = isDark
     ? {
@@ -343,7 +391,12 @@ export default function Portfolio() {
       <div className="max-w-4xl mx-auto px-6 md:px-12 py-20 md:py-28">
 
         {/* ── Header ── */}
-        <header className="mb-24">
+        <motion.header
+          className="mb-24"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        >
           <div className="flex items-start justify-between mb-10">
             <div>
               <h1
@@ -352,8 +405,16 @@ export default function Portfolio() {
               >
                 Inês Leite
               </h1>
-              <p className="text-lg mb-1.5">Senior Data Scientist</p>
-              <p className="text-xs tracking-widest uppercase" style={{ color: c.muted }}>
+              <p className="text-lg mb-1.5">
+                Senior Data Scientist
+                <motion.span
+                  className="ml-1"
+                  style={{ color: c.accent }}
+                  animate={{ opacity: [1, 1, 0, 0] }}
+                  transition={{ duration: 1.1, repeat: Infinity, ease: 'linear', times: [0, 0.45, 0.5, 0.95] }}
+                >_</motion.span>
+              </p>
+              <p className="font-mono text-xs tracking-widest uppercase" style={{ color: c.muted }}>
                 ML · Causal Inference · Optimization · NLP · Munich
               </p>
             </div>
@@ -367,95 +428,141 @@ export default function Portfolio() {
             </button>
           </div>
           <div style={{ borderTop: `1px solid ${c.border}` }} />
-        </header>
+        </motion.header>
 
         {/* ── Experience ── */}
-        <section className="mb-24">
+        <motion.section
+          className="mb-24"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           <Label text="Experience" color={c.muted} border={c.border} />
-          {roles.map(role => (
+          {companies.map(company => (
             <ExpandableRow
-              key={role.id}
-              isExpanded={expandedRole === role.id}
-              onToggle={() => setExpandedRole(expandedRole === role.id ? null : role.id)}
+              key={company.id}
+              isExpanded={expandedCompany === company.id}
+              onToggle={() => setExpandedCompany(expandedCompany === company.id ? null : company.id)}
               colors={c}
               summary={
-                <div className="grid gap-4 w-full" style={{ gridTemplateColumns: '3fr 2fr 2fr auto' }}>
-                  <span className="text-sm">{role.title}</span>
-                  <span className="text-sm font-medium">{role.company}</span>
-                  <span className="text-sm text-right" style={{ color: c.muted }}>{role.period}</span>
-                  <ChevronIcon expanded={expandedRole === role.id} color={c.muted} />
-                </div>
+                isMobile ? (
+                  <div className="flex items-center justify-between w-full gap-3">
+                    <div>
+                      <span className="text-sm font-medium">{company.name}</span>
+                      <span className="font-mono text-xs block mt-0.5" style={{ color: c.muted }}>
+                        {company.roles[0].title} · {company.period}
+                      </span>
+                    </div>
+                    <ChevronIcon expanded={expandedCompany === company.id} color={c.muted} />
+                  </div>
+                ) : (
+                  <div className="grid gap-4 w-full" style={{ gridTemplateColumns: '3fr 2fr 2fr auto' }}>
+                    <span className="text-sm font-medium">{company.name}</span>
+                    <span className="text-sm" style={{ color: c.muted }}>
+                      {company.roles[0].title}
+                    </span>
+                    <span className="font-mono text-xs text-right" style={{ color: c.muted }}>{company.period}</span>
+                    <ChevronIcon expanded={expandedCompany === company.id} color={c.muted} />
+                  </div>
+                )
               }
               detail={
-                <div className="grid gap-4" style={{ gridTemplateColumns: '3fr 7fr' }}>
-                  <div />
+                <div className={isMobile ? '' : 'grid gap-4'} style={isMobile ? {} : { gridTemplateColumns: '3fr 7fr' }}>
+                  {!isMobile && <div />}
                   <div className="pb-1">
-                    <div className="space-y-3 mb-5">
-                      {role.bullets.map((b, i) => (
-                        <p key={i} className="text-sm leading-relaxed" style={{ color: c.muted }}>
-                          <span style={{ color: c.accent, marginRight: '0.5rem', opacity: 0.7 }}>—</span>{b}
-                        </p>
-                      ))}
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {role.stack.map((s, i) => (
-                        <span
-                          key={i}
-                          className="text-xs px-2 py-0.5"
-                          style={{ border: `1px solid ${c.border}`, color: c.muted, borderRadius: '2px' }}
-                        >
-                          {s}
-                        </span>
-                      ))}
-                    </div>
+                    {company.roles.map((role, i) => (
+                      <div
+                        key={i}
+                        className={i > 0 ? 'mt-7 pt-7' : ''}
+                        style={i > 0 ? { borderTop: `1px solid ${c.border}` } : {}}
+                      >
+                        <div className="flex items-baseline justify-between mb-3">
+                          <span className="text-sm font-medium" style={{ color: c.text }}>{role.title}</span>
+                          <span className="font-mono text-xs" style={{ color: c.muted }}>{role.period}</span>
+                        </div>
+                        <div className="space-y-2.5 mb-4">
+                          {role.bullets.map((b, j) => (
+                            <p key={j} className="text-sm leading-relaxed" style={{ color: c.muted }}>{b}</p>
+                          ))}
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {role.stack.map((s, j) => (
+                            <span
+                              key={j}
+                              className="font-mono text-xs px-2 py-0.5"
+                              style={{ border: `1px solid ${c.border}`, color: c.muted, borderRadius: '2px' }}
+                            >
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               }
             />
           ))}
-        </section>
+        </motion.section>
 
         {/* ── Projects ── */}
-        <section className="mb-24">
+        <motion.section
+          className="mb-24"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           <Label
             text="Projects"
             color={c.muted}
             border={c.border}
             aside={
-              <span className="text-xs" style={{ color: c.muted }}>
-                {filtered.length} / {projects.length}
-              </span>
+              activeFilter !== 'All' ? (
+                <span className="font-mono text-xs" style={{ color: c.muted }}>
+                  {filtered.length} / {projects.length}
+                </span>
+              ) : undefined
             }
           />
 
           {/* Domain filter */}
           <div className="flex flex-wrap gap-x-5 gap-y-2 mb-6">
-            {domains.map(d => (
-              <button
-                key={d}
-                onClick={() => setActiveFilter(d)}
-                className="text-xs uppercase tracking-widest transition-all pb-0.5"
-                style={{
-                  color: activeFilter === d ? c.text : c.muted,
-                  borderBottom: activeFilter === d ? `1px solid ${c.text}` : '1px solid transparent',
-                }}
-              >
-                {d}
-              </button>
-            ))}
+            {domains.map(d => {
+              const count = d === 'All' ? null : projects.filter(p => p.domain === d).length
+              return (
+                <button
+                  key={d}
+                  onClick={() => setActiveFilter(d)}
+                  className="font-mono text-xs uppercase tracking-widest transition-all pb-0.5"
+                  style={{
+                    color: activeFilter === d ? c.text : c.muted,
+                    borderBottom: activeFilter === d ? `1px solid ${c.text}` : '1px solid transparent',
+                  }}
+                >
+                  {d}
+                  {count !== null && (
+                    <span className="ml-1" style={{ opacity: 0.45 }}>({count})</span>
+                  )}
+                </button>
+              )
+            })}
           </div>
 
-          {/* Column headers */}
-          <div
-            className="grid gap-4 pb-2 mb-0"
-            style={{ gridTemplateColumns: '2rem 1.5fr 4fr 2fr auto', borderBottom: `1px solid ${c.border}` }}
-          >
-            {['', 'Domain', 'Project', 'Method', ''].map((h, i) => (
-              <span key={i} className="text-xs uppercase tracking-widest" style={{ color: c.muted }}>
-                {h}
-              </span>
-            ))}
-          </div>
+          {/* Column headers — hidden on mobile */}
+          {!isMobile && (
+            <div
+              className="grid gap-4 pb-2 mb-0"
+              style={{ gridTemplateColumns: '2rem 1.5fr 4fr 2fr auto', borderBottom: `1px solid ${c.border}` }}
+            >
+              {['', 'Domain', 'Project', 'Method', ''].map((h, i) => (
+                <span key={i} className="font-mono text-xs uppercase tracking-widest" style={{ color: c.muted }}>
+                  {h}
+                </span>
+              ))}
+            </div>
+          )}
 
           <AnimatePresence mode="popLayout" initial={false}>
             {filtered.map((project, idx) => (
@@ -471,32 +578,45 @@ export default function Portfolio() {
                   isExpanded={expandedProject === project.id}
                   onToggle={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
                   colors={c}
-                  summary={
-                    <div className="grid gap-4 w-full" style={{ gridTemplateColumns: '2rem 1.5fr 4fr 2fr auto' }}>
-                      <span
-                        className="text-xs tabular-nums self-center"
-                        style={{ color: project.featured ? c.accent : c.muted }}
-                      >
-                        {String(idx + 1).padStart(2, '0')}
-                      </span>
-                      <span className="text-sm" style={{ color: c.muted }}>{project.domain}</span>
-                      <span
-                        className="text-sm"
-                        style={{ fontWeight: project.featured ? 500 : 400 }}
-                      >
-                        {project.title}
-                      </span>
-                      <span className="text-sm" style={{ color: c.muted }}>{project.method}</span>
+                  summary={(hovered) => isMobile ? (
+                    <div className="flex items-center justify-between w-full gap-3">
+                      <div>
+                        <span className="text-sm" style={{ fontWeight: project.featured ? 500 : 400 }}>
+                          {project.title}
+                        </span>
+                        <span className="font-mono text-xs block mt-0.5" style={{ color: c.muted }}>
+                          {project.domain} · {project.method}
+                        </span>
+                      </div>
                       <ChevronIcon expanded={expandedProject === project.id} color={c.muted} />
                     </div>
-                  }
+                  ) : (
+                    <div className="grid gap-4 w-full" style={{ gridTemplateColumns: '2rem 1.5fr 4fr 2fr auto' }}>
+                      <span
+                        className="font-mono text-xs tabular-nums self-center"
+                        style={{
+                          color: (hovered || project.featured) ? c.accent : c.muted,
+                          transition: 'color 0.15s',
+                        }}
+                      >
+                        {hovered ? '→' : String(idx + 1).padStart(2, '0')}
+                      </span>
+                      <span className="font-mono text-xs self-center" style={{ color: c.muted }}>{project.domain}</span>
+                      <span className="text-sm" style={{ fontWeight: project.featured ? 500 : 400 }}>
+                        {project.title}
+                      </span>
+                      <span className="font-mono text-xs self-center" style={{ color: c.muted }}>{project.method}</span>
+                      <ChevronIcon expanded={expandedProject === project.id} color={c.muted} />
+                    </div>
+                  )}
                   detail={
-                    <div className="grid gap-4" style={{ gridTemplateColumns: '2rem 1.5fr 6fr' }}>
-                      <div />
-                      <div />
+                    <div className={isMobile ? '' : 'grid gap-4'} style={isMobile ? {} : { gridTemplateColumns: '2rem 1.5fr 6fr' }}>
+                      {!isMobile && <><div /><div /></>}
                       <div className="space-y-3 pb-1">
-                        <p className="text-sm leading-relaxed" style={{ color: c.muted }}>{project.description}</p>
-                        <ul className="space-y-1 pt-1">
+                        <p className="text-sm leading-relaxed" style={{ color: c.text, opacity: 0.8 }}>
+                          {project.description}
+                        </p>
+                        <ul className="space-y-1.5 pt-1">
                           {project.methodology.map((m, i) => (
                             <li key={i} className="text-sm leading-relaxed" style={{ color: c.muted }}>
                               — {m}
@@ -506,14 +626,16 @@ export default function Portfolio() {
                         <div className="flex gap-5 pt-1">
                           {project.githubUrl && (
                             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                              className="text-xs hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
-                              GitHub ↗
+                              className="font-mono text-xs flex items-center gap-1.5 hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
+                              <Github size={11} strokeWidth={1.5} />
+                              GitHub
                             </a>
                           )}
                           {project.notebookUrl && (
                             <a href={project.notebookUrl} target="_blank" rel="noopener noreferrer"
-                              className="text-xs hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
-                              Notebook ↗
+                              className="font-mono text-xs flex items-center gap-1.5 hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
+                              <BookOpen size={11} strokeWidth={1.5} />
+                              Notebook
                             </a>
                           )}
                         </div>
@@ -524,87 +646,139 @@ export default function Portfolio() {
               </motion.div>
             ))}
           </AnimatePresence>
-        </section>
+        </motion.section>
 
         {/* ── Skills ── */}
-        <section className="mb-24">
+        <motion.section
+          className="mb-24"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           <Label text="Skills" color={c.muted} border={c.border} />
           {skillRows.map((row, i) => (
             <div
               key={i}
-              className="grid gap-4 py-3.5"
-              style={{ gridTemplateColumns: '2fr 5fr', borderBottom: `1px solid ${c.border}` }}
+              className={isMobile ? 'py-3.5' : 'grid gap-4 py-3.5'}
+              style={isMobile
+                ? { borderBottom: `1px solid ${c.border}` }
+                : { gridTemplateColumns: '2fr 5fr', borderBottom: `1px solid ${c.border}` }
+              }
             >
-              <span className="text-sm" style={{ color: c.muted }}>{row.label}</span>
-              <span className="text-sm">{row.value}</span>
+              <span className="font-mono text-xs uppercase tracking-widest self-center mb-1" style={{ color: c.muted }}>{row.label}</span>
+              <span className="font-mono text-xs leading-relaxed">{row.value}</span>
             </div>
           ))}
-        </section>
+        </motion.section>
 
         {/* ── Education ── */}
-        <section className="mb-24">
+        <motion.section
+          className="mb-24"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           <Label text="Education" color={c.muted} border={c.border} />
-          <div
-            className="grid gap-4 py-4"
-            style={{ gridTemplateColumns: '3fr 3fr 1fr', borderBottom: `1px solid ${c.border}` }}
-          >
-            <span className="text-sm">MSc Computer Science</span>
-            <span className="text-sm">Instituto Superior Técnico, Lisbon</span>
-            <span className="text-sm text-right" style={{ color: c.muted }}>2017</span>
-          </div>
-          <div
-            className="grid gap-4 py-3"
-            style={{ gridTemplateColumns: '3fr 3fr 1fr', borderBottom: `1px solid ${c.border}` }}
-          >
-            <span className="text-sm" style={{ color: c.muted }}>Machine Learning & Robotics</span>
-            <span />
-            <span />
-          </div>
-        </section>
+          {isMobile ? (
+            <div style={{ borderBottom: `1px solid ${c.border}` }} className="py-4">
+              <div className="flex items-baseline justify-between">
+                <span className="text-sm">MSc Computer Science</span>
+                <span className="font-mono text-xs" style={{ color: c.muted }}>2017</span>
+              </div>
+              <span className="font-mono text-xs block mt-1" style={{ color: c.muted }}>
+                Instituto Superior Técnico, Lisbon · Machine Learning & Robotics
+              </span>
+            </div>
+          ) : (
+            <>
+              <div
+                className="grid gap-4 py-4"
+                style={{ gridTemplateColumns: '3fr 3fr 1fr', borderBottom: `1px solid ${c.border}` }}
+              >
+                <span className="text-sm">MSc Computer Science</span>
+                <span className="text-sm" style={{ color: c.muted }}>Instituto Superior Técnico, Lisbon</span>
+                <span className="font-mono text-xs text-right self-center" style={{ color: c.muted }}>2017</span>
+              </div>
+              <div
+                className="grid gap-4 py-3"
+                style={{ gridTemplateColumns: '3fr 3fr 1fr', borderBottom: `1px solid ${c.border}` }}
+              >
+                <span className="font-mono text-xs" style={{ color: c.muted }}>Machine Learning & Robotics</span>
+                <span />
+                <span />
+              </div>
+            </>
+          )}
+        </motion.section>
 
         {/* ── Publications ── */}
-        <section className="mb-24">
+        <motion.section
+          className="mb-24"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           <Label text="Publications" color={c.muted} border={c.border} />
           {publications.map((pub, i) => (
             <div
               key={i}
-              className="grid gap-4 py-4"
-              style={{ gridTemplateColumns: '4fr 3fr', borderBottom: `1px solid ${c.border}` }}
+              className={isMobile ? 'py-4' : 'grid gap-4 py-4'}
+              style={isMobile
+                ? { borderBottom: `1px solid ${c.border}` }
+                : { gridTemplateColumns: '4fr 3fr', borderBottom: `1px solid ${c.border}` }
+              }
             >
               <span className="text-sm">
                 <a
                   href={pub.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:opacity-70 transition-opacity"
+                  className="hover:opacity-70 transition-opacity inline-flex items-baseline gap-1.5"
                   style={{ color: c.text }}
                 >
-                  {pub.title} ↗
+                  {pub.title}
+                  <ExternalLink size={11} strokeWidth={1.5} className="self-center flex-shrink-0" style={{ color: c.muted }} />
                 </a>
               </span>
-              <span className="text-sm text-right" style={{ color: c.muted }}>{pub.venue}</span>
+              <span className={`font-mono text-xs self-center ${isMobile ? 'mt-1.5 block' : 'text-right'}`} style={{ color: c.muted }}>
+                {pub.venue}
+              </span>
             </div>
           ))}
-        </section>
+        </motion.section>
 
         {/* ── Contact ── */}
-        <footer>
+        <motion.footer
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
           <Label text="Contact" color={c.muted} border={c.border} />
-          <div className="py-6 space-y-1.5">
-            <div>
-              <a href="https://www.linkedin.com/in/ileite/" target="_blank" rel="noopener noreferrer"
-                className="text-sm hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
-                linkedin.com/in/ileite ↗
-              </a>
-            </div>
-            <div>
-              <a href="https://github.com/inesleite" target="_blank" rel="noopener noreferrer"
-                className="text-sm hover:opacity-70 transition-opacity" style={{ color: c.accent }}>
-                github.com/inesleite ↗
-              </a>
-            </div>
+          <div className="py-6 space-y-3">
+            {[
+              { Icon: Mail, label: 'inesmarreirosleite@gmail.com', href: 'mailto:inesmarreirosleite@gmail.com' },
+              { Icon: Linkedin, label: 'linkedin.com/in/ileite', href: 'https://www.linkedin.com/in/ileite/' },
+              { Icon: Github, label: 'github.com/inesleite', href: 'https://github.com/inesleite' },
+            ].map(({ Icon, label, href }) => (
+              <div key={href}>
+                <a
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  className="font-mono text-xs flex items-center gap-2.5 hover:opacity-70 transition-opacity"
+                  style={{ color: c.accent }}
+                >
+                  <Icon size={12} strokeWidth={1.5} />
+                  {label}
+                </a>
+              </div>
+            ))}
           </div>
-        </footer>
+        </motion.footer>
 
       </div>
     </div>
@@ -627,7 +801,7 @@ function Label({
   return (
     <div className="mb-5">
       <div className="flex items-baseline justify-between mb-2.5">
-        <span className="text-xs uppercase tracking-widest" style={{ color }}>{text}</span>
+        <span className="font-mono text-xs uppercase tracking-widest" style={{ color }}>{text}</span>
         {aside}
       </div>
       <div style={{ borderTop: `1px solid ${border}` }} />
@@ -654,10 +828,11 @@ function ExpandableRow({
   isExpanded: boolean
   onToggle: () => void
   colors: Colors
-  summary: ReactNode
+  summary: SummaryProp
   detail: ReactNode
 }) {
   const [hovered, setHovered] = useState(false)
+  const summaryNode = typeof summary === 'function' ? summary(hovered) : summary
 
   return (
     <div style={{ borderBottom: `1px solid ${colors.border}` }}>
@@ -668,7 +843,7 @@ function ExpandableRow({
         className="w-full text-left py-4 flex items-center gap-4 transition-colors duration-100"
         style={{ backgroundColor: isExpanded ? colors.expandedBg : hovered ? colors.rowHover : 'transparent' }}
       >
-        {summary}
+        {summaryNode}
       </button>
 
       <AnimatePresence initial={false}>
