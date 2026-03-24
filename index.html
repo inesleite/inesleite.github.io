@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inês Leite — Senior Data Scientist</title>
+  <meta name="description" content="Senior Data Scientist specialising in causal inference, ML, and optimization. Based in Munich." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #fafaf9;
+      --surface: #ffffff;
+      --border: #e8e8e5;
+      --text: #1a1a18;
+      --muted: #6b6b67;
+      --tag-bg: #f0f0ed;
+      --nav-h: 64px;
+      --accent: #b06b52;
+    }
+    ::selection { background: rgba(176, 107, 82, 0.12); }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(250, 250, 249, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+    }
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    /* ── HERO ── */
+    #about {
+      padding-top: calc(var(--nav-h) + 80px);
+      padding-bottom: 96px;
+    }
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.4s ease 0s forwards;
+    }
+    .hero-name {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.4s ease 0.08s forwards;
+    }
+    .hero-title {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.4s ease 0.16s forwards;
+    }
+    .hero-bio {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.4s ease 0.24s forwards;
+    }
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.4s ease 0.32s forwards;
+    }
+    .btn {
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+      transition: border-color 0.15s, background 0.15s;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn:hover { border-color: var(--text); background: var(--surface); }
+    .btn-primary {
+      background: var(--text);
+      color: #fff;
+      border-color: var(--text);
+    }
+    .btn-primary:hover { background: #2e2e2c; border-color: #2e2e2c; }
+
+    /* blinking cursor */
+    .cursor {
+      animation: blink 1.1s linear infinite;
+      margin-left: 1px;
+      opacity: 1;
+      color: var(--accent);
+    }
+    @keyframes blink {
+      0%, 45% { opacity: 1; }
+      50%, 95% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0 48px;
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: 1px solid var(--border); }
+    .exp-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 4px;
+      padding-top: 2px;
+    }
+    .exp-company {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .exp-role {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .exp-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      background: var(--tag-bg);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .project-card {
+      background: var(--surface);
+      padding: 28px;
+      transition: background 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover { background: var(--bg); }
+    .project-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+    .project-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+    .project-links {
+      display: flex;
+      gap: 14px;
+      margin-top: auto;
+    }
+    .project-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .project-link:hover { color: var(--text); }
+
+    /* ── WRITING ── */
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .post-link {
+      text-decoration: none;
+      display: block;
+    }
+    .post-row {
+      background: var(--surface);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      transition: background 0.15s;
+    }
+    .post-link:hover .post-row { background: var(--bg); }
+    .post-text {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .post-category {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .post-title {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .post-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0 32px;
+      align-items: baseline;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+    }
+    .pub-item:last-child { border-bottom: 1px solid var(--border); }
+    .pub-title {
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+      line-height: 1.5;
+    }
+    .pub-title:hover { color: var(--muted); }
+    .pub-venue {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ── CONTACT ── */
+    #contact { padding-bottom: 120px; }
+    .contact-line {
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      margin-bottom: 40px;
+      max-width: 520px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+    }
+    .contact-row:last-child { border-bottom: 1px solid var(--border); }
+    .contact-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 88px;
+      flex-shrink: 0;
+    }
+    .contact-val {
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .contact-val:hover { color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links li:nth-child(n+4) { display: none; }
+      .exp-item { grid-template-columns: 1fr; gap: 6px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .pub-item { grid-template-columns: 1fr; gap: 4px; }
+      .pub-venue { text-align: left; }
+      .post-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .footer-inner { padding: 0 20px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#about">inês leite</a>
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#experience">experience</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#writing">writing</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <p class="hero-label">Senior Data Scientist · Munich, Germany</p>
+      <h1 class="hero-name">Inês Leite</h1>
+      <p class="hero-title">
+        ML and causal inference, from experiment to decision.<span class="cursor">_</span>
+      </p>
+      <p class="hero-bio">
+        I build measurement frameworks and ML systems at the intersection of causal inference,
+        optimization, and product analytics. Currently designing geo-based incrementality
+        experiments and attribution systems at FlixBus. Previously at Onfido and Farfetch.
+        MSc in Computer Science (Machine Learning &amp; Robotics) from Instituto Superior
+        Técnico, Lisbon.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn" href="#experience">View experience</a>
+        <a class="btn" href="https://github.com/inesleite" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Experience</p>
+      <div>
+
+        <div class="exp-item">
+          <div>
+            <p class="exp-period">Dec 2023 – Present</p>
+            <p class="exp-company">FlixBus</p>
+          </div>
+          <div>
+            <p class="exp-role">Senior Data Scientist</p>
+            <p class="exp-desc">Built CRM models and an LLM pipeline (LangChain) to surface structured insights from app reviews. Moved into incrementality measurement — designing geo-based experiments across US, Canada, Europe, and LATAM to separate true media-driven growth from organic demand, and integrating results into attribution and MMM systems as calibration signals.</p>
+            <div class="exp-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Causal Inference</span>
+              <span class="tag">Geo Experiments</span>
+              <span class="tag">MMM</span>
+              <span class="tag">LightGBM</span>
+              <span class="tag">LangChain</span>
+              <span class="tag">SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div>
+            <p class="exp-period">Sep 2022 – Nov 2023</p>
+            <p class="exp-company">Onfido</p>
+          </div>
+          <div>
+            <p class="exp-role">Data Scientist</p>
+            <p class="exp-desc">Built an NLP-based anomaly detection system to flag unusual patterns in identity verification data, reducing false positives in production. Automated rule extraction from historical data, turning manual analyst workflows into reproducible pipelines with measurable accuracy gains.</p>
+            <div class="exp-tags">
+              <span class="tag">Python</span>
+              <span class="tag">NLP</span>
+              <span class="tag">Anomaly Detection</span>
+              <span class="tag">Scikit-learn</span>
+              <span class="tag">SQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div>
+            <p class="exp-period">Sep 2019 – Aug 2022</p>
+            <p class="exp-company">Farfetch</p>
+          </div>
+          <div>
+            <p class="exp-role">Data Scientist</p>
+            <p class="exp-desc">Started as an intern building NLP features for delivery date estimation on GCP. Progressed into product classification (customs codes), payment routing optimisation, and a multi-horizon forecasting framework covering LTV, churn, and GMV — used across teams to align planning with modelled demand.</p>
+            <div class="exp-tags">
+              <span class="tag">Python</span>
+              <span class="tag">LightGBM</span>
+              <span class="tag">Time Series</span>
+              <span class="tag">NLP</span>
+              <span class="tag">GCP</span>
+              <span class="tag">SQL</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label">Selected Projects</p>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <p class="project-number">01</p>
+          <p class="project-name">Prioritize Lockers</p>
+          <p class="project-desc">Given locker demand, vehicle capacity, and delivery SLAs, a linear program selects the optimal subset of lockers to visit each day — making the decision systematically rather than by gut.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Linear Programming</span>
+            <span class="tag">Optimization</span>
+            <span class="tag">PuLP</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/prioritize-lockers" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/prioritize-lockers/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">02</p>
+          <p class="project-name">MTA Ridership Forecast</p>
+          <p class="project-desc">Predicting subway ridership at hourly resolution across stations — accounting for seasonality, events, and day-of-week patterns so the MTA can staff stations right.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Time Series</span>
+            <span class="tag">LightGBM</span>
+            <span class="tag">Prophet</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/mta-ridership" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/mta-ridership/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">03</p>
+          <p class="project-name">Rossmann Uplift Model</p>
+          <p class="project-desc">Not just "do promotions work?" but "for which stores do they actually work?" Finding which Rossmann locations see genuine lift versus those that would have performed the same regardless.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Causal Inference</span>
+            <span class="tag">Uplift Modelling</span>
+            <span class="tag">SHAP</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/rossmann-uplift" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/rossmann-uplift/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">04</p>
+          <p class="project-name">Offer Optimization</p>
+          <p class="project-desc">The question isn't whether an offer works on average — it's whether it works on this particular user. Combining causal estimation with a churn model to target only genuinely responsive users.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Causal Inference</span>
+            <span class="tag">LightGBM</span>
+            <span class="tag">Optuna</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/offer-optimization" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/offer-optimization/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">05</p>
+          <p class="project-name">Pricing Optimization</p>
+          <p class="project-desc">Teaching an agent to price rides dynamically in a simulated ride-hailing marketplace, rewarded for reducing wait times and maximising driver earnings via reinforcement learning.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Reinforcement Learning</span>
+            <span class="tag">DQN</span>
+            <span class="tag">TensorFlow</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/pricing-optimization" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/pricing-optimization/tree/main/" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">06</p>
+          <p class="project-name">Customer Lifetime Value</p>
+          <p class="project-desc">Predicting 12-month LTV for an insurance subscription business, combining LightGBM revenue prediction with survival analysis to bake in churn risk.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Regression</span>
+            <span class="tag">Survival Analysis</span>
+            <span class="tag">LightGBM</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/ltv-prediction" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">07</p>
+          <p class="project-name">Customer Segmentation</p>
+          <p class="project-desc">RFM-based clustering to find who deserves a reactivation offer and who is already engaged — building segments that are useful for CRM targeting rather than just analytically neat.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Clustering</span>
+            <span class="tag">K-Means</span>
+            <span class="tag">Cox Hazards</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/segmentation" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">08</p>
+          <p class="project-name">Churn Predictions</p>
+          <p class="project-desc">Flagging users before they leave — using engagement signals and social graph features to predict churn in a social network before they've disengaged rather than after.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Classification</span>
+            <span class="tag">LightGBM</span>
+            <span class="tag">Graph Features</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/churn-prediction" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">09</p>
+          <p class="project-name">Price Elasticity of Demand</p>
+          <p class="project-desc">Quantifying how sensitive demand is to price changes, product by product — surfacing where pricing decisions can have the most impact across categories.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Regression</span>
+            <span class="tag">OLS</span>
+            <span class="tag">Elasticity</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/price-elasticity" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">10</p>
+          <p class="project-name">Credit Decision Model</p>
+          <p class="project-desc">Building a credit scoring model on highly imbalanced data where defaults are rare but costly to miss — evaluation focused on the minority class to avoid optimising for the wrong metric.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Classification</span>
+            <span class="tag">SMOTE</span>
+            <span class="tag">Random Forest</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/credit-decision-model" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">11</p>
+          <p class="project-name">Keystroke Dynamics</p>
+          <p class="project-desc">Identifying someone by how they type — dwell time and flight time carry a behavioural fingerprint. Authenticating users from typing patterns without passwords using KNN classification.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Classification</span>
+            <span class="tag">KNN</span>
+            <span class="tag">Biometrics</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/keystroke-dynamics" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">12</p>
+          <p class="project-name">Device Activations</p>
+          <p class="project-desc">Hourly device activation forecasting for infrastructure capacity planning, with strict temporal train-test cutoffs to prevent leakage in time-ordered data.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Time Series</span>
+            <span class="tag">Lag Features</span>
+            <span class="tag">Forecasting</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/device-activations" target="_blank" rel="noopener">code ↗</a>
+            <a class="project-link" href="https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">13</p>
+          <p class="project-name">Conversion Improvements</p>
+          <p class="project-desc">Understanding why users drop off in a conversion funnel by looking at who they are and when they arrive — SHAP surfacing the behavioural drivers of drop-off.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Classification</span>
+            <span class="tag">Random Forest</span>
+            <span class="tag">SHAP</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="https://github.com/inesleite/conversion-improvements" target="_blank" rel="noopener">code ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section id="writing">
+    <div class="container">
+      <p class="section-label">Writing</p>
+      <div class="post-list">
+
+        <a class="post-link" href="posts/synthetic-control-vs-geo-holdout.html">
+          <div class="post-row">
+            <div class="post-text">
+              <span class="post-category">Causal ML</span>
+              <span class="post-title">Synthetic control vs. geo holdout: when to use which</span>
+            </div>
+            <span class="post-meta">Mar 2026 &nbsp;·&nbsp; 3 min</span>
+          </div>
+        </a>
+
+        <a class="post-link" href="posts/calibrating-mmm-with-geo-experiments.html">
+          <div class="post-row">
+            <div class="post-text">
+              <span class="post-category">Causal ML</span>
+              <span class="post-title">Using geo experiments to calibrate MMM</span>
+            </div>
+            <span class="post-meta">Jan 2026 &nbsp;·&nbsp; 3 min</span>
+          </div>
+        </a>
+
+        <a class="post-link" href="posts/geo-holdouts-are-not-ab-tests.html">
+          <div class="post-row">
+            <div class="post-text">
+              <span class="post-category">Causal ML</span>
+              <span class="post-title">Geo holdouts are not A/B tests</span>
+            </div>
+            <span class="post-meta">Aug 2025 &nbsp;·&nbsp; 3 min</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="container">
+      <p class="section-label">Publications</p>
+      <div>
+
+        <div class="pub-item">
+          <a class="pub-title" href="https://www.semanticscholar.org/paper/Context-sensitive-modeling-of-public-transport-data-Leite-Finamore/9a3a9182d19178c8e98242e6f49d15e621af5fec" target="_blank" rel="noopener">
+            Context-sensitive modeling of public transport data ↗
+          </a>
+          <span class="pub-venue">TRA 2020</span>
+        </div>
+
+        <div class="pub-item">
+          <a class="pub-title" href="https://aisel.aisnet.org/ecis2019_rp/6/" target="_blank" rel="noopener">
+            LM2F: a life-cycle model maintenance framework for co-evolving enterprise architecture models ↗
+          </a>
+          <span class="pub-venue">ECIS 2019</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <p class="contact-line">Open to interesting problems.<br>Let's talk.</p>
+      <div>
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <button class="contact-val" onclick="copyEmail(this)">inesmarreirosleite@gmail.com</button>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">LinkedIn</span>
+          <a class="contact-val" href="https://www.linkedin.com/in/ileite/" target="_blank" rel="noopener">linkedin.com/in/ileite</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">GitHub</span>
+          <a class="contact-val" href="https://github.com/inesleite" target="_blank" rel="noopener">github.com/inesleite</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Location</span>
+          <span class="contact-val" style="cursor:default;">Munich, Germany</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-mono">Inês Leite</span>
+      <span class="footer-mono">© 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    function copyEmail(btn) {
+      navigator.clipboard.writeText('inesmarreirosleite@gmail.com').then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'copied ✓';
+        setTimeout(() => { btn.textContent = original; }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>
