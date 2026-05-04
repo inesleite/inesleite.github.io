@@ -116,6 +116,26 @@
     }
     .post-body ul li { margin-bottom: 8px; }
 
+    .figure {
+      margin: 32px 0;
+      padding: 24px 8px 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .figure svg { display: block; width: 100%; height: auto; max-width: 100%; }
+    .figure-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.02em;
+      padding: 12px 16px 4px;
+      line-height: 1.5;
+    }
+    .figure-caption strong {
+      color: var(--text); font-weight: 500;
+      margin-right: 6px;
+    }
+
     /* FOOTER */
     .post-footer {
       margin-top: 64px; padding-top: 32px;
@@ -150,12 +170,13 @@
       <h1 class="post-title">Geo holdouts are not A/B tests</h1>
       <div class="post-meta">
         <span>August 2025</span>
-        <span>· 3 min read</span>
+        <span>· 8 min read</span>
       </div>
       <div class="post-tags">
         <span class="tag">geo experiments</span>
         <span class="tag">causal inference</span>
         <span class="tag">measurement</span>
+        <span class="tag">SUTVA</span>
       </div>
     </header>
 
@@ -163,11 +184,107 @@
 
     <div class="post-body">
 
-      <p>The first time you run a geo holdout, the temptation is to treat it like any other experiment: split your units, wait a few weeks, compare the means, compute a p-value. The math is familiar and the output looks like a test result. But the underlying assumptions are very different, and confusing the two will lead you to bad decisions.</p>
+      <p>The first time you run a geo holdout, the temptation is to treat it like any other experiment: split your units, wait a few weeks, compare the means, compute a p-value. The maths is familiar and the output looks like a test result. But the underlying assumptions are very different, and confusing the two will lead you to bad decisions.</p>
 
       <p>In a randomised A/B test, units are assigned independently. The randomisation guarantees exchangeability — the treatment and control groups are statistically equivalent before the intervention. Any difference you observe after is attributable to the treatment. This is the foundation that makes the analysis clean.</p>
 
       <p>In a geo holdout, your units are not independent. Geographic regions have structure: they share macroeconomic shocks, seasonal patterns, and sometimes direct spillovers. A campaign running in Berlin can affect demand in Hamburg. A national TV event inflates baselines everywhere at once. These correlations do not disappear just because you allocated regions to control.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Independence in A/B tests versus spatial structure in geo experiments">
+          <defs>
+            <style>
+              .panel-title { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .panel-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.02em; }
+              .ctrl { fill: #ffffff; stroke: #1a1a18; stroke-width: 1.2; }
+              .trt { fill: #b06b52; stroke: #b06b52; stroke-width: 1.2; }
+              .edge { stroke: #6b6b67; stroke-width: 1; opacity: 0.5; fill: none; }
+              .edge-strong { stroke: #b06b52; stroke-width: 1.4; opacity: 0.7; fill: none; stroke-dasharray: 3 2; }
+              .frame { fill: none; stroke: #e8e8e5; stroke-width: 1; }
+            </style>
+          </defs>
+
+          <g transform="translate(20, 30)">
+            <text class="panel-title" x="160" y="0" text-anchor="middle">A/B test · independent units</text>
+            <text class="panel-sub" x="160" y="16" text-anchor="middle">no edges · exchangeable</text>
+            <rect class="frame" x="20" y="30" width="280" height="170" rx="4" />
+            <!-- random scatter, no edges -->
+            <circle class="trt" cx="60" cy="70" r="5" />
+            <circle class="ctrl" cx="100" cy="55" r="5" />
+            <circle class="trt" cx="150" cy="80" r="5" />
+            <circle class="ctrl" cx="220" cy="62" r="5" />
+            <circle class="trt" cx="270" cy="90" r="5" />
+            <circle class="ctrl" cx="50" cy="120" r="5" />
+            <circle class="trt" cx="120" cy="130" r="5" />
+            <circle class="ctrl" cx="180" cy="115" r="5" />
+            <circle class="trt" cx="250" cy="140" r="5" />
+            <circle class="ctrl" cx="80" cy="170" r="5" />
+            <circle class="trt" cx="160" cy="180" r="5" />
+            <circle class="ctrl" cx="230" cy="175" r="5" />
+            <circle class="trt" cx="280" cy="155" r="5" />
+            <circle class="ctrl" cx="140" cy="155" r="5" />
+
+            <!-- legend -->
+            <circle class="trt" cx="34" cy="220" r="4" />
+            <text class="panel-sub" x="46" y="223">treated</text>
+            <circle class="ctrl" cx="120" cy="220" r="4" />
+            <text class="panel-sub" x="132" y="223">control</text>
+          </g>
+
+          <g transform="translate(380, 30)">
+            <text class="panel-title" x="160" y="0" text-anchor="middle">Geo holdout · spatially correlated</text>
+            <text class="panel-sub" x="160" y="16" text-anchor="middle">shared shocks · spillover edges</text>
+            <rect class="frame" x="20" y="30" width="280" height="170" rx="4" />
+            <!-- clustered nodes with edges -->
+            <line class="edge" x1="55" y1="65" x2="105" y2="60" />
+            <line class="edge" x1="105" y1="60" x2="155" y2="80" />
+            <line class="edge" x1="55" y1="65" x2="60" y2="115" />
+            <line class="edge-strong" x1="155" y1="80" x2="220" y2="70" />
+            <line class="edge" x1="220" y1="70" x2="265" y2="95" />
+            <line class="edge" x1="60" y1="115" x2="120" y2="130" />
+            <line class="edge-strong" x1="120" y1="130" x2="180" y2="120" />
+            <line class="edge" x1="180" y1="120" x2="245" y2="140" />
+            <line class="edge" x1="245" y1="140" x2="280" y2="160" />
+            <line class="edge" x1="60" y1="115" x2="90" y2="170" />
+            <line class="edge" x1="90" y1="170" x2="160" y2="180" />
+            <line class="edge-strong" x1="160" y1="180" x2="225" y2="175" />
+            <line class="edge" x1="225" y1="175" x2="280" y2="160" />
+            <line class="edge" x1="120" y1="130" x2="155" y2="80" />
+            <line class="edge" x1="180" y1="120" x2="220" y2="70" />
+            <line class="edge" x1="245" y1="140" x2="265" y2="95" />
+            <line class="edge" x1="160" y1="180" x2="180" y2="120" />
+            <line class="edge" x1="90" y1="170" x2="120" y2="130" />
+
+            <circle class="trt" cx="55" cy="65" r="5" />
+            <circle class="ctrl" cx="105" cy="60" r="5" />
+            <circle class="trt" cx="155" cy="80" r="5" />
+            <circle class="ctrl" cx="220" cy="70" r="5" />
+            <circle class="trt" cx="265" cy="95" r="5" />
+            <circle class="ctrl" cx="60" cy="115" r="5" />
+            <circle class="trt" cx="120" cy="130" r="5" />
+            <circle class="ctrl" cx="180" cy="120" r="5" />
+            <circle class="trt" cx="245" cy="140" r="5" />
+            <circle class="ctrl" cx="90" cy="170" r="5" />
+            <circle class="trt" cx="160" cy="180" r="5" />
+            <circle class="ctrl" cx="225" cy="175" r="5" />
+            <circle class="trt" cx="280" cy="160" r="5" />
+
+            <line x1="34" y1="220" x2="50" y2="220" stroke="#6b6b67" stroke-width="1" />
+            <text class="panel-sub" x="56" y="223">shared shock</text>
+            <line x1="160" y1="220" x2="176" y2="220" stroke="#b06b52" stroke-width="1.4" stroke-dasharray="3 2" />
+            <text class="panel-sub" x="182" y="223">spillover</text>
+          </g>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 1.</strong> In an A/B test the units are exchangeable and the randomisation does the work. In a geo holdout, regions sit inside a network of shared shocks and direct spillovers, and the same difference-in-means estimator is no longer unbiased — the dependency structure leaks treatment information into the control arm.</figcaption>
+      </figure>
+
+      <h2>Interference and the SUTVA assumption</h2>
+
+      <p>The technical name for the broken assumption is SUTVA — the stable unit treatment value assumption. SUTVA requires that one unit's outcome does not depend on another unit's treatment assignment. A/B tests on logged-in users mostly satisfy it. Geo holdouts mostly do not.</p>
+
+      <p>Spillover takes several forms. There is direct media spillover, where a paid social campaign targeted at one region also reaches commuters or travellers from a control region. There is brand spillover, where a national TV ad in the treatment regions builds awareness that converts in the control regions. There is competitive spillover, where rivals reallocate spend in response to your design. And there is supply-side spillover, where stockouts or pricing changes in one region affect demand in neighbouring regions.</p>
+
+      <p>None of these are hypothetical. In categories with high cross-region mobility — quick-service restaurants near borders, e-commerce with national fulfilment, travel — the leakage can be large enough to halve the apparent effect. The right response is design, not analysis: cluster regions into buffered groups, leave a gap of unmeasured units between treatment and control, or accept that your estimate is a lower bound and document it.</p>
 
       <h2>What you actually need to estimate</h2>
 
@@ -176,6 +293,86 @@
       <p>A simple difference-in-means will only be unbiased if your treatment and control regions were perfectly balanced on all drivers of the outcome, both observed and unobserved. In practice, this is almost never true. Regions differ in population, income, seasonality, baseline conversion rates, and dozens of other factors. Pre-experiment matching helps, but it only goes so far.</p>
 
       <p>Better approaches — synthetic control, time-series regression with region fixed effects, or even a simple DiD with a pre-period check — all attempt to construct a credible counterfactual rather than assuming one exists for free. The choice between them depends on how much pre-period data you have and how stable the relationships are.</p>
+
+      <h2>The pre-period parallelism check</h2>
+
+      <p>Whatever method you eventually use, the pre-period diagnostic is the same: do the treatment and control groups move together before the intervention starts? If they do, the assumed counterfactual is at least plausible. If they do not, no amount of post-period statistics will rescue the estimate.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pre-period parallelism: trustworthy versus untrustworthy designs">
+          <defs>
+            <style>
+              .axis-p { stroke: #6b6b67; stroke-width: 1; fill: none; }
+              .grid-p { stroke: #e8e8e5; stroke-width: 1; fill: none; stroke-dasharray: 2 3; }
+              .ctrl-line { fill: none; stroke: #1a1a18; stroke-width: 1.6; }
+              .trt-line { fill: none; stroke: #b06b52; stroke-width: 1.6; }
+              .pre-shade { fill: #f0f0ed; fill-opacity: 0.7; stroke: none; }
+              .post-shade { fill: #b06b52; fill-opacity: 0.06; stroke: none; }
+              .divider { stroke: #6b6b67; stroke-width: 1; stroke-dasharray: 4 3; }
+              .lbl { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .sub-p { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.02em; }
+              .annot-p { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #b06b52; }
+            </style>
+          </defs>
+
+          <!-- Panel 1: parallel pre-period -->
+          <g transform="translate(20, 30)">
+            <text class="lbl" x="160" y="0" text-anchor="middle">parallel pre-period · trustworthy</text>
+            <rect class="pre-shade" x="40" y="40" width="120" height="160" />
+            <rect class="post-shade" x="160" y="40" width="160" height="160" />
+            <line class="axis-p" x1="40" y1="200" x2="320" y2="200" />
+            <line class="axis-p" x1="40" y1="200" x2="40" y2="40" />
+            <line class="divider" x1="160" y1="40" x2="160" y2="200" />
+
+            <!-- control -->
+            <path class="ctrl-line" d="M 50 150 L 70 145 L 90 152 L 110 140 L 130 145 L 150 138 L 160 140 L 180 135 L 200 138 L 220 132 L 240 134 L 260 130 L 280 132 L 300 128 L 315 130" />
+            <!-- treated -->
+            <path class="trt-line" d="M 50 138 L 70 132 L 90 140 L 110 128 L 130 132 L 150 125 L 160 127 L 180 110 L 200 100 L 220 88 L 240 78 L 260 72 L 280 65 L 300 60 L 315 58" />
+
+            <text class="sub-p" x="100" y="220" text-anchor="middle">pre</text>
+            <text class="sub-p" x="240" y="220" text-anchor="middle">post (treatment on)</text>
+            <text class="annot-p" x="280" y="50" text-anchor="middle">lift</text>
+            <line x1="280" y1="55" x2="280" y2="64" stroke="#b06b52" stroke-width="0.8" />
+
+            <line x1="46" y1="234" x2="60" y2="234" stroke="#1a1a18" stroke-width="1.6" />
+            <text class="sub-p" x="66" y="237">control</text>
+            <line x1="130" y1="234" x2="144" y2="234" stroke="#b06b52" stroke-width="1.6" />
+            <text class="sub-p" x="150" y="237">treated</text>
+          </g>
+
+          <!-- Panel 2: non-parallel pre-period -->
+          <g transform="translate(380, 30)">
+            <text class="lbl" x="160" y="0" text-anchor="middle">non-parallel pre-period · biased</text>
+            <rect class="pre-shade" x="40" y="40" width="120" height="160" />
+            <rect class="post-shade" x="160" y="40" width="160" height="160" />
+            <line class="axis-p" x1="40" y1="200" x2="320" y2="200" />
+            <line class="axis-p" x1="40" y1="200" x2="40" y2="40" />
+            <line class="divider" x1="160" y1="40" x2="160" y2="200" />
+
+            <!-- control: gentle drift up -->
+            <path class="ctrl-line" d="M 50 165 L 70 162 L 90 158 L 110 158 L 130 152 L 150 150 L 160 148 L 180 144 L 200 142 L 220 138 L 240 138 L 260 134 L 280 132 L 300 128 L 315 128" />
+            <!-- treated: declining pre-period -->
+            <path class="trt-line" d="M 50 110 L 70 118 L 90 122 L 110 130 L 130 138 L 150 144 L 160 146 L 180 130 L 200 118 L 220 108 L 240 100 L 260 92 L 280 84 L 300 78 L 315 76" />
+
+            <text class="sub-p" x="100" y="220" text-anchor="middle">pre</text>
+            <text class="sub-p" x="240" y="220" text-anchor="middle">post (treatment on)</text>
+            <text class="annot-p" x="280" y="50" text-anchor="middle">apparent lift</text>
+            <text class="annot-p" x="280" y="64" text-anchor="middle">≠ true lift</text>
+
+            <line x1="46" y1="234" x2="60" y2="234" stroke="#1a1a18" stroke-width="1.6" />
+            <text class="sub-p" x="66" y="237">control</text>
+            <line x1="130" y1="234" x2="144" y2="234" stroke="#b06b52" stroke-width="1.6" />
+            <text class="sub-p" x="150" y="237">treated</text>
+          </g>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 2.</strong> The pre-period is the only unfalsifiable check on the design. On the left, the two groups move together before the intervention, so the post-period gap is plausibly attributable to the treatment. On the right, the treated group was already trending differently — the post-period gap mixes treatment effect with whatever was driving the divergence, and no estimator can tell them apart from this data alone.</figcaption>
+      </figure>
+
+      <h2>Power is harder than you think</h2>
+
+      <p>A/B test power calculations assume independent units, equal variance, and a known minimum detectable effect. None of these are clean for geo holdouts. Your sample size is the number of regions, not the number of users — typically 20 to 200, not millions. Variance is dominated by between-region heterogeneity, not within-region noise. And the relevant effect size is usually small as a percentage of national revenue, even when it is large as a percentage of incremental revenue from the channel being tested.</p>
+
+      <p>The honest version of a geo power calculation uses the empirical pre-period variance of the chosen estimator (DiD residuals, synthetic-control gap, or similar) as the noise floor, and reports MDE as a percentage lift on the treated group rather than on the national total. Anything else inherits the assumptions of the A/B framing and tends to be optimistic by a factor of two to five.</p>
 
       <h2>A practical heuristic</h2>
 
