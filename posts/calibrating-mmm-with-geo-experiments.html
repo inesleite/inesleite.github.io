@@ -104,6 +104,26 @@
     .post-body ul { margin: 0 0 20px 0; padding-left: 20px; }
     .post-body ul li { margin-bottom: 8px; }
 
+    .figure {
+      margin: 32px 0;
+      padding: 24px 8px 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .figure svg { display: block; width: 100%; height: auto; max-width: 100%; }
+    .figure-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.02em;
+      padding: 12px 16px 4px;
+      line-height: 1.5;
+    }
+    .figure-caption strong {
+      color: var(--text); font-weight: 500;
+      margin-right: 6px;
+    }
+
     .post-footer {
       margin-top: 64px; padding-top: 32px;
       border-top: 1px solid var(--border);
@@ -137,12 +157,14 @@
       <h1 class="post-title">Calibrating MMM with geo experiments</h1>
       <div class="post-meta">
         <span>January 2026</span>
-        <span>· 3 min read</span>
+        <span>· 9 min read</span>
       </div>
       <div class="post-tags">
         <span class="tag">MMM</span>
         <span class="tag">geo experiments</span>
         <span class="tag">calibration</span>
+        <span class="tag">priors</span>
+        <span class="tag">optimisation</span>
       </div>
     </header>
 
@@ -152,23 +174,321 @@
 
       <p>Marketing mix models are useful for budget allocation precisely because they operate at the aggregate level — no cookies, no user tracking, just time-series data on spend and outcomes. But that same aggregate nature makes them hard to validate. You fit a model, you get channel coefficients, and then what? How do you know if the elasticities are right?</p>
 
-      <p>Geo experiments offer a natural answer. If you run a holdout in a subset of regions — cutting spend on one channel while keeping everything else constant — you get a clean estimate of that channel's incremental effect in those regions. That estimate can be used as a prior or a constraint when fitting the MMM.</p>
+      <p>Geo experiments offer a natural answer. If you run a holdout in a subset of regions — cutting spend on one channel while keeping everything else constant — you get a clean estimate of that channel's incremental effect in those regions. That estimate can be used as a prior or a constraint when fitting the MMM. The interesting questions are <em>how</em> exactly you fold it in, what loss function that implies, and what it does to the budget allocation that comes out the other end.</p>
 
-      <h2>The calibration loop</h2>
+      <h2>Why the model needs help in the first place</h2>
 
-      <p>The basic workflow is: run the MMM on national-level data, look at the implied return on ad spend (ROAS) for each channel, then compare those numbers against geo experiment results for the same channels. If the model says paid social has a ROAS of 4 but your holdout measured 1.8, something is off — either the model structure is wrong, the feature engineering is wrong, or there is confounding you have not accounted for.</p>
+      <p>MMM is a weakly identified problem. You typically have two to four years of weekly data, twenty to forty regressors once you include channels, lags, seasonality, holidays, prices and macro controls, and most of the media variables move together because planners coordinate flighting across channels. The likelihood surface is flat in directions that matter — you can shift coefficient mass from paid social to display and barely move the fit.</p>
 
-      <p>The calibration is not just a sanity check. You can encode the geo experiment result directly as a Bayesian prior on the relevant coefficient. This is especially useful for channels where the observational data is noisy or collinear with other variables. The experiment anchors the model to something credible rather than letting the optimiser land wherever the data happens to point.</p>
+      <p>That flatness is what makes the optimiser unreliable. Two fits with nearly identical out-of-sample error can recommend very different budgets. Regularisation alone (ridge, lasso, horseshoe) shrinks coefficients toward zero, but zero is rarely the right anchor for a channel you know is doing something. What you want is to shrink toward a number you measured.</p>
+
+      <p>This is the role of the experiment. A geo holdout produces a noisy but unbiased estimate of incremental effect for a specific channel. Using it as a prior pins one of the otherwise-flat directions in the likelihood and lets the data inform the rest.</p>
+
+      <h2>What a geo experiment actually estimates</h2>
+
+      <p>Before you can calibrate against an experiment result, you need to be precise about what the experiment measured. A typical geo holdout that drops spend on channel <code>k</code> from <code>s_high</code> to <code>s_low</code> in the treated regions returns an estimate of incremental revenue per incremental dollar over that range. This is an <em>arc</em> mROAS — an average marginal return between two specific spend points, in specific regions, in a specific window.</p>
+
+      <p>That is not the same object as the channel coefficient in your MMM. If your model uses an adstocked, saturated transformation <code>f(x_k; θ_k)</code> with coefficient <code>β_k</code>, the experiment gives you a noisy reading of <code>β_k · [f(s_high) − f(s_low)] / (s_high − s_low)</code> at the geo level, not <code>β_k</code> directly. Treating the experiment number as a prior on the raw coefficient is one of the most common calibration mistakes — it implicitly assumes a linear, instantaneous response, which is exactly what the saturation and adstock transforms are there to deny.</p>
+
+      <p>The cleaner mental model is that the experiment delivers a posterior on a derived quantity (mROAS, lift, or incrementality at a known spend level), and the prior should be placed on that derived quantity rather than on a primitive parameter.</p>
+
+      <h2>Three ways to add the experiment as a prior</h2>
+
+      <p>The three forms below are mathematically related but produce noticeably different fits in practice.</p>
+
+      <p><strong>1. Prior on the coefficient.</strong> The simplest version: <code>β_k ~ Normal(μ_exp, σ_exp)</code>, where <code>μ_exp</code> and <code>σ_exp</code> are derived from the experiment point estimate and standard error. This works only when the channel transform is linear or when you have already fixed the adstock and saturation parameters. Otherwise the prior is on the wrong object and the posterior will compensate by warping <code>θ_k</code>.</p>
+
+      <p><strong>2. Prior on a derived quantity.</strong> Define <code>ROAS_k(β, θ) = β_k · sum(f(x_k; θ_k)) / sum(x_k)</code> over the experiment window and put the prior there: <code>ROAS_k ~ Normal(μ_exp, σ_exp)</code>. This is the form used in Meridian and similar libraries. It correctly couples the prior to whatever transformation the model is using, so the experiment information propagates through the response curve rather than fighting it.</p>
+
+      <p><strong>3. Hard constraint on a counterfactual.</strong> Instead of a Gaussian, you require the model's predicted lift under the experiment's spend change to lie inside the experiment's confidence interval — implemented as a truncated prior or a steep penalty. This is useful when the experiment is unusually clean (large effect, tight CI, representative regions) and you would rather lose fit elsewhere than violate it.</p>
+
+      <p>The choice between (2) and (3) is mostly a question of how much you trust the experiment relative to the rest of the data. A wide Gaussian on mROAS lets the likelihood overrule the experiment if the observational evidence is strong; a hard constraint does not.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three prior schemes: coefficient prior, derived quantity prior, hard constraint">
+          <defs>
+            <style>
+              .axis { stroke: #6b6b67; stroke-width: 1; fill: none; }
+              .grid { stroke: #e8e8e5; stroke-width: 1; fill: none; }
+              .density { fill: #b06b52; fill-opacity: 0.18; stroke: #b06b52; stroke-width: 1.4; }
+              .density-soft { fill: #6b6b67; fill-opacity: 0.10; stroke: #6b6b67; stroke-width: 1.2; }
+              .curve { fill: none; stroke: #1a1a18; stroke-width: 1.6; }
+              .marker { fill: #b06b52; }
+              .label { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.02em; }
+              .axislab { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #6b6b67; }
+              .box { fill: #b06b52; fill-opacity: 0.10; stroke: #b06b52; stroke-width: 1.4; stroke-dasharray: 3 3; }
+            </style>
+          </defs>
+
+          <!-- Panel 1: coefficient prior -->
+          <g transform="translate(20, 30)">
+            <text class="label" x="105" y="0" text-anchor="middle">prior on coefficient</text>
+            <text class="sub" x="105" y="16" text-anchor="middle">β_k ~ N(μ, σ)</text>
+            <line class="axis" x1="20" y1="150" x2="190" y2="150" />
+            <line class="axis" x1="20" y1="150" x2="20" y2="40" />
+            <text class="axislab" x="190" y="165" text-anchor="end">β_k</text>
+            <path class="density" d="M 30 150 Q 60 150 80 120 Q 100 60 120 60 Q 140 60 160 120 Q 180 150 190 150 Z" />
+            <line x1="105" y1="60" x2="105" y2="150" stroke="#b06b52" stroke-width="1" stroke-dasharray="2 3" />
+            <text class="sub" x="105" y="170" text-anchor="middle">μ</text>
+          </g>
+
+          <!-- Panel 2: derived quantity prior -->
+          <g transform="translate(255, 30)">
+            <text class="label" x="105" y="0" text-anchor="middle">prior on derived quantity</text>
+            <text class="sub" x="105" y="16" text-anchor="middle">ROAS_k(β,θ) ~ N(μ, σ)</text>
+            <line class="axis" x1="20" y1="150" x2="190" y2="150" />
+            <line class="axis" x1="20" y1="150" x2="20" y2="40" />
+            <text class="axislab" x="190" y="165" text-anchor="end">spend</text>
+            <text class="axislab" x="14" y="44" text-anchor="end">resp</text>
+            <!-- saturating curve -->
+            <path class="curve" d="M 25 145 Q 60 130 90 95 Q 130 65 185 55" />
+            <!-- propagated uncertainty band -->
+            <path class="density-soft" d="M 25 148 Q 60 138 90 110 Q 130 80 185 70 L 185 40 Q 130 50 90 80 Q 60 118 25 142 Z" />
+            <!-- experiment secant -->
+            <line x1="70" y1="120" x2="140" y2="70" stroke="#b06b52" stroke-width="1.4" />
+            <circle class="marker" cx="70" cy="120" r="3" />
+            <circle class="marker" cx="140" cy="70" r="3" />
+            <text class="sub" x="105" y="98" text-anchor="middle" fill="#b06b52">μ ± σ</text>
+          </g>
+
+          <!-- Panel 3: hard constraint -->
+          <g transform="translate(490, 30)">
+            <text class="label" x="105" y="0" text-anchor="middle">hard constraint</text>
+            <text class="sub" x="105" y="16" text-anchor="middle">ROAS_k ∈ [μ−ε, μ+ε]</text>
+            <line class="axis" x1="20" y1="150" x2="190" y2="150" />
+            <line class="axis" x1="20" y1="150" x2="20" y2="40" />
+            <text class="axislab" x="190" y="165" text-anchor="end">ROAS_k</text>
+            <!-- box -->
+            <rect class="box" x="80" y="55" width="50" height="95" />
+            <!-- truncated density -->
+            <path class="density" d="M 80 150 L 80 90 Q 95 60 105 60 Q 115 60 130 90 L 130 150 Z" />
+            <line x1="80" y1="40" x2="80" y2="150" stroke="#b06b52" stroke-width="0.8" stroke-dasharray="2 2" />
+            <line x1="130" y1="40" x2="130" y2="150" stroke="#b06b52" stroke-width="0.8" stroke-dasharray="2 2" />
+            <text class="sub" x="80" y="170" text-anchor="middle">μ−ε</text>
+            <text class="sub" x="130" y="170" text-anchor="middle">μ+ε</text>
+          </g>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 1.</strong> Three ways to fold an experiment into the fit. The coefficient prior pins a primitive parameter; the derived-quantity prior couples to the response curve and propagates the experiment's uncertainty through it; the hard constraint refuses any fit whose implied ROAS lies outside the experiment's interval.</figcaption>
+      </figure>
+
+      <h2>The loss function view</h2>
+
+      <p>If you are not running a fully Bayesian fit, the same machinery shows up as an extra term in the loss. A penalised MMM with experiment calibration looks like:</p>
+
+      <p><code>L(β, θ) = ||y − ŷ(β, θ)||² + λ_reg · R(β) + λ_cal · (ROAS_k(β, θ) − μ_exp)² / σ_exp²</code></p>
+
+      <p>The first term is the usual fit. The second is whatever regulariser you were already using. The third is the calibration penalty: a squared deviation from the experiment estimate, weighted by the experiment's precision and a global multiplier <code>λ_cal</code>.</p>
+
+      <p>Three things are worth noticing here. First, this is exactly the negative log-posterior of the Bayesian formulation under a Gaussian prior — the "prior" and "penalty" framings are the same object viewed from different angles. Second, <code>λ_cal</code> is a knob you control even if you started from a Bayesian formulation: scaling <code>σ_exp</code> up or down is the same as down- or up-weighting the experiment. Third, if you have several experiments, the penalties simply add, and an experiment with a tight CI will dominate one with a wide CI automatically.</p>
+
+      <p>Replacing the squared term with an absolute deviation (Laplace prior) makes the calibration more robust to a single outlying experiment but harder to optimise. A Huber-style hybrid is a reasonable middle ground when you have a handful of experiments of varying quality.</p>
+
+      <h2>Interaction with adstock and saturation</h2>
+
+      <p>This is where most calibration efforts quietly fail. The MMM has three sets of parameters per channel: a coefficient, an adstock decay, and a saturation shape. The likelihood does not identify these well on its own, and a prior on mROAS at a single spend level does not pin them down either — you can match the experiment's average return with a steep saturation and a high coefficient, or with a gentle saturation and a lower coefficient, and the two imply very different curves away from the tested spend range.</p>
+
+      <p>Two fixes help. The first is to run the experiment at a spend level meaningfully different from your usual operating point, so the calibration constrains the curve rather than a single point. The second is to add weak structural priors on the adstock and saturation parameters (for example, half-Hill exponents centred near reasonable values for the channel) so the calibration has enough information to find a unique solution. Without those, the optimiser will happily reproduce the experiment's mROAS while pushing the curve into shapes that make the budget allocator behave badly outside the tested range.</p>
+
+      <p>If you can afford it, running two experiments at different spend levels for the same channel is much more informative than running two experiments at the same level. The first identifies the slope; the second identifies the curvature.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One experiment versus two experiments at different spend levels">
+          <defs>
+            <style>
+              .axis2 { stroke: #6b6b67; stroke-width: 1; fill: none; }
+              .grid2 { stroke: #e8e8e5; stroke-width: 1; fill: none; stroke-dasharray: 2 3; }
+              .curveA { fill: none; stroke: #1a1a18; stroke-width: 1.6; }
+              .curveB { fill: none; stroke: #6b6b67; stroke-width: 1.4; stroke-dasharray: 4 3; }
+              .curveC { fill: none; stroke: #1a1a18; stroke-width: 1.6; }
+              .secant { stroke: #b06b52; stroke-width: 1.4; fill: none; }
+              .pt { fill: #b06b52; }
+              .lab { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .sub2 { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.02em; }
+              .axislab2 { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #6b6b67; }
+              .annot { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #b06b52; }
+            </style>
+          </defs>
+
+          <!-- Panel 1: one experiment, two compatible curves -->
+          <g transform="translate(20, 28)">
+            <text class="lab" x="160" y="0" text-anchor="middle">one experiment · curvature unidentified</text>
+
+            <!-- axes -->
+            <line class="axis2" x1="40" y1="220" x2="320" y2="220" />
+            <line class="axis2" x1="40" y1="220" x2="40" y2="40" />
+            <text class="axislab2" x="320" y="234" text-anchor="end">spend on channel k</text>
+            <text class="axislab2" x="34" y="44" text-anchor="end">response</text>
+
+            <!-- curve A: gentle, near-linear -->
+            <path class="curveA" d="M 50 215 Q 110 195 170 165 Q 230 130 310 80" />
+            <!-- curve B: steep early saturation -->
+            <path class="curveB" d="M 50 215 Q 90 145 140 115 Q 200 95 310 78" />
+
+            <!-- experiment secant -->
+            <line class="secant" x1="140" y1="155" x2="220" y2="115" />
+            <circle class="pt" cx="140" cy="155" r="3.5" />
+            <circle class="pt" cx="220" cy="115" r="3.5" />
+
+            <text class="sub2" x="140" y="237" text-anchor="middle">s_low</text>
+            <text class="sub2" x="220" y="237" text-anchor="middle">s_high</text>
+            <text class="annot" x="180" y="105" text-anchor="middle">measured Δ</text>
+
+            <!-- legend -->
+            <line x1="55" y1="60" x2="80" y2="60" stroke="#1a1a18" stroke-width="1.6" />
+            <text class="sub2" x="86" y="63">gentle saturation</text>
+            <line x1="55" y1="78" x2="80" y2="78" stroke="#6b6b67" stroke-width="1.4" stroke-dasharray="4 3" />
+            <text class="sub2" x="86" y="81">steep saturation</text>
+          </g>
+
+          <!-- Panel 2: two experiments, curve pinned -->
+          <g transform="translate(380, 28)">
+            <text class="lab" x="160" y="0" text-anchor="middle">two experiments · curvature pinned</text>
+
+            <!-- axes -->
+            <line class="axis2" x1="40" y1="220" x2="320" y2="220" />
+            <line class="axis2" x1="40" y1="220" x2="40" y2="40" />
+            <text class="axislab2" x="320" y="234" text-anchor="end">spend on channel k</text>
+            <text class="axislab2" x="34" y="44" text-anchor="end">response</text>
+
+            <!-- single identified curve -->
+            <path class="curveC" d="M 50 215 Q 100 190 170 145 Q 240 110 310 80" />
+
+            <!-- experiment 1 secant (low range) -->
+            <line class="secant" x1="80" y1="201" x2="140" y2="170" />
+            <circle class="pt" cx="80" cy="201" r="3.5" />
+            <circle class="pt" cx="140" cy="170" r="3.5" />
+            <text class="annot" x="110" y="195" text-anchor="middle">exp 1</text>
+
+            <!-- experiment 2 secant (high range) -->
+            <line class="secant" x1="200" y1="125" x2="280" y2="92" />
+            <circle class="pt" cx="200" cy="125" r="3.5" />
+            <circle class="pt" cx="280" cy="92" r="3.5" />
+            <text class="annot" x="240" y="118" text-anchor="middle">exp 2</text>
+
+            <text class="sub2" x="80" y="237" text-anchor="middle">low</text>
+            <text class="sub2" x="140" y="237" text-anchor="middle"> </text>
+            <text class="sub2" x="200" y="237" text-anchor="middle"> </text>
+            <text class="sub2" x="280" y="237" text-anchor="middle">high</text>
+          </g>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 2.</strong> A single experiment fixes the average return between two spend levels but not the shape of the curve — many saturation profiles produce the same secant. Two experiments at different spend ranges pin both slope and curvature, which is what the optimiser actually depends on.</figcaption>
+      </figure>
+
+      <h2>What it does to the optimiser</h2>
+
+      <p>Calibration is upstream of allocation, but its effect is most visible downstream. An uncalibrated MMM typically produces an allocation that is unstable across refits — small changes in the data move the budget across channels by 10–30%. Adding even one or two well-targeted experiment priors cuts this dramatically, because the directions in parameter space that the optimiser was exploiting to trade off channels are now penalised.</p>
+
+      <p>The cost is that the recommended allocation moves toward the experiment-implied curves and away from whatever the raw fit suggested. If the experiment is right, this is exactly what you want. If the experiment generalises poorly — wrong season, wrong regions, wrong audience — you have just made the model confidently wrong instead of unconfidently wrong. The relevant diagnostic is to look at what the calibration changed: which channels moved, by how much, and whether the new allocation is consistent with separate evidence.</p>
+
+      <p>It is also worth checking the marginal ROAS at the recommended allocation. The optimiser equalises marginal returns across channels at the optimum, so if calibration has flattened the saturation on one channel, the optimiser will pour budget into it until the marginal return drops to match the others. A calibrated model with a poorly identified curvature will overspend on the calibrated channel for exactly this reason.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Allocation stability: uncalibrated versus calibrated MMM across two refits">
+          <defs>
+            <style>
+              .axis3 { stroke: #6b6b67; stroke-width: 1; fill: none; }
+              .barA { fill: #1a1a18; }
+              .barB { fill: #b06b52; fill-opacity: 0.85; }
+              .ghost { fill: none; stroke: #6b6b67; stroke-width: 1; stroke-dasharray: 3 3; }
+              .lab3 { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .sub3 { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; }
+              .ch { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #1a1a18; }
+              .delta { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #b06b52; }
+            </style>
+          </defs>
+
+          <!-- Panel 1: uncalibrated -->
+          <g transform="translate(20, 28)">
+            <text class="lab3" x="160" y="0" text-anchor="middle">uncalibrated · refit volatility</text>
+
+            <line class="axis3" x1="80" y1="180" x2="320" y2="180" />
+            <text class="sub3" x="80" y="196">0%</text>
+            <text class="sub3" x="200" y="196" text-anchor="middle">budget share</text>
+            <text class="sub3" x="320" y="196" text-anchor="end">50%</text>
+
+            <!-- search -->
+            <text class="ch" x="74" y="42" text-anchor="end">search</text>
+            <rect class="barA" x="80" y="34" width="120" height="10" />
+            <rect class="barB" x="80" y="46" width="78" height="10" />
+            <text class="delta" x="208" y="52">−18%</text>
+
+            <!-- social -->
+            <text class="ch" x="74" y="74" text-anchor="end">social</text>
+            <rect class="barA" x="80" y="66" width="56" height="10" />
+            <rect class="barB" x="80" y="78" width="104" height="10" />
+            <text class="delta" x="195" y="84">+22%</text>
+
+            <!-- display -->
+            <text class="ch" x="74" y="106" text-anchor="end">display</text>
+            <rect class="barA" x="80" y="98" width="46" height="10" />
+            <rect class="barB" x="80" y="110" width="22" height="10" />
+            <text class="delta" x="135" y="116">−24%</text>
+
+            <!-- TV -->
+            <text class="ch" x="74" y="138" text-anchor="end">TV</text>
+            <rect class="barA" x="80" y="130" width="60" height="10" />
+            <rect class="barB" x="80" y="142" width="76" height="10" />
+            <text class="delta" x="166" y="148">+13%</text>
+
+            <!-- legend -->
+            <rect class="barA" x="82" y="210" width="14" height="8" />
+            <text class="sub3" x="102" y="218">refit 1</text>
+            <rect class="barB" x="160" y="210" width="14" height="8" />
+            <text class="sub3" x="180" y="218">refit 2</text>
+          </g>
+
+          <!-- Panel 2: calibrated -->
+          <g transform="translate(380, 28)">
+            <text class="lab3" x="160" y="0" text-anchor="middle">calibrated · refit stable</text>
+
+            <line class="axis3" x1="80" y1="180" x2="320" y2="180" />
+            <text class="sub3" x="80" y="196">0%</text>
+            <text class="sub3" x="200" y="196" text-anchor="middle">budget share</text>
+            <text class="sub3" x="320" y="196" text-anchor="end">50%</text>
+
+            <text class="ch" x="74" y="42" text-anchor="end">search</text>
+            <rect class="barA" x="80" y="34" width="92" height="10" />
+            <rect class="barB" x="80" y="46" width="88" height="10" />
+            <text class="delta" x="180" y="52">−2%</text>
+
+            <text class="ch" x="74" y="74" text-anchor="end">social</text>
+            <rect class="barA" x="80" y="66" width="78" height="10" />
+            <rect class="barB" x="80" y="78" width="82" height="10" />
+            <text class="delta" x="170" y="84">+2%</text>
+
+            <text class="ch" x="74" y="106" text-anchor="end">display</text>
+            <rect class="barA" x="80" y="98" width="36" height="10" />
+            <rect class="barB" x="80" y="110" width="34" height="10" />
+            <text class="delta" x="125" y="116">−1%</text>
+
+            <text class="ch" x="74" y="138" text-anchor="end">TV</text>
+            <rect class="barA" x="80" y="130" width="68" height="10" />
+            <rect class="barB" x="80" y="142" width="72" height="10" />
+            <text class="delta" x="160" y="148">+2%</text>
+
+            <rect class="barA" x="82" y="210" width="14" height="8" />
+            <text class="sub3" x="102" y="218">refit 1</text>
+            <rect class="barB" x="160" y="210" width="14" height="8" />
+            <text class="sub3" x="180" y="218">refit 2</text>
+          </g>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 3.</strong> Schematic of allocation stability across two refits of the same MMM on slightly different data. Without calibration, the optimiser exploits flat directions in the likelihood and the recommended budget moves substantially between refits. Anchoring even one or two channels to experiment-derived priors collapses most of the variance.</figcaption>
+      </figure>
 
       <h2>What can go wrong</h2>
 
       <p>The main risk is assuming that a geo experiment result scales cleanly to the national model. Geo holdouts estimate a local treatment effect — specific regions, specific time window, specific spend level. If the treated regions are not representative, or if you ran the experiment during a promotional period, the calibration can make the model worse rather than better.</p>
 
-      <p>It helps to run several geo tests across different regions and different times of year, then look at whether the estimates cluster. If they are stable, you have a robust calibration target. If they vary widely, you need to understand why before imposing them on the model.</p>
+      <p>It helps to run several geo tests across different regions and different times of year, then look at whether the estimates cluster. If they are stable, you have a robust calibration target. If they vary widely, you need to understand why before imposing them on the model. A spread that is wider than the individual confidence intervals suggests the underlying effect is heterogeneous, and a single Gaussian prior is the wrong summary — a hierarchical prior across experiments is closer to honest.</p>
+
+      <p>The other quiet failure mode is calibrating only the channels you can experiment on. Paid social, search and display are easy to hold out; TV, OOH and brand campaigns are not. If you anchor only the digital channels, the optimiser will redistribute the unidentified mass to the un-anchored ones, and you will end up with a model that is calibrated where it did not need help and uncalibrated where it did. Partial calibration is sometimes worse than none.</p>
 
       <h2>An honest limitation</h2>
 
       <p>MMM calibrated with geo experiments is still a model. It will still miss interactions between channels, it will still struggle with long-term brand effects, and it will still require human judgement at the budget allocation step. But combining the two methods — experiments for ground truth on individual channels, models for portfolio-level optimisation — is currently the most defensible approach available for most teams. The alternative is relying on the model alone, which is almost always worse.</p>
+
+      <p>The practical version of this discipline is unglamorous: place priors on derived quantities rather than raw coefficients, weight them by the experiment's precision, run experiments at spend levels that constrain curvature rather than just slope, and check what the calibration moved before trusting the resulting allocation. None of this is exotic. It is just the difference between a model that happens to fit and a model that is anchored to something you measured.</p>
 
     </div>
 
