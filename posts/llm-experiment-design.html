@@ -190,7 +190,7 @@
       <p>The visible part — choosing between, say, synthetic control and DiD — is roughly ten percent of the work. The other ninety percent is the contextual layer underneath, and that layer is where designs actually fail.</p>
 
       <figure class="figure">
-        <svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Iceberg: visible textbook layer of experiment design above water, hidden contextual layer below">
+        <svg viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Iceberg: visible textbook layer of experiment design above water, hidden contextual layer below">
           <defs>
             <style>
               .sky { fill: #fafaf9; }
@@ -198,50 +198,45 @@
               .ice-top { fill: #ffffff; stroke: #1a1a18; stroke-width: 1.4; }
               .ice-bot { fill: #b06b52; fill-opacity: 0.18; stroke: #b06b52; stroke-width: 1.4; }
               .waterline { stroke: #6b6b67; stroke-width: 1; stroke-dasharray: 4 4; }
-              .lab-side { font-family: 'Inter', sans-serif; font-size: 12px; fill: #1a1a18; font-weight: 500; }
-              .lab-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.03em; }
-              .item-top { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #1a1a18; }
-              .item-bot { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #1a1a18; }
-              .accent { fill: #b06b52; font-weight: 500; }
-              .annot { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #b06b52; }
+              .header-acc { font-family: 'Inter', sans-serif; font-size: 13px; fill: #b06b52; font-weight: 500; }
+              .header-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.04em; }
+              .item-line { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; fill: #1a1a18; }
+              .annot-acc { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #b06b52; font-weight: 500; }
             </style>
           </defs>
 
-          <!-- background -->
+          <!-- background bands -->
           <rect class="sky" x="0" y="0" width="720" height="140" />
-          <rect class="water" x="0" y="140" width="720" height="240" />
+          <rect class="water" x="0" y="140" width="720" height="280" />
           <line class="waterline" x1="0" y1="140" x2="720" y2="140" />
 
-          <!-- iceberg above water (small) -->
-          <polygon class="ice-top" points="305,140 360,40 415,140" />
+          <!-- iceberg silhouette · decorative, far left -->
+          <polygon class="ice-top" points="70,55 30,140 110,140" />
+          <polygon class="ice-bot" points="22,140 118,140 108,360 32,360" />
 
-          <!-- iceberg below water (large, irregular) -->
-          <polygon class="ice-bot" points="245,140 475,140 510,200 490,260 440,330 380,355 320,355 265,330 220,260 220,200" />
+          <!-- ABOVE WATER -->
+          <text class="header-acc"  x="170" y="48">Visible to LLM</text>
+          <text class="header-sub"  x="170" y="64">textbook · published · public</text>
 
-          <!-- side labels -->
-          <text class="lab-side accent" x="40" y="80" >Visible to LLM</text>
-          <text class="lab-sub" x="40" y="96">textbook · published · public</text>
-          <text class="lab-side accent" x="40" y="220">Invisible to LLM</text>
-          <text class="lab-sub" x="40" y="236">your data · your org · your past</text>
+          <text class="item-line" x="170" y="90">named methods</text>
+          <text class="item-line" x="170" y="108">canonical code</text>
+          <text class="item-line" x="170" y="126">textbook power · paper citations</text>
 
-          <!-- top items -->
-          <text class="item-top" x="360" y="74" text-anchor="middle">named methods</text>
-          <text class="item-top" x="360" y="90" text-anchor="middle">canonical code</text>
-          <text class="item-top" x="360" y="106" text-anchor="middle">textbook power</text>
-          <text class="item-top" x="360" y="122" text-anchor="middle">paper citations</text>
+          <text class="annot-acc" x="700" y="90" text-anchor="end">≈ 10% of the work</text>
 
-          <!-- bottom items -->
-          <text class="item-bot" x="360" y="170" text-anchor="middle">your specific question · what action it informs</text>
-          <text class="item-bot" x="360" y="194" text-anchor="middle">whether your data supports the design's assumptions</text>
-          <text class="item-bot" x="360" y="218" text-anchor="middle">priors from your past experiments and refits</text>
-          <text class="item-bot" x="360" y="242" text-anchor="middle">true noise floor (between-region, autocorrelated)</text>
-          <text class="item-bot" x="360" y="266" text-anchor="middle">organisational constraints · what is operationally possible</text>
-          <text class="item-bot" x="360" y="290" text-anchor="middle">stakeholder politics · planning cycle · sign-off</text>
-          <text class="item-bot" x="360" y="314" text-anchor="middle">history of what has and hasn't worked here before</text>
+          <!-- BELOW WATER -->
+          <text class="header-acc" x="170" y="172">Invisible to LLM</text>
+          <text class="header-sub" x="170" y="188">your data · your org · your past</text>
 
-          <!-- annotation -->
-          <text class="annot" x="600" y="80" text-anchor="middle">≈ 10% of the work</text>
-          <text class="annot" x="600" y="240" text-anchor="middle">≈ 90% of the work</text>
+          <text class="item-line" x="170" y="216">your specific question · what action it informs</text>
+          <text class="item-line" x="170" y="236">whether your data supports the design's assumptions</text>
+          <text class="item-line" x="170" y="256">priors from your past experiments and refits</text>
+          <text class="item-line" x="170" y="276">true noise floor · between-region · autocorrelated</text>
+          <text class="item-line" x="170" y="296">organisational constraints · what is operationally possible</text>
+          <text class="item-line" x="170" y="316">stakeholder politics · planning cycle · sign-off</text>
+          <text class="item-line" x="170" y="336">history of what has and hasn't worked here before</text>
+
+          <text class="annot-acc" x="700" y="276" text-anchor="end">≈ 90% of the work</text>
         </svg>
         <figcaption class="figure-caption"><strong>Fig 1.</strong> The iceberg of experiment design. The visible tip is the textbook layer — methods, code patterns, formulas — and is where LLMs perform well. The submerged mass is the contextual layer that determines whether the design will work in your specific setting, and is almost entirely outside what the model can see from a prompt.</figcaption>
       </figure>
@@ -275,19 +270,16 @@
       <p><strong>They fail closed, not open.</strong> The most dangerous property of LLM outputs in causal work is not that they are sometimes wrong — wrong outputs from any source need to be filtered. It is that the model rarely says "I don't know." It produces a confident, well-formatted, plausible recommendation in domains where the right answer is "your data does not support this design and you should run something else." Confidence without grounding is the worst failure mode in measurement, because the consumer of the recommendation has no signal to push back on.</p>
 
       <figure class="figure">
-        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Task-by-task assessment of where LLMs help and where they do not">
+        <svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Task-by-task assessment of where LLMs help and where they do not">
           <defs>
             <style>
-              .col-h { fill: #1a1a18; }
-              .col-x { fill: #b06b52; fill-opacity: 0.85; }
+              .dot-h { fill: #1a1a18; }
+              .dot-x { fill: #b06b52; fill-opacity: 0.85; }
               .row-bg { fill: #ffffff; }
               .row-bg-alt { fill: #f0f0ed; }
-              .border-line { stroke: #e8e8e5; stroke-width: 1; fill: none; }
               .lab-h2 { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
-              .row-task { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #1a1a18; }
+              .row-task { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; fill: #1a1a18; }
               .row-note { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; }
-              .legend-h { fill: #1a1a18; }
-              .legend-x { fill: #b06b52; fill-opacity: 0.85; }
               .legend-lab { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #6b6b67; }
               .col-h-text { font-family: 'Inter', sans-serif; font-size: 10.5px; fill: #1a1a18; font-weight: 500; }
             </style>
@@ -295,84 +287,67 @@
 
           <text class="lab-h2" x="360" y="22" text-anchor="middle">where LLMs help · where they don't</text>
 
-          <g transform="translate(40, 50)">
+          <g transform="translate(20, 50)">
             <!-- header row -->
-            <rect class="row-bg-alt" x="0" y="0" width="640" height="26" />
+            <rect class="row-bg-alt" x="0" y="0" width="680" height="26" />
             <text class="col-h-text" x="14" y="18">task</text>
-            <text class="col-h-text" x="380" y="18" text-anchor="middle">helpful</text>
-            <text class="col-h-text" x="500" y="18" text-anchor="middle">not helpful</text>
-            <text class="col-h-text" x="615" y="18" text-anchor="middle">why</text>
+            <text class="col-h-text" x="290" y="18" text-anchor="middle">verdict</text>
+            <text class="col-h-text" x="350" y="18">why</text>
 
-            <!-- row 1 -->
-            <rect class="row-bg" x="0" y="26" width="640" height="26" />
+            <!-- helpful rows -->
+            <rect class="row-bg" x="0" y="26" width="680" height="26" />
             <text class="row-task" x="14" y="44">literature search</text>
-            <circle class="col-h" cx="380" cy="40" r="5" />
-            <circle class="col-x" cx="500" cy="40" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <text class="row-note" x="538" y="44">comprehension over public text</text>
+            <circle class="dot-h" cx="290" cy="40" r="5" />
+            <text class="row-note" x="350" y="44">comprehension over public text</text>
 
-            <!-- row 2 -->
-            <rect class="row-bg-alt" x="0" y="52" width="640" height="26" />
+            <rect class="row-bg-alt" x="0" y="52" width="680" height="26" />
             <text class="row-task" x="14" y="70">code scaffolding</text>
-            <circle class="col-h" cx="380" cy="66" r="5" />
-            <circle class="col-x" cx="500" cy="66" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <text class="row-note" x="538" y="70">errors are visible · easy to verify</text>
+            <circle class="dot-h" cx="290" cy="66" r="5" />
+            <text class="row-note" x="350" y="70">errors visible · easy to verify</text>
 
-            <!-- row 3 -->
-            <rect class="row-bg" x="0" y="78" width="640" height="26" />
+            <rect class="row-bg" x="0" y="78" width="680" height="26" />
             <text class="row-task" x="14" y="96">drafting protocols / memos</text>
-            <circle class="col-h" cx="380" cy="92" r="5" />
-            <circle class="col-x" cx="500" cy="92" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <text class="row-note" x="538" y="96">writing task with revisable output</text>
+            <circle class="dot-h" cx="290" cy="92" r="5" />
+            <text class="row-note" x="350" y="96">writing task with revisable output</text>
 
-            <!-- row 4 -->
-            <rect class="row-bg-alt" x="0" y="104" width="640" height="26" />
+            <rect class="row-bg-alt" x="0" y="104" width="680" height="26" />
             <text class="row-task" x="14" y="122">paper-to-summary parsing</text>
-            <circle class="col-h" cx="380" cy="118" r="5" />
-            <circle class="col-x" cx="500" cy="118" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <text class="row-note" x="538" y="122">closed-domain comprehension</text>
+            <circle class="dot-h" cx="290" cy="118" r="5" />
+            <text class="row-note" x="350" y="122">closed-domain comprehension</text>
 
-            <!-- row 5 -->
-            <rect class="row-bg" x="0" y="130" width="640" height="26" />
-            <text class="row-task" x="14" y="148">auditing assumptions for your data</text>
-            <circle class="col-h" cx="380" cy="144" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <circle class="col-x" cx="500" cy="144" r="5" />
-            <text class="row-note" x="538" y="148">requires data the LLM cannot see</text>
+            <!-- not helpful rows -->
+            <rect class="row-bg" x="0" y="130" width="680" height="26" />
+            <text class="row-task" x="14" y="148">auditing assumptions on your data</text>
+            <circle class="dot-x" cx="290" cy="144" r="5" />
+            <text class="row-note" x="350" y="148">needs data the LLM cannot see</text>
 
-            <!-- row 6 -->
-            <rect class="row-bg-alt" x="0" y="156" width="640" height="26" />
+            <rect class="row-bg-alt" x="0" y="156" width="680" height="26" />
             <text class="row-task" x="14" y="174">power · MDE under real noise floor</text>
-            <circle class="col-h" cx="380" cy="170" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <circle class="col-x" cx="500" cy="170" r="5" />
-            <text class="row-note" x="538" y="174">defaults to textbook · overstates power</text>
+            <circle class="dot-x" cx="290" cy="170" r="5" />
+            <text class="row-note" x="350" y="174">textbook formula · overstates power</text>
 
-            <!-- row 7 -->
-            <rect class="row-bg" x="0" y="182" width="640" height="26" />
+            <rect class="row-bg" x="0" y="182" width="680" height="26" />
             <text class="row-task" x="14" y="200">prior elicitation</text>
-            <circle class="col-h" cx="380" cy="196" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <circle class="col-x" cx="500" cy="196" r="5" />
-            <text class="row-note" x="538" y="200">internet-average ≠ your category</text>
+            <circle class="dot-x" cx="290" cy="196" r="5" />
+            <text class="row-note" x="350" y="200">internet-average ≠ your category</text>
 
-            <!-- row 8 -->
-            <rect class="row-bg-alt" x="0" y="208" width="640" height="26" />
+            <rect class="row-bg-alt" x="0" y="208" width="680" height="26" />
             <text class="row-task" x="14" y="226">organisational fit · ops constraints</text>
-            <circle class="col-h" cx="380" cy="222" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <circle class="col-x" cx="500" cy="222" r="5" />
-            <text class="row-note" x="538" y="226">no visibility into your context</text>
+            <circle class="dot-x" cx="290" cy="222" r="5" />
+            <text class="row-note" x="350" y="226">no visibility into your context</text>
 
-            <!-- row 9 -->
-            <rect class="row-bg" x="0" y="234" width="640" height="26" />
+            <rect class="row-bg" x="0" y="234" width="680" height="26" />
             <text class="row-task" x="14" y="252">choosing the estimand</text>
-            <circle class="col-h" cx="380" cy="248" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
-            <circle class="col-x" cx="500" cy="248" r="5" />
-            <text class="row-note" x="538" y="252">depends on the decision being made</text>
+            <circle class="dot-x" cx="290" cy="248" r="5" />
+            <text class="row-note" x="350" y="252">depends on the decision being made</text>
           </g>
 
-          <!-- legend -->
-          <g transform="translate(40, 304)">
-            <circle class="legend-h" cx="6" cy="0" r="5" />
+          <!-- legend, well below all rows -->
+          <g transform="translate(20, 340)">
+            <circle class="dot-h" cx="6" cy="0" r="5" />
             <text class="legend-lab" x="18" y="3">LLM is helpful</text>
-            <circle class="legend-x" cx="140" cy="0" r="5" />
-            <text class="legend-lab" x="152" y="3">LLM is unreliable here</text>
+            <circle class="dot-x" cx="160" cy="0" r="5" />
+            <text class="legend-lab" x="172" y="3">LLM is unreliable here</text>
           </g>
         </svg>
         <figcaption class="figure-caption"><strong>Fig 2.</strong> Task-by-task. The pattern that emerges: LLMs are genuinely useful where the task is closed-domain comprehension or generation of revisable text, and unreliable where the task requires reasoning about data, organisations, or decisions the model has no visibility into. The boundary is not "harder vs easier" but "verifiable from outside the model vs not."</figcaption>
