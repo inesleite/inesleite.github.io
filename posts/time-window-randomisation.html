@@ -353,13 +353,13 @@
 
       <p>Here is where the method diverges most from a clean A/B test. In a properly randomised user-level test, the assignment of unit <code>i</code> is independent of the assignment of unit <code>j</code>, and the standard error of the mean difference follows the familiar formula derived from independent samples.</p>
 
-      <p>In a time-window design, this independence does not hold. The 12pm window and the 2pm window share underlying demand patterns, autocorrelated user state, weekly seasonality, and macro-trends. Adjacent windows are positively correlated, which inflates the actual variance of the estimator above what an i.i.d. formula would suggest. The inflation is not small — for window lengths of a few hours it commonly sits between 1.5 and 2.5 times the i.i.d. standard error.</p>
+      <p>In a time-window design, this independence does not hold. The 12pm window and the 2pm window share underlying demand patterns, autocorrelated user state, weekly seasonality, and macro-trends. Adjacent windows are positively correlated, which inflates the actual variance of the estimator above what an i.i.d. formula would suggest. Reporting the i.i.d. standard error in this setting overstates precision and produces inflated false-positive rates.</p>
 
-      <p>The correction is to estimate an <em>error ratio</em>: the empirical standard deviation of the estimator under realistic ON/OFF schedules, divided by the analytical standard deviation that an i.i.d. assumption would produce. The empirical part is computed by simulation on a long pre-period — generate many random ON/OFF schedules, compute the estimator under each, and take the standard deviation across simulations. Confidence intervals are then widened by that ratio:</p>
+      <p>The standard fixes are well established in the time-series and causal-inference literature. Randomisation inference (Lehmann & Romano) builds the empirical distribution of the estimator by repeatedly re-assigning random ON/OFF schedules over a long pre-period, and uses quantiles of that distribution as the confidence interval. A block bootstrap (Politis & Romano, stationary or moving-block variants) resamples contiguous chunks of the time series so that within-block autocorrelation is preserved. HAC-style standard errors (Newey–West) correct the variance estimator analytically using a bandwidth that reflects the autocorrelation length. All three avoid the assumption that windows are independent.</p>
 
-      <p><code>CI = estimate ± 1.96 · SD_iid · error_ratio</code></p>
+      <p>Whichever route you choose, the practical consequence is the same: the resulting interval is wider than the i.i.d. version, often substantially so. Shorter windows produce more units within a fixed test and weaker pairwise correlation, so the gap to the i.i.d. interval is smaller. Longer windows accumulate more correlation and the gap grows. The operating point for most high-velocity channels lands at one to two hours — long enough to capture most journeys cleanly under first-touch attribution, short enough that the autocorrelation penalty is manageable.</p>
 
-      <p>The error ratio depends on window length. Shorter windows produce more units within a fixed test, less correlation per unit, and ratios closer to 1. Longer windows accumulate more correlation and inflate the ratio. In practice, you choose a window length that balances two competing pressures: long enough to capture journeys cleanly under first-touch attribution, short enough that the variance penalty is manageable. One to two hours is the typical operating point for high-velocity channels.</p>
+      <p>What you should not do is report the i.i.d. number. It is the wrong standard error for this design, and the false-positive rate of the test rises sharply with window length when this correction is skipped.</p>
 
       <figure class="figure">
         <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Naive versus corrected confidence intervals for the same point estimate">
@@ -405,7 +405,7 @@
 
           <text class="sb-c" x="360" y="200" text-anchor="middle">point estimate is identical · only the SE adjustment changes the conclusion</text>
         </svg>
-        <figcaption class="figure-caption"><strong>Fig 2.</strong> The same effect estimate, with and without the variance correction. The naive interval treats windows as independent and is narrow enough to exclude zero. The corrected interval applies the empirical error ratio and includes zero. Reporting the naive number is the most common way time-window tests produce false-positive results.</figcaption>
+        <figcaption class="figure-caption"><strong>Fig 2.</strong> The same effect estimate, with and without a randomisation-based variance correction. The naive interval treats windows as independent and is narrow enough to exclude zero. The corrected interval — built from the empirical distribution of the estimator under random schedule assignments, equivalently a block bootstrap or HAC standard error — includes zero. Reporting the naive number is the most common way time-window tests produce false-positive results.</figcaption>
       </figure>
 
       <h2>Operational pitfalls</h2>
