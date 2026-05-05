@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time-window randomisation: when you can't randomise the user — Inês Leite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf9;
+      --surface: #ffffff;
+      --border: #e8e8e5;
+      --text: #1a1a18;
+      --muted: #6b6b67;
+      --tag-bg: #f0f0ed;
+      --nav-h: 64px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(250,250,249,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      width: 100%; max-width: 720px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-back {
+      font-size: 0.875rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-home {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-home:hover { color: var(--text); }
+
+    main {
+      max-width: 720px; margin: 0 auto;
+      padding: calc(var(--nav-h) + 64px) 24px 96px;
+    }
+
+    .post-header { margin-bottom: 48px; }
+    .post-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .post-title {
+      font-size: 2rem; font-weight: 600; line-height: 1.25;
+      letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .post-meta {
+      font-size: 0.875rem; color: var(--muted);
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .post-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      background: var(--tag-bg); color: var(--muted);
+      padding: 4px 10px; border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    .post-divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    .post-body { font-size: 1rem; font-weight: 300; }
+    .post-body p { margin-bottom: 20px; }
+    .post-body h2 {
+      font-size: 1.125rem; font-weight: 600;
+      letter-spacing: -0.01em; margin: 36px 0 12px;
+    }
+    .post-body code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82em; font-weight: 400;
+      background: var(--tag-bg);
+      padding: 2px 6px; border-radius: 3px;
+    }
+    .post-body ul { margin: 0 0 20px 0; padding-left: 20px; }
+    .post-body ul li { margin-bottom: 8px; }
+
+    .figure {
+      margin: 32px 0;
+      padding: 24px 8px 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .figure svg { display: block; width: 100%; height: auto; max-width: 100%; }
+    .figure-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.02em;
+      padding: 12px 16px 4px;
+      line-height: 1.5;
+    }
+    .figure-caption strong {
+      color: var(--text); font-weight: 500;
+      margin-right: 6px;
+    }
+
+    .post-footer {
+      margin-top: 64px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .post-footer-back {
+      font-size: 0.875rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .post-footer-back:hover { color: var(--text); }
+    .post-footer-copy {
+      font-size: 0.8rem; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-back" href="../index.html#writing">← all posts</a>
+      <a class="nav-home" href="../index.html">inesleite.github.io</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="post-header">
+      <p class="post-label">experimentation</p>
+      <h1 class="post-title">Time-window randomisation: when you can't randomise the user</h1>
+      <div class="post-meta">
+        <span>May 2026</span>
+        <span>· 8 min read</span>
+      </div>
+      <div class="post-tags">
+        <span class="tag">causal inference</span>
+        <span class="tag">experimentation</span>
+        <span class="tag">attribution</span>
+        <span class="tag">incrementality</span>
+      </div>
+    </header>
+
+    <hr class="post-divider">
+
+    <div class="post-body">
+
+      <p>A/B tests work because randomisation at the user level guarantees comparability between treatment and control. There are channels where that randomisation is not available. A search ad either runs or it does not — there is no version of "show this ad to user A but not to user B" when both are searching for the same keyword in the same market in the same minute. The campaign is either on or off, and the smallest unit you can randomise is time.</p>
+
+      <p>The naive workaround — compare a month with the campaign on against a month with it off — fails immediately. Two consecutive months differ on dozens of dimensions: weather, seasonality, competitor activity, news cycles. The campaign effect is one signal among many, and there is no clean way to isolate it.</p>
+
+      <p>Time-window randomisation is the alternative. Within a single fixed period, you alternate which short windows have the campaign on and which have it off, and treat the windows as if they were the units of a randomised trial. This piece walks through how the method works, why the standard variance formulas underestimate uncertainty when you use it, and the operational ways it tends to fail in practice.</p>
+
+      <h2>The method</h2>
+
+      <p>The simplest version: pick a window length — typically one or two hours — and for the duration of the test, alternate ON and OFF windows. ON windows have the campaign running, OFF windows have it paused. Outcomes during ON windows are pooled into one group, outcomes during OFF windows into the other.</p>
+
+      <p>Because both groups accumulate dozens or hundreds of windows over a few weeks, external noise — a competitor launching a campaign, a holiday weekend, a sudden weather event — affects both groups in roughly equal measure and washes out of the comparison. The estimand is the same as in a between-subjects A/B test: the mean difference in outcome between the two groups, with the unit being a window rather than a user.</p>
+
+      <p>The effect estimate is straightforward arithmetic. The trickier parts are the schedule, the attribution rule, and the standard errors.</p>
+
+      <h2>Why daily flipping is essential</h2>
+
+      <p>If 12pm is always an ON window and 2pm is always OFF, the test is biased before it begins — the lunch peak systematically lands in one group, and the comparison becomes confounded with hour-of-day effects. The fix is to flip the schedule each day: 12pm is ON on Monday, OFF on Tuesday, ON on Wednesday. Across two weeks, every clock hour has been assigned to both groups roughly equally, and intra-day patterns average out.</p>
+
+      <p>The daily flip is not optional. Without it, the design fails the basic exchangeability requirement, and no statistical adjustment in the post-period will repair it. This is true even if the average ON-OFF allocation looks balanced overall — what matters is that within each clock hour, both states are equally represented.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alternating ON/OFF window schedule with daily flip showing the lunch peak rotating between groups">
+          <defs>
+            <style>
+              .on { fill: #1a1a18; }
+              .off { fill: #f0f0ed; stroke: #e8e8e5; stroke-width: 1; }
+              .frame { fill: none; stroke: #e8e8e5; stroke-width: 1; }
+              .lab { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .sb { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.02em; }
+              .col-hl { fill: none; stroke: #b06b52; stroke-width: 1.6; stroke-dasharray: 3 3; }
+              .annot { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #b06b52; font-weight: 500; }
+              .row-lab { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; }
+              .col-lab { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #6b6b67; }
+              .legend-on { fill: #1a1a18; }
+              .legend-off { fill: #f0f0ed; stroke: #e8e8e5; stroke-width: 1; }
+              .legend-lab { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #6b6b67; }
+            </style>
+          </defs>
+
+          <text class="lab" x="360" y="22" text-anchor="middle">7-day schedule · 2-hour windows · daily flip</text>
+
+          <g transform="translate(80, 50)">
+            <text class="col-lab" x="20" y="0" text-anchor="middle">0</text>
+            <text class="col-lab" x="60" y="0" text-anchor="middle">2</text>
+            <text class="col-lab" x="100" y="0" text-anchor="middle">4</text>
+            <text class="col-lab" x="140" y="0" text-anchor="middle">6</text>
+            <text class="col-lab" x="180" y="0" text-anchor="middle">8</text>
+            <text class="col-lab" x="220" y="0" text-anchor="middle">10</text>
+            <text class="col-lab" x="260" y="0" text-anchor="middle">12</text>
+            <text class="col-lab" x="300" y="0" text-anchor="middle">14</text>
+            <text class="col-lab" x="340" y="0" text-anchor="middle">16</text>
+            <text class="col-lab" x="380" y="0" text-anchor="middle">18</text>
+            <text class="col-lab" x="420" y="0" text-anchor="middle">20</text>
+            <text class="col-lab" x="460" y="0" text-anchor="middle">22</text>
+            <text class="col-lab" x="490" y="0" text-anchor="middle">hour</text>
+
+            <!-- Day 1: ON, OFF, ON, OFF, ... starting ON -->
+            <text class="row-lab" x="-12" y="28" text-anchor="end">Mon</text>
+            <rect class="on"  x="0"   y="14" width="40" height="22" />
+            <rect class="off" x="40"  y="14" width="40" height="22" />
+            <rect class="on"  x="80"  y="14" width="40" height="22" />
+            <rect class="off" x="120" y="14" width="40" height="22" />
+            <rect class="on"  x="160" y="14" width="40" height="22" />
+            <rect class="off" x="200" y="14" width="40" height="22" />
+            <rect class="on"  x="240" y="14" width="40" height="22" />
+            <rect class="off" x="280" y="14" width="40" height="22" />
+            <rect class="on"  x="320" y="14" width="40" height="22" />
+            <rect class="off" x="360" y="14" width="40" height="22" />
+            <rect class="on"  x="400" y="14" width="40" height="22" />
+            <rect class="off" x="440" y="14" width="40" height="22" />
+
+            <!-- Day 2: flipped -->
+            <text class="row-lab" x="-12" y="52" text-anchor="end">Tue</text>
+            <rect class="off" x="0"   y="38" width="40" height="22" />
+            <rect class="on"  x="40"  y="38" width="40" height="22" />
+            <rect class="off" x="80"  y="38" width="40" height="22" />
+            <rect class="on"  x="120" y="38" width="40" height="22" />
+            <rect class="off" x="160" y="38" width="40" height="22" />
+            <rect class="on"  x="200" y="38" width="40" height="22" />
+            <rect class="off" x="240" y="38" width="40" height="22" />
+            <rect class="on"  x="280" y="38" width="40" height="22" />
+            <rect class="off" x="320" y="38" width="40" height="22" />
+            <rect class="on"  x="360" y="38" width="40" height="22" />
+            <rect class="off" x="400" y="38" width="40" height="22" />
+            <rect class="on"  x="440" y="38" width="40" height="22" />
+
+            <text class="row-lab" x="-12" y="76" text-anchor="end">Wed</text>
+            <rect class="on"  x="0"   y="62" width="40" height="22" />
+            <rect class="off" x="40"  y="62" width="40" height="22" />
+            <rect class="on"  x="80"  y="62" width="40" height="22" />
+            <rect class="off" x="120" y="62" width="40" height="22" />
+            <rect class="on"  x="160" y="62" width="40" height="22" />
+            <rect class="off" x="200" y="62" width="40" height="22" />
+            <rect class="on"  x="240" y="62" width="40" height="22" />
+            <rect class="off" x="280" y="62" width="40" height="22" />
+            <rect class="on"  x="320" y="62" width="40" height="22" />
+            <rect class="off" x="360" y="62" width="40" height="22" />
+            <rect class="on"  x="400" y="62" width="40" height="22" />
+            <rect class="off" x="440" y="62" width="40" height="22" />
+
+            <text class="row-lab" x="-12" y="100" text-anchor="end">Thu</text>
+            <rect class="off" x="0"   y="86" width="40" height="22" />
+            <rect class="on"  x="40"  y="86" width="40" height="22" />
+            <rect class="off" x="80"  y="86" width="40" height="22" />
+            <rect class="on"  x="120" y="86" width="40" height="22" />
+            <rect class="off" x="160" y="86" width="40" height="22" />
+            <rect class="on"  x="200" y="86" width="40" height="22" />
+            <rect class="off" x="240" y="86" width="40" height="22" />
+            <rect class="on"  x="280" y="86" width="40" height="22" />
+            <rect class="off" x="320" y="86" width="40" height="22" />
+            <rect class="on"  x="360" y="86" width="40" height="22" />
+            <rect class="off" x="400" y="86" width="40" height="22" />
+            <rect class="on"  x="440" y="86" width="40" height="22" />
+
+            <text class="row-lab" x="-12" y="124" text-anchor="end">Fri</text>
+            <rect class="on"  x="0"   y="110" width="40" height="22" />
+            <rect class="off" x="40"  y="110" width="40" height="22" />
+            <rect class="on"  x="80"  y="110" width="40" height="22" />
+            <rect class="off" x="120" y="110" width="40" height="22" />
+            <rect class="on"  x="160" y="110" width="40" height="22" />
+            <rect class="off" x="200" y="110" width="40" height="22" />
+            <rect class="on"  x="240" y="110" width="40" height="22" />
+            <rect class="off" x="280" y="110" width="40" height="22" />
+            <rect class="on"  x="320" y="110" width="40" height="22" />
+            <rect class="off" x="360" y="110" width="40" height="22" />
+            <rect class="on"  x="400" y="110" width="40" height="22" />
+            <rect class="off" x="440" y="110" width="40" height="22" />
+
+            <text class="row-lab" x="-12" y="148" text-anchor="end">Sat</text>
+            <rect class="off" x="0"   y="134" width="40" height="22" />
+            <rect class="on"  x="40"  y="134" width="40" height="22" />
+            <rect class="off" x="80"  y="134" width="40" height="22" />
+            <rect class="on"  x="120" y="134" width="40" height="22" />
+            <rect class="off" x="160" y="134" width="40" height="22" />
+            <rect class="on"  x="200" y="134" width="40" height="22" />
+            <rect class="off" x="240" y="134" width="40" height="22" />
+            <rect class="on"  x="280" y="134" width="40" height="22" />
+            <rect class="off" x="320" y="134" width="40" height="22" />
+            <rect class="on"  x="360" y="134" width="40" height="22" />
+            <rect class="off" x="400" y="134" width="40" height="22" />
+            <rect class="on"  x="440" y="134" width="40" height="22" />
+
+            <text class="row-lab" x="-12" y="172" text-anchor="end">Sun</text>
+            <rect class="on"  x="0"   y="158" width="40" height="22" />
+            <rect class="off" x="40"  y="158" width="40" height="22" />
+            <rect class="on"  x="80"  y="158" width="40" height="22" />
+            <rect class="off" x="120" y="158" width="40" height="22" />
+            <rect class="on"  x="160" y="158" width="40" height="22" />
+            <rect class="off" x="200" y="158" width="40" height="22" />
+            <rect class="on"  x="240" y="158" width="40" height="22" />
+            <rect class="off" x="280" y="158" width="40" height="22" />
+            <rect class="on"  x="320" y="158" width="40" height="22" />
+            <rect class="off" x="360" y="158" width="40" height="22" />
+            <rect class="on"  x="400" y="158" width="40" height="22" />
+            <rect class="off" x="440" y="158" width="40" height="22" />
+
+            <!-- highlight 12-14 column -->
+            <rect class="col-hl" x="240" y="11" width="40" height="172" />
+            <text class="annot" x="260" y="200" text-anchor="middle">12pm: ON some days, OFF others</text>
+
+            <!-- legend -->
+            <rect class="legend-on"  x="0"   y="220" width="14" height="10" />
+            <text class="legend-lab" x="20"  y="229">ON (campaign running)</text>
+            <rect class="legend-off" x="180" y="220" width="14" height="10" />
+            <text class="legend-lab" x="200" y="229">OFF (campaign paused)</text>
+          </g>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 1.</strong> Schedule for a 7-day test with 2-hour windows. Each day's pattern is the inverse of the previous day's, so every clock hour appears in both groups roughly equally over the test. The highlighted column shows the lunch peak (12pm) rotating between ON and OFF — exactly what averages hour-of-day effects out of the estimator.</figcaption>
+      </figure>
+
+      <h2>First-touch attribution</h2>
+
+      <p>A subtler problem: customer journeys span time. Someone clicks an ad at 1:55pm during an ON window and converts at 3:30pm during the next OFF window. Which group does the conversion belong to?</p>
+
+      <p>The standard answer is first-touch attribution: the window of the <em>first</em> interaction determines group assignment for the entire journey. The 1:55pm click is in an ON window, so the conversion counts for the ON group regardless of when it completes. The rule is simple, deterministic, and avoids double-counting.</p>
+
+      <p>It also imposes a hard constraint on which channels the method can measure. If a typical journey takes ten minutes, a 2-hour window captures most of it cleanly. If a typical journey takes three weeks — TV brand campaigns, OOH, anything with a long awareness-to-conversion delay — the entire mechanic breaks down, because most conversions' first touches fall outside the test window entirely. Time-window randomisation is therefore a search-and-performance method, not a brand method. The literature on geo and time-randomised experiments (Vaver & Koehler, 2011, and the Google Research papers that followed) is consistent on this scoping.</p>
+
+      <h2>Why naive standard errors are wrong</h2>
+
+      <p>Here is where the method diverges most from a clean A/B test. In a properly randomised user-level test, the assignment of unit <code>i</code> is independent of the assignment of unit <code>j</code>, and the standard error of the mean difference follows the familiar formula derived from independent samples.</p>
+
+      <p>In a time-window design, this independence does not hold. The 12pm window and the 2pm window share underlying demand patterns, autocorrelated user state, weekly seasonality, and macro-trends. Adjacent windows are positively correlated, which inflates the actual variance of the estimator above what an i.i.d. formula would suggest. The inflation is not small — for window lengths of a few hours it commonly sits between 1.5 and 2.5 times the i.i.d. standard error.</p>
+
+      <p>The correction is to estimate an <em>error ratio</em>: the empirical standard deviation of the estimator under realistic ON/OFF schedules, divided by the analytical standard deviation that an i.i.d. assumption would produce. The empirical part is computed by simulation on a long pre-period — generate many random ON/OFF schedules, compute the estimator under each, and take the standard deviation across simulations. Confidence intervals are then widened by that ratio:</p>
+
+      <p><code>CI = estimate ± 1.96 · SD_iid · error_ratio</code></p>
+
+      <p>The error ratio depends on window length. Shorter windows produce more units within a fixed test, less correlation per unit, and ratios closer to 1. Longer windows accumulate more correlation and inflate the ratio. In practice, you choose a window length that balances two competing pressures: long enough to capture journeys cleanly under first-touch attribution, short enough that the variance penalty is manageable. One to two hours is the typical operating point for high-velocity channels.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Naive versus corrected confidence intervals for the same point estimate">
+          <defs>
+            <style>
+              .axis-c { stroke: #6b6b67; stroke-width: 1; fill: none; }
+              .grid-c { stroke: #e8e8e5; stroke-width: 1; fill: none; stroke-dasharray: 2 3; }
+              .pt-c { fill: #1a1a18; }
+              .ci-naive { stroke: #6b6b67; stroke-width: 2.4; fill: none; }
+              .ci-corr  { stroke: #b06b52; stroke-width: 2.4; fill: none; }
+              .zero { stroke: #1a1a18; stroke-width: 1; stroke-dasharray: 3 3; }
+              .lab-c { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .sb-c { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.02em; }
+              .annot-c { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #b06b52; font-weight: 500; }
+              .annot-naive { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #6b6b67; }
+            </style>
+          </defs>
+
+          <text class="lab-c" x="360" y="22" text-anchor="middle">same point estimate · two confidence intervals</text>
+
+          <g transform="translate(80, 50)">
+            <line class="axis-c" x1="0" y1="120" x2="560" y2="120" />
+            <line class="zero" x1="180" y1="40" x2="180" y2="135" />
+            <text class="sb-c" x="180" y="152" text-anchor="middle">0</text>
+            <text class="sb-c" x="540" y="152" text-anchor="end">effect size →</text>
+
+            <!-- naive CI: narrow -->
+            <text class="annot-naive" x="-10" y="64" text-anchor="end">naive CI</text>
+            <line class="ci-naive" x1="290" y1="60" x2="430" y2="60" />
+            <line class="ci-naive" x1="290" y1="54" x2="290" y2="66" />
+            <line class="ci-naive" x1="430" y1="54" x2="430" y2="66" />
+            <circle class="pt-c" cx="360" cy="60" r="3.5" />
+            <text class="sb-c" x="445" y="64">excludes 0 → "significant"</text>
+
+            <!-- corrected CI: wider -->
+            <text class="annot-c" x="-10" y="104" text-anchor="end">corrected CI</text>
+            <line class="ci-corr" x1="180" y1="100" x2="540" y2="100" />
+            <line class="ci-corr" x1="180" y1="94" x2="180" y2="106" />
+            <line class="ci-corr" x1="540" y1="94" x2="540" y2="106" />
+            <circle class="pt-c" cx="360" cy="100" r="3.5" />
+            <text class="annot-c" x="555" y="104">spans 0 → "not detected"</text>
+          </g>
+
+          <text class="sb-c" x="360" y="200" text-anchor="middle">point estimate is identical · only the SE adjustment changes the conclusion</text>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 2.</strong> The same effect estimate, with and without the variance correction. The naive interval treats windows as independent and is narrow enough to exclude zero. The corrected interval applies the empirical error ratio and includes zero. Reporting the naive number is the most common way time-window tests produce false-positive results.</figcaption>
+      </figure>
+
+      <h2>Operational pitfalls</h2>
+
+      <p>The maths is the easy part. The operational failure modes are where time-window tests usually fall apart.</p>
+
+      <p><strong>Concurrent automated campaigns.</strong> When you pause your search campaign for an OFF window, automated campaigns running in parallel — dynamic search ads, performance-max-style aggregators, broad-match catch-all campaigns — will detect the freed inventory and absorb it. Your "OFF" windows are not actually off; they are running similar ads through a different vehicle. The estimate is no longer the effect of the campaign in isolation, but the effect <em>net of substitution within your own account</em>. The standard diagnostic is to check that the channel's traffic during OFF windows is meaningfully lower than during ON windows. If it is not, automated systems are absorbing the demand and the test cannot answer the original question.</p>
+
+      <p><strong>Time-zone misalignment.</strong> If the schedule is uploaded in one time zone but applies to accounts running in another, the alternation arrives offset by some number of hours, and what was meant to be a clean checkerboard becomes a smeared one. Plotting hourly traffic by ON/OFF status is the standard diagnostic — clean alignment shows visibly alternating peaks; misalignment shows a noisy, irregular pattern.</p>
+
+      <p><strong>Daylight-saving transitions.</strong> If the test crosses a DST boundary, one day will have 23 or 25 hours, and the pattern shifts by an hour from that day onward. The simplest fix is to drop the affected day from the analysis. The trickier version is when DST varies across markets in a multi-market test — a real problem for any campaign run across regions that switch at different times or not at all.</p>
+
+      <p><strong>Schedule upload failures.</strong> If the campaign-management system silently fails to apply the schedule to some accounts, those accounts run with the campaign always on, contributing only ON-group data and biasing the estimate. The fix is to verify schedule application per account before the test begins, not after, and to treat any account where verification fails as excluded.</p>
+
+      <h2>What it can't do</h2>
+
+      <p>Time-window randomisation works for fast-effect, programmatically-scheduled channels. It does not work for slow-effect channels (TV, OOH, brand), because first-touch attribution falls apart when journey lengths exceed window lengths. It does not work for channels that cannot be toggled at a 1- to 2-hour resolution — most non-digital media, most TV inventory.</p>
+
+      <p>It also does not measure cross-channel effects directly. Because the unit of randomisation is time, you can compare the share of conversions attributed to other channels across ON and OFF windows, and this often surfaces interesting cannibalisation patterns — for example, paid search appearing to absorb traffic that organic search would have captured anyway. But the method is not designed for joint attribution across multiple channels, and conclusions drawn from cross-channel ratios should be treated as exploratory rather than confirmatory.</p>
+
+      <h2>An honest summary</h2>
+
+      <p>Time-window randomisation is a niche method with a precise scope, and within that scope it answers a question that is otherwise unanswerable. Applied to the right channels with the variance correction in place and the operational checks honoured, it is one of the cleaner causal designs available in advertising measurement. Applied outside its scope, or without the error-ratio adjustment, it produces statistically tidy numbers that are causally meaningless — which is the standard failure mode of every causal method, and the reason that being honest about scope matters more than being precise about the estimator.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a class="post-footer-back" href="../index.html#writing">← back to writing</a>
+      <span class="post-footer-copy">© 2026 Inês Leite</span>
+    </footer>
+  </main>
+
+</body>
+</html>
