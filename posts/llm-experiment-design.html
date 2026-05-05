@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why I wouldn't trust an LLM to design my geo experiment — Inês Leite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafaf9;
+      --surface: #ffffff;
+      --border: #e8e8e5;
+      --text: #1a1a18;
+      --muted: #6b6b67;
+      --tag-bg: #f0f0ed;
+      --nav-h: 64px;
+    }
+
+    html { font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(250,250,249,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      width: 100%; max-width: 720px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-back {
+      font-size: 0.875rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-home {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-home:hover { color: var(--text); }
+
+    main {
+      max-width: 720px; margin: 0 auto;
+      padding: calc(var(--nav-h) + 64px) 24px 96px;
+    }
+
+    .post-header { margin-bottom: 48px; }
+    .post-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .post-title {
+      font-size: 2rem; font-weight: 600; line-height: 1.25;
+      letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .post-meta {
+      font-size: 0.875rem; color: var(--muted);
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .post-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      background: var(--tag-bg); color: var(--muted);
+      padding: 4px 10px; border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    .post-divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    .post-body { font-size: 1rem; font-weight: 300; }
+    .post-body p { margin-bottom: 20px; }
+    .post-body h2 {
+      font-size: 1.125rem; font-weight: 600;
+      letter-spacing: -0.01em; margin: 36px 0 12px;
+    }
+    .post-body code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82em; font-weight: 400;
+      background: var(--tag-bg);
+      padding: 2px 6px; border-radius: 3px;
+    }
+    .post-body ul { margin: 0 0 20px 0; padding-left: 20px; }
+    .post-body ul li { margin-bottom: 8px; }
+
+    .figure {
+      margin: 32px 0;
+      padding: 24px 8px 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .figure svg { display: block; width: 100%; height: auto; max-width: 100%; }
+    .figure-caption {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.02em;
+      padding: 12px 16px 4px;
+      line-height: 1.5;
+    }
+    .figure-caption strong {
+      color: var(--text); font-weight: 500;
+      margin-right: 6px;
+    }
+
+    .post-footer {
+      margin-top: 64px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .post-footer-back {
+      font-size: 0.875rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .post-footer-back:hover { color: var(--text); }
+    .post-footer-copy {
+      font-size: 0.8rem; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-back" href="../index.html#writing">← all posts</a>
+      <a class="nav-home" href="../index.html">inesleite.github.io</a>
+    </div>
+  </nav>
+
+  <main>
+    <header class="post-header">
+      <p class="post-label">measurement &amp; LLMs</p>
+      <h1 class="post-title">Why I wouldn't trust an LLM to design my geo experiment</h1>
+      <div class="post-meta">
+        <span>May 2026</span>
+        <span>· 8 min read</span>
+      </div>
+      <div class="post-tags">
+        <span class="tag">LLMs</span>
+        <span class="tag">experiment design</span>
+        <span class="tag">causal inference</span>
+        <span class="tag">measurement</span>
+      </div>
+    </header>
+
+    <hr class="post-divider">
+
+    <div class="post-body">
+
+      <p>The pitch I keep hearing is some version of: an LLM can read the literature, write the code, run the analysis — so why not let it design the experiment too? The implied target is the bit in between. The part where someone with measurement experience sits down with messy data, awkward stakeholder constraints, and a question that does not quite map to any textbook method, and produces a plan.</p>
+
+      <p>I have tried this several times — using a frontier model as a design copilot for real geo experiments — and have come away each time more sceptical, not less. The model's outputs are plausible, well-cited, often technically correct in a narrow sense, and almost always wrong on the parts that determine whether the experiment will produce a useful answer.</p>
+
+      <p>This piece is an attempt to be specific about why. Not a hot take on AI. Not a hagiography of human expertise. Just a list of the things experiment design actually consists of, and where the technology I have access to today helps versus does not.</p>
+
+      <h2>What experiment design actually consists of</h2>
+
+      <p>Designing a geo experiment is not picking a method from a list. It is a sequence of decisions, most of which depend on context the model cannot see.</p>
+
+      <p>What is the question, really? "Does TV work?" usually means something more like "should we cut TV by 30% next quarter to fund display, given that the CFO is sceptical of measurement claims?" The question's actual shape — what action it informs, what level of certainty that action requires — determines everything downstream.</p>
+
+      <p>What is the estimand? Marginal ROAS at current spend, total ROAS, lift in a specific funnel stage, heterogeneous effect by region. The choice constrains the design and the analysis, and the wrong choice makes the rest of the work meaningless.</p>
+
+      <p>Which units, with what spillover buffer, with what donor pool? What is the credible counterfactual — synthetic control, DiD, time-series regression, time-window randomisation, hybrid? How much spend, for how long, under the actual variance regime rather than the textbook one? Who is going to act on the result, and what action are they choosing between?</p>
+
+      <p>The visible part — choosing between, say, synthetic control and DiD — is roughly ten percent of the work. The other ninety percent is the contextual layer underneath, and that layer is where designs actually fail.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Iceberg: visible textbook layer of experiment design above water, hidden contextual layer below">
+          <defs>
+            <style>
+              .sky { fill: #fafaf9; }
+              .water { fill: #f0f0ed; }
+              .ice-top { fill: #ffffff; stroke: #1a1a18; stroke-width: 1.4; }
+              .ice-bot { fill: #b06b52; fill-opacity: 0.18; stroke: #b06b52; stroke-width: 1.4; }
+              .waterline { stroke: #6b6b67; stroke-width: 1; stroke-dasharray: 4 4; }
+              .lab-side { font-family: 'Inter', sans-serif; font-size: 12px; fill: #1a1a18; font-weight: 500; }
+              .lab-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; letter-spacing: 0.03em; }
+              .item-top { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #1a1a18; }
+              .item-bot { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #1a1a18; }
+              .accent { fill: #b06b52; font-weight: 500; }
+              .annot { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #b06b52; }
+            </style>
+          </defs>
+
+          <!-- background -->
+          <rect class="sky" x="0" y="0" width="720" height="140" />
+          <rect class="water" x="0" y="140" width="720" height="240" />
+          <line class="waterline" x1="0" y1="140" x2="720" y2="140" />
+
+          <!-- iceberg above water (small) -->
+          <polygon class="ice-top" points="305,140 360,40 415,140" />
+
+          <!-- iceberg below water (large, irregular) -->
+          <polygon class="ice-bot" points="245,140 475,140 510,200 490,260 440,330 380,355 320,355 265,330 220,260 220,200" />
+
+          <!-- side labels -->
+          <text class="lab-side accent" x="40" y="80" >Visible to LLM</text>
+          <text class="lab-sub" x="40" y="96">textbook · published · public</text>
+          <text class="lab-side accent" x="40" y="220">Invisible to LLM</text>
+          <text class="lab-sub" x="40" y="236">your data · your org · your past</text>
+
+          <!-- top items -->
+          <text class="item-top" x="360" y="74" text-anchor="middle">named methods</text>
+          <text class="item-top" x="360" y="90" text-anchor="middle">canonical code</text>
+          <text class="item-top" x="360" y="106" text-anchor="middle">textbook power</text>
+          <text class="item-top" x="360" y="122" text-anchor="middle">paper citations</text>
+
+          <!-- bottom items -->
+          <text class="item-bot" x="360" y="170" text-anchor="middle">your specific question · what action it informs</text>
+          <text class="item-bot" x="360" y="194" text-anchor="middle">whether your data supports the design's assumptions</text>
+          <text class="item-bot" x="360" y="218" text-anchor="middle">priors from your past experiments and refits</text>
+          <text class="item-bot" x="360" y="242" text-anchor="middle">true noise floor (between-region, autocorrelated)</text>
+          <text class="item-bot" x="360" y="266" text-anchor="middle">organisational constraints · what is operationally possible</text>
+          <text class="item-bot" x="360" y="290" text-anchor="middle">stakeholder politics · planning cycle · sign-off</text>
+          <text class="item-bot" x="360" y="314" text-anchor="middle">history of what has and hasn't worked here before</text>
+
+          <!-- annotation -->
+          <text class="annot" x="600" y="80" text-anchor="middle">≈ 10% of the work</text>
+          <text class="annot" x="600" y="240" text-anchor="middle">≈ 90% of the work</text>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 1.</strong> The iceberg of experiment design. The visible tip is the textbook layer — methods, code patterns, formulas — and is where LLMs perform well. The submerged mass is the contextual layer that determines whether the design will work in your specific setting, and is almost entirely outside what the model can see from a prompt.</figcaption>
+      </figure>
+
+      <h2>What LLMs do well</h2>
+
+      <p>Granting the strongest version of the optimist case, LLMs are genuinely useful for several parts of the workflow.</p>
+
+      <p>Literature search and synthesis. Asking "what are the modern alternatives to two-way fixed effects DiD?" returns a serviceable summary in ten seconds. This is real value for a practitioner who is not also a methods researcher.</p>
+
+      <p>Code scaffolding. "Set up an NNLS synthetic control with a simplex constraint and a placebo loop" is a task LLMs do well. The code may need a 20% revision, but the scaffolding is correct and the obvious traps are avoided.</p>
+
+      <p>Parsing dense reference material. Reading a 60-page paper to extract its assumptions and limitations is the kind of comprehension task LLMs handle reliably.</p>
+
+      <p>Drafting protocols and stakeholder explanations. Translating a technical design into a one-page memo for non-technical stakeholders is a writing task, and LLMs are good at writing tasks.</p>
+
+      <p>If I am running a literature review, sketching a model implementation, or drafting communications, I will reach for a model. It saves hours and the failure modes are visible — wrong code throws errors, wrong citations can be checked, awkward writing can be edited.</p>
+
+      <h2>Where they break</h2>
+
+      <p>The failure modes for design work are specific.</p>
+
+      <p><strong>They cannot audit identifying assumptions for your data.</strong> Ask an LLM to "design a synthetic control for our California test," and it will produce one. It will not check whether any convex combination of donor cities tracks California's pre-period — that is a question about your specific data, not about the method. The model has no way to know that California is structurally larger than every donor in your pool, or that the donors that match it on size also match it on a confound that correlates with the campaign's targeting, or that your pre-period covers a one-off event that breaks parallelism. These are the things that determine whether the design works. The model cannot see them.</p>
+
+      <p><strong>They reproduce textbook power calculations, not real ones.</strong> Power for geo experiments is not the formula in chapter 7. It depends on between-region variance estimated empirically from your pre-period, on the chosen estimator's noise floor, on whether you are using DiD residuals or synthetic-control gaps as the unit of analysis, and on whether your MDE is phrased as a percentage of national revenue (almost always optimistic) or a percentage of treated-group lift (the honest version). Ask an LLM for a power calculation and it will give you the textbook formula, applied with sensible-seeming defaults, that overstates power by a factor of two to five.</p>
+
+      <p><strong>Their priors are internet-average, not yours.</strong> A Bayesian MMM calibration depends on putting credible priors on channel ROAS or saturation. The right prior comes from your category, your past geo experiments, and your category-specific knowledge of how brand and performance interact in <em>your</em> funnel. The LLM's default prior is an average of public marketing-science papers, which is mostly retail, mostly US, and mostly aged. It will give you a number that looks reasonable and is wrong for your context in ways you cannot diagnose without the same context the model lacks.</p>
+
+      <p><strong>They confidently miss organisational constraints.</strong> Half of experiment design is figuring out what is operationally possible. Which campaigns can be paused without breaking automated bidders? What is the smallest spend cut finance will sign off on? Which markets is the CMO emotionally attached to? When can the design land relative to the planning cycle? These questions decide the design. They are entirely outside the model's view, and the model will produce a recommendation as if they did not exist.</p>
+
+      <p><strong>They fail closed, not open.</strong> The most dangerous property of LLM outputs in causal work is not that they are sometimes wrong — wrong outputs from any source need to be filtered. It is that the model rarely says "I don't know." It produces a confident, well-formatted, plausible recommendation in domains where the right answer is "your data does not support this design and you should run something else." Confidence without grounding is the worst failure mode in measurement, because the consumer of the recommendation has no signal to push back on.</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Task-by-task assessment of where LLMs help and where they do not">
+          <defs>
+            <style>
+              .col-h { fill: #1a1a18; }
+              .col-x { fill: #b06b52; fill-opacity: 0.85; }
+              .row-bg { fill: #ffffff; }
+              .row-bg-alt { fill: #f0f0ed; }
+              .border-line { stroke: #e8e8e5; stroke-width: 1; fill: none; }
+              .lab-h2 { font-family: 'Inter', sans-serif; font-size: 11px; fill: #1a1a18; font-weight: 500; }
+              .row-task { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #1a1a18; }
+              .row-note { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #6b6b67; }
+              .legend-h { fill: #1a1a18; }
+              .legend-x { fill: #b06b52; fill-opacity: 0.85; }
+              .legend-lab { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #6b6b67; }
+              .col-h-text { font-family: 'Inter', sans-serif; font-size: 10.5px; fill: #1a1a18; font-weight: 500; }
+            </style>
+          </defs>
+
+          <text class="lab-h2" x="360" y="22" text-anchor="middle">where LLMs help · where they don't</text>
+
+          <g transform="translate(40, 50)">
+            <!-- header row -->
+            <rect class="row-bg-alt" x="0" y="0" width="640" height="26" />
+            <text class="col-h-text" x="14" y="18">task</text>
+            <text class="col-h-text" x="380" y="18" text-anchor="middle">helpful</text>
+            <text class="col-h-text" x="500" y="18" text-anchor="middle">not helpful</text>
+            <text class="col-h-text" x="615" y="18" text-anchor="middle">why</text>
+
+            <!-- row 1 -->
+            <rect class="row-bg" x="0" y="26" width="640" height="26" />
+            <text class="row-task" x="14" y="44">literature search</text>
+            <circle class="col-h" cx="380" cy="40" r="5" />
+            <circle class="col-x" cx="500" cy="40" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <text class="row-note" x="538" y="44">comprehension over public text</text>
+
+            <!-- row 2 -->
+            <rect class="row-bg-alt" x="0" y="52" width="640" height="26" />
+            <text class="row-task" x="14" y="70">code scaffolding</text>
+            <circle class="col-h" cx="380" cy="66" r="5" />
+            <circle class="col-x" cx="500" cy="66" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <text class="row-note" x="538" y="70">errors are visible · easy to verify</text>
+
+            <!-- row 3 -->
+            <rect class="row-bg" x="0" y="78" width="640" height="26" />
+            <text class="row-task" x="14" y="96">drafting protocols / memos</text>
+            <circle class="col-h" cx="380" cy="92" r="5" />
+            <circle class="col-x" cx="500" cy="92" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <text class="row-note" x="538" y="96">writing task with revisable output</text>
+
+            <!-- row 4 -->
+            <rect class="row-bg-alt" x="0" y="104" width="640" height="26" />
+            <text class="row-task" x="14" y="122">paper-to-summary parsing</text>
+            <circle class="col-h" cx="380" cy="118" r="5" />
+            <circle class="col-x" cx="500" cy="118" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <text class="row-note" x="538" y="122">closed-domain comprehension</text>
+
+            <!-- row 5 -->
+            <rect class="row-bg" x="0" y="130" width="640" height="26" />
+            <text class="row-task" x="14" y="148">auditing assumptions for your data</text>
+            <circle class="col-h" cx="380" cy="144" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <circle class="col-x" cx="500" cy="144" r="5" />
+            <text class="row-note" x="538" y="148">requires data the LLM cannot see</text>
+
+            <!-- row 6 -->
+            <rect class="row-bg-alt" x="0" y="156" width="640" height="26" />
+            <text class="row-task" x="14" y="174">power · MDE under real noise floor</text>
+            <circle class="col-h" cx="380" cy="170" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <circle class="col-x" cx="500" cy="170" r="5" />
+            <text class="row-note" x="538" y="174">defaults to textbook · overstates power</text>
+
+            <!-- row 7 -->
+            <rect class="row-bg" x="0" y="182" width="640" height="26" />
+            <text class="row-task" x="14" y="200">prior elicitation</text>
+            <circle class="col-h" cx="380" cy="196" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <circle class="col-x" cx="500" cy="196" r="5" />
+            <text class="row-note" x="538" y="200">internet-average ≠ your category</text>
+
+            <!-- row 8 -->
+            <rect class="row-bg-alt" x="0" y="208" width="640" height="26" />
+            <text class="row-task" x="14" y="226">organisational fit · ops constraints</text>
+            <circle class="col-h" cx="380" cy="222" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <circle class="col-x" cx="500" cy="222" r="5" />
+            <text class="row-note" x="538" y="226">no visibility into your context</text>
+
+            <!-- row 9 -->
+            <rect class="row-bg" x="0" y="234" width="640" height="26" />
+            <text class="row-task" x="14" y="252">choosing the estimand</text>
+            <circle class="col-h" cx="380" cy="248" r="5" fill-opacity="0" stroke="#e8e8e5" stroke-width="1.2" />
+            <circle class="col-x" cx="500" cy="248" r="5" />
+            <text class="row-note" x="538" y="252">depends on the decision being made</text>
+          </g>
+
+          <!-- legend -->
+          <g transform="translate(40, 304)">
+            <circle class="legend-h" cx="6" cy="0" r="5" />
+            <text class="legend-lab" x="18" y="3">LLM is helpful</text>
+            <circle class="legend-x" cx="140" cy="0" r="5" />
+            <text class="legend-lab" x="152" y="3">LLM is unreliable here</text>
+          </g>
+        </svg>
+        <figcaption class="figure-caption"><strong>Fig 2.</strong> Task-by-task. The pattern that emerges: LLMs are genuinely useful where the task is closed-domain comprehension or generation of revisable text, and unreliable where the task requires reasoning about data, organisations, or decisions the model has no visibility into. The boundary is not "harder vs easier" but "verifiable from outside the model vs not."</figcaption>
+      </figure>
+
+      <h2>The workflow that actually works</h2>
+
+      <p>The version I have settled on for using LLMs in measurement work is narrow and specific.</p>
+
+      <p>For literature, reading, code scaffolding, and stakeholder communications: yes, regularly. For protocol drafting from a fixed design I have already specified: yes, with revisions. For any step that requires reasoning about my specific data, my specific organisation, or my specific decision: no.</p>
+
+      <p>The boundary is not "LLMs cannot do X." It is that the marginal cost of correcting a confident-but-wrong LLM output in a high-stakes design decision is higher than the cost of doing the work directly. Every LLM output I use in causal work has to be verifiable from outside the LLM. If the output asserts something I would have to take on faith, it does not belong in the workflow.</p>
+
+      <p>This is not a permanent position. The technology is improving, and there are plausible futures where models can audit identifying assumptions against actual data, propose priors grounded in your past experiments, and reason about organisational constraints from contextual notes. None of these are reliably available today, and pretending otherwise is the most expensive mistake a measurement team can make.</p>
+
+      <h2>An honest summary</h2>
+
+      <p>LLMs are extraordinary at producing plausible-looking outputs in domains where plausible-looking is enough. Causal inference is not such a domain. The whole discipline is built around the gap between "the result looks reasonable" and "the result is right." Closing that gap is what experiment design is for. Outsourcing it to a system that does not know what your gap looks like is a category error, not a workflow improvement.</p>
+
+      <p>Use the technology where it helps. Do not let it design the experiment.</p>
+
+    </div>
+
+    <footer class="post-footer">
+      <a class="post-footer-back" href="../index.html#writing">← back to writing</a>
+      <span class="post-footer-copy">© 2026 Inês Leite</span>
+    </footer>
+  </main>
+
+</body>
+</html>
