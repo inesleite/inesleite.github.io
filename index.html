@@ -438,7 +438,7 @@
       .container { padding: 0 20px; }
       .nav-inner { padding: 0 20px; }
       .nav-links { gap: 16px; }
-      .nav-links li:nth-child(n+4) { display: none; }
+      .nav-links li:nth-child(n+5) { display: none; }
       .exp-item { grid-template-columns: 1fr; gap: 6px; }
       .projects-grid { grid-template-columns: 1fr; }
       .pub-item { grid-template-columns: 1fr; gap: 4px; }
@@ -457,6 +457,7 @@
       <ul class="nav-links">
         <li><a href="#about">about</a></li>
         <li><a href="#experience">experience</a></li>
+        <li><a href="#work">work</a></li>
         <li><a href="#projects">projects</a></li>
         <li><a href="#writing">writing</a></li>
         <li><a href="#contact">contact</a></li>
@@ -547,6 +548,94 @@
               <span class="tag">GCP</span>
               <span class="tag">SQL</span>
             </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="container">
+      <p class="section-label">Work</p>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <p class="project-number">FLIXBUS</p>
+          <p class="project-name">Geo Incrementality Measurement</p>
+          <p class="project-desc">Measuring whether paid media actually drives bookings — not just whether bookings followed impressions. A geo-experiment framework spanning the US, Canada, Europe, and LATAM, replacing attribution-based ROAS with experiment-derived estimates and calibrating budget decisions across markets.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Causal Inference</span>
+            <span class="tag">Geo Experiments</span>
+            <span class="tag">Synthetic Control</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="posts/geo-holdouts-are-not-ab-tests.html">→ writing</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">FLIXBUS</p>
+          <p class="project-name">Search Holdout Experimentation</p>
+          <p class="project-desc">Holding out paid search in selected markets to measure how much demand the channel actually adds versus how much it absorbs from organic. The framework surfaces cannibalisation patterns and informs bid and budget decisions across markets.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Causal Inference</span>
+            <span class="tag">Search</span>
+            <span class="tag">A/B Testing</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="posts/time-window-randomisation.html">→ writing</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">FLIXBUS</p>
+          <p class="project-name">Attribution Calibration Pipeline</p>
+          <p class="project-desc">Bridging experimentation and budgeting. Geo-experiment results integrated into the attribution stack as a calibration factor, adjusting tROAS based on measured incrementality rather than last-touch credit. Powers monthly budget allocation across multiple international markets.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Attribution</span>
+            <span class="tag">MMM</span>
+            <span class="tag">Calibration</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="posts/calibrating-mmm-with-geo-experiments.html">→ writing</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">FLIXBUS</p>
+          <p class="project-name">LLM Workflow for User Feedback</p>
+          <p class="project-desc">A production LLM pipeline (LangChain) that extracts structured signals from app store reviews and routes them to product teams. End-to-end: from prompt design through deployment and monitoring with ML engineers.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">LLM</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">Production ML</span>
+          </div>
+          <div class="project-links">
+            <a class="project-link" href="posts/llm-experiment-design.html">→ writing</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">ONFIDO</p>
+          <p class="project-name">NLP-Based Outlier Detection</p>
+          <p class="project-desc">An NLP outlier-detection model for identity-verification flagging, replacing rule-based heuristics. The learned representation captured textual signals the rules couldn't, reducing false positives and lifting analyst-workflow throughput.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">NLP</span>
+            <span class="tag">Anomaly Detection</span>
+            <span class="tag">Production ML</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <p class="project-number">FARFETCH</p>
+          <p class="project-name">Multi-Horizon Forecasting</p>
+          <p class="project-desc">A forecasting framework spanning LTV, churn, and GMV at multiple aggregation levels, used across teams for planning. One reusable feature pipeline, with model selection per horizon and granularity.</p>
+          <div class="exp-tags" style="margin-bottom:12px;">
+            <span class="tag">Time Series</span>
+            <span class="tag">Forecasting</span>
+            <span class="tag">LightGBM</span>
           </div>
         </div>
 
