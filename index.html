@@ -456,9 +456,8 @@
       <a class="nav-logo" href="#about">inês leite</a>
       <ul class="nav-links">
         <li><a href="#about">about</a></li>
-        <li><a href="#experience">experience</a></li>
-        <li><a href="#work">work</a></li>
         <li><a href="#projects">projects</a></li>
+        <li><a href="#personal">personal</a></li>
         <li><a href="#writing">writing</a></li>
         <li><a href="#contact">contact</a></li>
       </ul>
@@ -482,87 +481,20 @@
       </p>
       <div class="hero-links">
         <a class="btn btn-primary" href="#contact">Get in touch</a>
-        <a class="btn" href="#experience">View experience</a>
+        <a class="btn" href="#projects">View projects</a>
         <a class="btn" href="https://github.com/inesleite" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience">
+  <!-- PROJECTS -->
+  <section id="projects">
     <div class="container">
-      <p class="section-label">Experience</p>
-      <div>
-
-        <div class="exp-item">
-          <div>
-            <p class="exp-period">Dec 2023 – Present</p>
-            <p class="exp-company">FlixBus</p>
-          </div>
-          <div>
-            <p class="exp-role">Senior Data Scientist</p>
-            <p class="exp-desc">Built CRM models and an LLM pipeline (LangChain) to surface structured insights from app reviews. Moved into incrementality measurement — designing geo-based experiments across US, Canada, Europe, and LATAM to separate true media-driven growth from organic demand, and integrating results into attribution and MMM systems as calibration signals.</p>
-            <div class="exp-tags">
-              <span class="tag">Python</span>
-              <span class="tag">Causal Inference</span>
-              <span class="tag">Geo Experiments</span>
-              <span class="tag">MMM</span>
-              <span class="tag">LightGBM</span>
-              <span class="tag">LangChain</span>
-              <span class="tag">SQL</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <div>
-            <p class="exp-period">Sep 2022 – Nov 2023</p>
-            <p class="exp-company">Onfido</p>
-          </div>
-          <div>
-            <p class="exp-role">Data Scientist</p>
-            <p class="exp-desc">Built an NLP-based anomaly detection system to flag unusual patterns in identity verification data, reducing false positives in production. Automated rule extraction from historical data, turning manual analyst workflows into reproducible pipelines with measurable accuracy gains.</p>
-            <div class="exp-tags">
-              <span class="tag">Python</span>
-              <span class="tag">NLP</span>
-              <span class="tag">Anomaly Detection</span>
-              <span class="tag">Scikit-learn</span>
-              <span class="tag">SQL</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <div>
-            <p class="exp-period">Sep 2019 – Aug 2022</p>
-            <p class="exp-company">Farfetch</p>
-          </div>
-          <div>
-            <p class="exp-role">Data Scientist</p>
-            <p class="exp-desc">Started as an intern building NLP features for delivery date estimation on GCP. Progressed into product classification (customs codes), payment routing optimisation, and a multi-horizon forecasting framework covering LTV, churn, and GMV — used across teams to align planning with modelled demand.</p>
-            <div class="exp-tags">
-              <span class="tag">Python</span>
-              <span class="tag">LightGBM</span>
-              <span class="tag">Time Series</span>
-              <span class="tag">NLP</span>
-              <span class="tag">GCP</span>
-              <span class="tag">SQL</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section id="work">
-    <div class="container">
-      <p class="section-label">Work</p>
+      <p class="section-label">Projects</p>
       <div class="projects-grid">
 
         <div class="project-card">
-          <p class="project-number">FLIXBUS</p>
+          <p class="project-number">01</p>
           <p class="project-name">Geo Incrementality Measurement</p>
           <p class="project-desc">Measuring whether paid media actually drives bookings — not just whether bookings followed impressions. A geo-experiment framework spanning the US, Canada, Europe, and LATAM, replacing attribution-based ROAS with experiment-derived estimates and calibrating budget decisions across markets.</p>
           <div class="exp-tags" style="margin-bottom:12px;">
@@ -570,13 +502,10 @@
             <span class="tag">Geo Experiments</span>
             <span class="tag">Synthetic Control</span>
           </div>
-          <div class="project-links">
-            <a class="project-link" href="posts/geo-holdouts-are-not-ab-tests.html">→ writing</a>
-          </div>
         </div>
 
         <div class="project-card">
-          <p class="project-number">FLIXBUS</p>
+          <p class="project-number">02</p>
           <p class="project-name">Search Holdout Experimentation</p>
           <p class="project-desc">Holding out paid search in selected markets to measure how much demand the channel actually adds versus how much it absorbs from organic. The framework surfaces cannibalisation patterns and informs bid and budget decisions across markets.</p>
           <div class="exp-tags" style="margin-bottom:12px;">
@@ -584,13 +513,10 @@
             <span class="tag">Search</span>
             <span class="tag">A/B Testing</span>
           </div>
-          <div class="project-links">
-            <a class="project-link" href="posts/time-window-randomisation.html">→ writing</a>
-          </div>
         </div>
 
         <div class="project-card">
-          <p class="project-number">FLIXBUS</p>
+          <p class="project-number">03</p>
           <p class="project-name">Attribution Calibration Pipeline</p>
           <p class="project-desc">Bridging experimentation and budgeting. Geo-experiment results integrated into the attribution stack as a calibration factor, adjusting tROAS based on measured incrementality rather than last-touch credit. Powers monthly budget allocation across multiple international markets.</p>
           <div class="exp-tags" style="margin-bottom:12px;">
@@ -598,13 +524,10 @@
             <span class="tag">MMM</span>
             <span class="tag">Calibration</span>
           </div>
-          <div class="project-links">
-            <a class="project-link" href="posts/calibrating-mmm-with-geo-experiments.html">→ writing</a>
-          </div>
         </div>
 
         <div class="project-card">
-          <p class="project-number">FLIXBUS</p>
+          <p class="project-number">04</p>
           <p class="project-name">LLM Workflow for User Feedback</p>
           <p class="project-desc">A production LLM pipeline (LangChain) that extracts structured signals from app store reviews and routes them to product teams. End-to-end: from prompt design through deployment and monitoring with ML engineers.</p>
           <div class="exp-tags" style="margin-bottom:12px;">
@@ -612,13 +535,10 @@
             <span class="tag">LangChain</span>
             <span class="tag">Production ML</span>
           </div>
-          <div class="project-links">
-            <a class="project-link" href="posts/llm-experiment-design.html">→ writing</a>
-          </div>
         </div>
 
         <div class="project-card">
-          <p class="project-number">ONFIDO</p>
+          <p class="project-number">05</p>
           <p class="project-name">NLP-Based Outlier Detection</p>
           <p class="project-desc">An NLP outlier-detection model for identity-verification flagging, replacing rule-based heuristics. The learned representation captured textual signals the rules couldn't, reducing false positives and lifting analyst-workflow throughput.</p>
           <div class="exp-tags" style="margin-bottom:12px;">
@@ -629,7 +549,7 @@
         </div>
 
         <div class="project-card">
-          <p class="project-number">FARFETCH</p>
+          <p class="project-number">06</p>
           <p class="project-name">Multi-Horizon Forecasting</p>
           <p class="project-desc">A forecasting framework spanning LTV, churn, and GMV at multiple aggregation levels, used across teams for planning. One reusable feature pipeline, with model selection per horizon and granularity.</p>
           <div class="exp-tags" style="margin-bottom:12px;">
@@ -643,10 +563,10 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
+  <!-- PERSONAL PROJECTS -->
+  <section id="personal">
     <div class="container">
-      <p class="section-label">Selected Projects</p>
+      <p class="section-label">Personal Projects</p>
       <div class="projects-grid">
 
         <div class="project-card">
@@ -736,110 +656,6 @@
           <div class="project-links">
             <a class="project-link" href="https://github.com/inesleite/ltv-prediction" target="_blank" rel="noopener">code ↗</a>
             <a class="project-link" href="https://nbviewer.org/github/inesleite/ltv-prediction/blob/main/soution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <p class="project-number">07</p>
-          <p class="project-name">Customer Segmentation</p>
-          <p class="project-desc">RFM-based clustering to find who deserves a reactivation offer and who is already engaged — building segments that are useful for CRM targeting rather than just analytically neat.</p>
-          <div class="exp-tags" style="margin-bottom:12px;">
-            <span class="tag">Clustering</span>
-            <span class="tag">K-Means</span>
-            <span class="tag">Cox Hazards</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/inesleite/segmentation" target="_blank" rel="noopener">code ↗</a>
-            <a class="project-link" href="https://nbviewer.org/github/inesleite/segmentation/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <p class="project-number">08</p>
-          <p class="project-name">Churn Predictions</p>
-          <p class="project-desc">Flagging users before they leave — using engagement signals and social graph features to predict churn in a social network before they've disengaged rather than after.</p>
-          <div class="exp-tags" style="margin-bottom:12px;">
-            <span class="tag">Classification</span>
-            <span class="tag">LightGBM</span>
-            <span class="tag">Graph Features</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/inesleite/churn-prediction" target="_blank" rel="noopener">code ↗</a>
-            <a class="project-link" href="https://nbviewer.org/github/inesleite/churn-prediction/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <p class="project-number">09</p>
-          <p class="project-name">Price Elasticity of Demand</p>
-          <p class="project-desc">Quantifying how sensitive demand is to price changes, product by product — surfacing where pricing decisions can have the most impact across categories.</p>
-          <div class="exp-tags" style="margin-bottom:12px;">
-            <span class="tag">Regression</span>
-            <span class="tag">OLS</span>
-            <span class="tag">Elasticity</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/inesleite/price-elasticity" target="_blank" rel="noopener">code ↗</a>
-            <a class="project-link" href="https://nbviewer.org/github/inesleite/price-elasticity/blob/main/elasticity.ipynb" target="_blank" rel="noopener">notebook ↗</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <p class="project-number">10</p>
-          <p class="project-name">Credit Decision Model</p>
-          <p class="project-desc">Building a credit scoring model on highly imbalanced data where defaults are rare but costly to miss — evaluation focused on the minority class to avoid optimising for the wrong metric.</p>
-          <div class="exp-tags" style="margin-bottom:12px;">
-            <span class="tag">Classification</span>
-            <span class="tag">SMOTE</span>
-            <span class="tag">Random Forest</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/inesleite/credit-decision-model" target="_blank" rel="noopener">code ↗</a>
-            <a class="project-link" href="https://nbviewer.org/github/inesleite/credit-decision-model/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <p class="project-number">11</p>
-          <p class="project-name">Keystroke Dynamics</p>
-          <p class="project-desc">Identifying someone by how they type — dwell time and flight time carry a behavioural fingerprint. Authenticating users from typing patterns without passwords using KNN classification.</p>
-          <div class="exp-tags" style="margin-bottom:12px;">
-            <span class="tag">Classification</span>
-            <span class="tag">KNN</span>
-            <span class="tag">Biometrics</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/inesleite/keystroke-dynamics" target="_blank" rel="noopener">code ↗</a>
-            <a class="project-link" href="https://nbviewer.org/github/inesleite/keystroke-dynamics/blob/main/exploration.ipynb" target="_blank" rel="noopener">notebook ↗</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <p class="project-number">12</p>
-          <p class="project-name">Device Activations</p>
-          <p class="project-desc">Hourly device activation forecasting for infrastructure capacity planning, with strict temporal train-test cutoffs to prevent leakage in time-ordered data.</p>
-          <div class="exp-tags" style="margin-bottom:12px;">
-            <span class="tag">Time Series</span>
-            <span class="tag">Lag Features</span>
-            <span class="tag">Forecasting</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/inesleite/device-activations" target="_blank" rel="noopener">code ↗</a>
-            <a class="project-link" href="https://nbviewer.org/github/inesleite/device-activations/blob/main/solution.ipynb" target="_blank" rel="noopener">notebook ↗</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <p class="project-number">13</p>
-          <p class="project-name">Conversion Improvements</p>
-          <p class="project-desc">Understanding why users drop off in a conversion funnel by looking at who they are and when they arrive — SHAP surfacing the behavioural drivers of drop-off.</p>
-          <div class="exp-tags" style="margin-bottom:12px;">
-            <span class="tag">Classification</span>
-            <span class="tag">Random Forest</span>
-            <span class="tag">SHAP</span>
-          </div>
-          <div class="project-links">
-            <a class="project-link" href="https://github.com/inesleite/conversion-improvements" target="_blank" rel="noopener">code ↗</a>
           </div>
         </div>
 
@@ -938,14 +754,6 @@
       <p class="contact-line">Open to interesting problems.<br>Let's talk.</p>
       <div>
         <div class="contact-row">
-          <span class="contact-label">Email</span>
-          <button class="contact-val" onclick="copyEmail(this)">inesmarreirosleite@gmail.com</button>
-        </div>
-        <div class="contact-row">
-          <span class="contact-label">LinkedIn</span>
-          <a class="contact-val" href="https://www.linkedin.com/in/ileite/" target="_blank" rel="noopener">linkedin.com/in/ileite</a>
-        </div>
-        <div class="contact-row">
           <span class="contact-label">GitHub</span>
           <a class="contact-val" href="https://github.com/inesleite" target="_blank" rel="noopener">github.com/inesleite</a>
         </div>
@@ -963,16 +771,6 @@
       <span class="footer-mono">© 2026</span>
     </div>
   </footer>
-
-  <script>
-    function copyEmail(btn) {
-      navigator.clipboard.writeText('inesmarreirosleite@gmail.com').then(() => {
-        const original = btn.textContent;
-        btn.textContent = 'copied ✓';
-        setTimeout(() => { btn.textContent = original; }, 2000);
-      });
-    }
-  </script>
 
 </body>
 </html>
