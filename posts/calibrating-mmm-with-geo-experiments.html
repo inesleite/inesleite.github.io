@@ -293,7 +293,7 @@
       <p>If you can afford it, running two experiments at different spend levels for the same channel is much more informative than running two experiments at the same level. The first identifies the slope; the second identifies the curvature.</p>
 
       <figure class="figure">
-        <svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One experiment versus two experiments at different spend levels">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One experiment versus two experiments at different spend levels">
           <defs>
             <style>
               .axis2 { stroke: #6b6b67; stroke-width: 1; fill: none; }
@@ -317,7 +317,7 @@
             <!-- axes -->
             <line class="axis2" x1="40" y1="220" x2="320" y2="220" />
             <line class="axis2" x1="40" y1="220" x2="40" y2="40" />
-            <text class="axislab2" x="320" y="234" text-anchor="end">spend on channel k</text>
+            <text class="axislab2" x="320" y="258" text-anchor="end">spend on channel k</text>
             <text class="axislab2" x="34" y="44" text-anchor="end">response</text>
 
             <!-- curve A: gentle, near-linear -->
@@ -332,7 +332,8 @@
 
             <text class="sub2" x="140" y="237" text-anchor="middle">s_low</text>
             <text class="sub2" x="220" y="237" text-anchor="middle">s_high</text>
-            <text class="annot" x="180" y="105" text-anchor="middle">measured Δ</text>
+            <text class="annot" x="265" y="148" text-anchor="middle">measured Δ</text>
+            <line stroke="#b06b52" stroke-width="0.8" stroke-dasharray="2 2" x1="240" y1="146" x2="195" y2="138" />
 
             <!-- legend -->
             <line x1="55" y1="60" x2="80" y2="60" stroke="#1a1a18" stroke-width="1.6" />
@@ -348,7 +349,7 @@
             <!-- axes -->
             <line class="axis2" x1="40" y1="220" x2="320" y2="220" />
             <line class="axis2" x1="40" y1="220" x2="40" y2="40" />
-            <text class="axislab2" x="320" y="234" text-anchor="end">spend on channel k</text>
+            <text class="axislab2" x="320" y="258" text-anchor="end">spend on channel k</text>
             <text class="axislab2" x="34" y="44" text-anchor="end">response</text>
 
             <!-- single identified curve -->
@@ -358,17 +359,15 @@
             <line class="secant" x1="80" y1="201" x2="140" y2="170" />
             <circle class="pt" cx="80" cy="201" r="3.5" />
             <circle class="pt" cx="140" cy="170" r="3.5" />
-            <text class="annot" x="110" y="195" text-anchor="middle">exp 1</text>
+            <text class="annot" x="60" y="180" text-anchor="middle">exp 1</text>
 
             <!-- experiment 2 secant (high range) -->
             <line class="secant" x1="200" y1="125" x2="280" y2="92" />
             <circle class="pt" cx="200" cy="125" r="3.5" />
             <circle class="pt" cx="280" cy="92" r="3.5" />
-            <text class="annot" x="240" y="118" text-anchor="middle">exp 2</text>
+            <text class="annot" x="290" y="78" text-anchor="middle">exp 2</text>
 
             <text class="sub2" x="80" y="237" text-anchor="middle">low</text>
-            <text class="sub2" x="140" y="237" text-anchor="middle"> </text>
-            <text class="sub2" x="200" y="237" text-anchor="middle"> </text>
             <text class="sub2" x="280" y="237" text-anchor="middle">high</text>
           </g>
         </svg>
